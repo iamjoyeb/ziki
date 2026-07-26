@@ -1,8 +1,9 @@
-> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 # Ziki Agent Harness
 
 Ziki is an independently developed coding agent built using the source code of [pi-mono](https://github.com/badlogic/pi-mono) by Mario Zechner.
+> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 
 This is the home of the Ziki agent harness project including our self extensible coding agent.
 
