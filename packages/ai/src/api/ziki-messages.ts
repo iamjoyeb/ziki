@@ -1,12 +1,12 @@
 /**
- * pi-messages API implementation.
+ * ziki-messages API implementation.
  *
- * Streams pi's own message protocol directly to a backend: the request is a
+ * Streams ziki's own message protocol directly to a backend: the request is a
  * single POST of `{ model, context, options }` to `<baseUrl>/messages`, the
  * response is an SSE stream of serialized assistant-message events plus a
  * terminal `done`/`error` event. This is the wire protocol spoken by the
  * Radius gateway, but any backend implementing it can be used, e.g. via a
- * models.json custom provider with `"api": "pi-messages"`.
+ * models.json custom provider with `"api": "ziki-messages"`.
  */
 
 import type {
@@ -28,18 +28,18 @@ import { headersToRecord, providerHeadersToRecord } from "../utils/headers.ts";
 import { parseStreamingJson } from "../utils/json-parse.ts";
 import { getProviderEnvValue } from "../utils/provider-env.ts";
 
-export interface PiMessagesOptions extends StreamOptions {
+export interface ZikiMessagesOptions extends StreamOptions {
 	reasoning?: ThinkingLevel;
 	toolChoice?: "auto" | "none" | "required" | { type: "function"; function: { name: string } };
 	/** Ask the backend for debug metadata (e.g. routing response headers). */
 	debug?: boolean;
 }
 
-type PiMessagesUsage = AssistantMessage["usage"];
-type PiMessagesStopReason = AssistantMessage["stopReason"];
+type ZikiMessagesUsage = AssistantMessage["usage"];
+type ZikiMessagesStopReason = AssistantMessage["stopReason"];
 
 /** Impact summary of a server-side message rewrite (e.g. a gateway policy). */
-export type PiMessagesRewriteImpact = {
+export type ZikiMessagesRewriteImpact = {
 	policyId: string;
 	policyVersion: number;
 	changed: boolean;
@@ -48,8 +48,8 @@ export type PiMessagesRewriteImpact = {
 	systemPromptChanged: boolean;
 };
 
-/** Serialized assistant-message event as sent by a pi-messages backend. */
-export type PiMessagesEvent =
+/** Serialized assistant-message event as sent by a ziki-messages backend. */
+export type ZikiMessagesEvent =
 	| { type: "start" }
 	| { type: "text_start"; contentIndex: number }
 	| { type: "text_delta"; contentIndex: number; delta: string }
@@ -68,21 +68,21 @@ export type PiMessagesEvent =
 	| { type: "toolcall_end"; contentIndex: number; toolCall: ToolCall }
 	| {
 			type: "done";
-			reason: Extract<PiMessagesStopReason, "stop" | "length" | "toolUse">;
-			usage: PiMessagesUsage;
+			reason: Extract<ZikiMessagesStopReason, "stop" | "length" | "toolUse">;
+			usage: ZikiMessagesUsage;
 			responseId?: string;
-			rewrite?: PiMessagesRewriteImpact;
+			rewrite?: ZikiMessagesRewriteImpact;
 	  }
 	| {
 			type: "error";
-			reason: Extract<PiMessagesStopReason, "aborted" | "error">;
-			usage: PiMessagesUsage;
+			reason: Extract<ZikiMessagesStopReason, "aborted" | "error">;
+			usage: ZikiMessagesUsage;
 			errorMessage?: string;
 			responseId?: string;
-			rewrite?: PiMessagesRewriteImpact;
+			rewrite?: ZikiMessagesRewriteImpact;
 	  };
 
-type PiMessagesErrorBody = {
+type ZikiMessagesErrorBody = {
 	error?: {
 		message?: unknown;
 		code?: unknown;
@@ -91,21 +91,21 @@ type PiMessagesErrorBody = {
 	};
 };
 
-export class PiMessagesResponseError extends Error {
+export class ZikiMessagesResponseError extends Error {
 	code?: string;
 	readonly diagnosticDetails: Record<string, unknown>;
 
 	constructor(message: string, code: string | undefined, diagnosticDetails: Record<string, unknown>) {
 		super(message);
-		this.name = "PiMessagesResponseError";
+		this.name = "ZikiMessagesResponseError";
 		this.code = code;
 		this.diagnosticDetails = diagnosticDetails;
 	}
 }
 
-function parsePiMessagesErrorBody(body: string): PiMessagesErrorBody | undefined {
+function parseZikiMessagesErrorBody(body: string): ZikiMessagesErrorBody | undefined {
 	try {
-		const parsed = JSON.parse(body) as PiMessagesErrorBody | null;
+		const parsed = JSON.parse(body) as ZikiMessagesErrorBody | null;
 		const error = parsed?.error;
 		return parsed && typeof error === "object" && error !== null && !Array.isArray(error) ? parsed : undefined;
 	} catch {
@@ -118,10 +118,10 @@ function truncateDiagnosticString(value: string): string {
 	return value.length > maxLength ? `${value.slice(0, maxLength)}…` : value;
 }
 
-function formatPiMessagesResponseError(
+function formatZikiMessagesResponseError(
 	response: Response,
 	body: string,
-	errorBody: PiMessagesErrorBody | undefined,
+	errorBody: ZikiMessagesErrorBody | undefined,
 ): string {
 	const message = typeof errorBody?.error?.message === "string" ? errorBody.error.message : undefined;
 	const code = typeof errorBody?.error?.code === "string" ? errorBody.error.code : undefined;
@@ -130,15 +130,15 @@ function formatPiMessagesResponseError(
 	return `${response.status} ${response.statusText}: ${suffix}${codeSuffix}`;
 }
 
-function createPiMessagesResponseError(
-	model: Model<"pi-messages">,
+function createZikiMessagesResponseError(
+	model: Model<"ziki-messages">,
 	url: URL,
 	response: Response,
 	body: string,
-): PiMessagesResponseError {
-	const errorBody = parsePiMessagesErrorBody(body);
+): ZikiMessagesResponseError {
+	const errorBody = parseZikiMessagesErrorBody(body);
 	const code = typeof errorBody?.error?.code === "string" ? errorBody.error.code : undefined;
-	return new PiMessagesResponseError(formatPiMessagesResponseError(response, body, errorBody), code, {
+	return new ZikiMessagesResponseError(formatZikiMessagesResponseError(response, body, errorBody), code, {
 		version: 1,
 		provider: model.provider,
 		model: model.id,
@@ -151,7 +151,7 @@ function createPiMessagesResponseError(
 	});
 }
 
-function createEmptyUsage(): PiMessagesUsage {
+function createEmptyUsage(): ZikiMessagesUsage {
 	return {
 		input: 0,
 		output: 0,
@@ -162,7 +162,7 @@ function createEmptyUsage(): PiMessagesUsage {
 	};
 }
 
-function appendRewriteDiagnostic(message: AssistantMessage, rewrite: PiMessagesRewriteImpact | undefined): void {
+function appendRewriteDiagnostic(message: AssistantMessage, rewrite: ZikiMessagesRewriteImpact | undefined): void {
 	if (!rewrite) {
 		return;
 	}
@@ -173,7 +173,7 @@ function appendRewriteDiagnostic(message: AssistantMessage, rewrite: PiMessagesR
 	});
 }
 
-function createEventConverter(model: Model<"pi-messages">) {
+function createEventConverter(model: Model<"ziki-messages">) {
 	const partial: AssistantMessage = {
 		role: "assistant",
 		content: [],
@@ -186,7 +186,7 @@ function createEventConverter(model: Model<"pi-messages">) {
 	};
 	const toolJson = new Map<number, string>();
 
-	return (event: PiMessagesEvent): AssistantMessageEvent => {
+	return (event: ZikiMessagesEvent): AssistantMessageEvent => {
 		switch (event.type) {
 			case "done":
 				Object.assign(partial, {
@@ -263,7 +263,7 @@ function createEventConverter(model: Model<"pi-messages">) {
 	};
 }
 
-async function* readPiMessagesEvents(stream: ReadableStream<Uint8Array>): AsyncGenerator<PiMessagesEvent> {
+async function* readZikiMessagesEvents(stream: ReadableStream<Uint8Array>): AsyncGenerator<ZikiMessagesEvent> {
 	const decoder = new TextDecoder();
 	const reader = stream.getReader();
 	let buffer = "";
@@ -276,7 +276,7 @@ async function* readPiMessagesEvents(stream: ReadableStream<Uint8Array>): AsyncG
 
 			let split = buffer.indexOf("\n\n");
 			while (split !== -1) {
-				const event = parsePiMessagesEvent(buffer.slice(0, split));
+				const event = parseZikiMessagesEvent(buffer.slice(0, split));
 				if (event) {
 					yield event;
 				}
@@ -290,7 +290,7 @@ async function* readPiMessagesEvents(stream: ReadableStream<Uint8Array>): AsyncG
 		}
 
 		if (buffer.trim()) {
-			const event = parsePiMessagesEvent(buffer);
+			const event = parseZikiMessagesEvent(buffer);
 			if (event) {
 				yield event;
 			}
@@ -300,17 +300,17 @@ async function* readPiMessagesEvents(stream: ReadableStream<Uint8Array>): AsyncG
 	}
 }
 
-function parsePiMessagesEvent(raw: string): PiMessagesEvent | undefined {
+function parseZikiMessagesEvent(raw: string): ZikiMessagesEvent | undefined {
 	const data = raw
 		.split("\n")
 		.find((line) => line.startsWith("data:"))
 		?.slice(5)
 		.trim();
 
-	return data && data !== "[DONE]" ? (JSON.parse(data) as PiMessagesEvent) : undefined;
+	return data && data !== "[DONE]" ? (JSON.parse(data) as ZikiMessagesEvent) : undefined;
 }
 
-function createErrorEvent(model: Model<"pi-messages">, error: unknown, aborted: boolean): AssistantMessageEvent {
+function createErrorEvent(model: Model<"ziki-messages">, error: unknown, aborted: boolean): AssistantMessageEvent {
 	const reason = aborted ? "aborted" : "error";
 	const assistantMessage: AssistantMessage = {
 		role: "assistant",
@@ -324,7 +324,7 @@ function createErrorEvent(model: Model<"pi-messages">, error: unknown, aborted: 
 		timestamp: Date.now(),
 	};
 
-	if (!aborted && error instanceof PiMessagesResponseError) {
+	if (!aborted && error instanceof ZikiMessagesResponseError) {
 		appendAssistantMessageDiagnostic(
 			assistantMessage,
 			createAssistantMessageDiagnostic("pi_messages_response_failure", error, error.diagnosticDetails),
@@ -339,13 +339,13 @@ function resolveCacheRetention(cacheRetention?: CacheRetention, env?: ProviderEn
 		return cacheRetention;
 	}
 	// Backend defaults apply when unset; only the legacy env opt-in is mapped.
-	return getProviderEnvValue("PI_CACHE_RETENTION", env) === "long" ? "long" : undefined;
+	return getProviderEnvValue("ZIKI_CACHE_RETENTION", env) === "long" ? "long" : undefined;
 }
 
-export const stream: StreamFunction<"pi-messages", PiMessagesOptions> = (
-	model: Model<"pi-messages">,
+export const stream: StreamFunction<"ziki-messages", ZikiMessagesOptions> = (
+	model: Model<"ziki-messages">,
 	context: Context,
-	options?: PiMessagesOptions,
+	options?: ZikiMessagesOptions,
 ): AssistantMessageEventStream => {
 	const eventStream = new AssistantMessageEventStream();
 	const convertEvent = createEventConverter(model);
@@ -395,13 +395,13 @@ export const stream: StreamFunction<"pi-messages", PiMessagesOptions> = (
 
 			if (!response.ok) {
 				const body = await response.text();
-				throw createPiMessagesResponseError(model, url, response, body);
+				throw createZikiMessagesResponseError(model, url, response, body);
 			}
 			if (!response.body) {
 				throw new Error(`${model.provider} response has no body`);
 			}
 
-			for await (const piEvent of readPiMessagesEvents(response.body)) {
+			for await (const piEvent of readZikiMessagesEvents(response.body)) {
 				const event = convertEvent(piEvent);
 				eventStream.push(event);
 				if (event.type === "done" || event.type === "error") {
@@ -418,12 +418,12 @@ export const stream: StreamFunction<"pi-messages", PiMessagesOptions> = (
 	return eventStream;
 };
 
-export const streamSimple: StreamFunction<"pi-messages", SimpleStreamOptions> = (
-	model: Model<"pi-messages">,
+export const streamSimple: StreamFunction<"ziki-messages", SimpleStreamOptions> = (
+	model: Model<"ziki-messages">,
 	context: Context,
 	options?: SimpleStreamOptions,
 ): AssistantMessageEventStream => {
-	const extra = options as PiMessagesOptions | undefined;
+	const extra = options as ZikiMessagesOptions | undefined;
 	return stream(model, context, {
 		...options,
 		reasoning: options?.reasoning,

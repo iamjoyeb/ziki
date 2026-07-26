@@ -98,7 +98,7 @@ describe("NodeExecutionEnv", () => {
 	it("expands home-relative paths and file URLs", async () => {
 		const root = createTempDir();
 		const env = new NodeExecutionEnv({ cwd: root });
-		expect(getOrThrow(await env.absolutePath("~/pi-node-env-test"))).toBe(join(homedir(), "pi-node-env-test"));
+		expect(getOrThrow(await env.absolutePath("~/ziki-node-env-test"))).toBe(join(homedir(), "ziki-node-env-test"));
 		const filePath = join(root, "file with spaces.txt");
 		expect(getOrThrow(await env.absolutePath(pathToFileURL(filePath).href))).toBe(filePath);
 	});
@@ -261,9 +261,9 @@ describe("NodeExecutionEnv", () => {
 
 	it("can replace rather than inherit the default shell environment", async () => {
 		const root = createTempDir();
-		const inheritedKey = "PI_NODE_ENV_INHERITED_TEST";
-		const configuredKey = "PI_NODE_ENV_CONFIGURED_TEST";
-		const explicitKey = "PI_NODE_ENV_EXPLICIT_TEST";
+		const inheritedKey = "ZIKI_NODE_ENV_INHERITED_TEST";
+		const configuredKey = "ZIKI_NODE_ENV_CONFIGURED_TEST";
+		const explicitKey = "ZIKI_NODE_ENV_EXPLICIT_TEST";
 		const previousInherited = process.env[inheritedKey];
 		process.env[inheritedKey] = "host";
 		try {

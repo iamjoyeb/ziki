@@ -1,10 +1,10 @@
 # JSON Event Stream Mode
 
 ```bash
-pi --mode json "Your prompt"
+ziki --mode json "Your prompt"
 ```
 
-Outputs all session events as JSON lines to stdout. Useful for integrating pi into other tools or custom UIs.
+Outputs all session events as JSON lines to stdout. Useful for integrating ziki into other tools or custom UIs.
 
 ## Event Types
 
@@ -82,5 +82,5 @@ Followed by events as they occur:
 ## Example
 
 ```bash
-pi --mode json "List files" 2>/dev/null | jq -c 'select(.type == "message_end")'
+ziki --mode json "List files" 2>/dev/null | jq -c 'select(.type == "message_end")'
 ```

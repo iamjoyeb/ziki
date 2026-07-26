@@ -10,16 +10,16 @@
  * which can be cheaper/faster than the main conversation model.
  *
  * Usage:
- *   pi --extension examples/extensions/custom-compaction.ts
+ *   ziki --extension examples/extensions/custom-compaction.ts
  */
 
-import { uuidv7 } from "@earendil-works/pi-ai";
-import { complete } from "@earendil-works/pi-ai/compat";
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { convertToLlm, serializeConversation } from "@earendil-works/pi-coding-agent";
+import { uuidv7 } from "@zikilabs/ziki-ai";
+import { complete } from "@zikilabs/ziki-ai/compat";
+import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import { convertToLlm, serializeConversation } from "@zikilabs/ziki-coding-agent";
 
-export default function (pi: ExtensionAPI) {
-	pi.on("session_before_compact", async (event, ctx) => {
+export default function (ziki: ExtensionAPI) {
+	ziki.on("session_before_compact", async (event, ctx) => {
 		ctx.ui.notify("Custom compaction extension triggered", "info");
 
 		const { preparation, branchEntries: _, signal } = event;

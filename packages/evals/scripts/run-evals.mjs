@@ -42,12 +42,12 @@ if (hasCliModelSelection && (!provider || !model)) {
 	process.exit(1);
 }
 
-provider ??= process.env.PI_PROVIDER;
-model ??= process.env.PI_MODEL;
+provider ??= process.env.ZIKI_PROVIDER;
+model ??= process.env.ZIKI_MODEL;
 
 if (!provider || !model) {
 	console.error(
-		"No eval model selected. Pass --provider and --model, or set PI_PROVIDER and PI_MODEL.",
+		"No eval model selected. Pass --provider and --model, or set ZIKI_PROVIDER and ZIKI_MODEL.",
 	);
 	process.exit(1);
 }
@@ -65,8 +65,8 @@ const result = spawnSync(
 		stdio: "inherit",
 		env: {
 			...process.env,
-			PI_PROVIDER: provider,
-			PI_MODEL: model,
+			ZIKI_PROVIDER: provider,
+			ZIKI_MODEL: model,
 		},
 	},
 );

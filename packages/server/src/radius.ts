@@ -1,6 +1,6 @@
 import { hostname, platform } from "node:os";
-import type { OAuthCredential } from "@earendil-works/pi-ai";
-import { readStoredCredential } from "@earendil-works/pi-coding-agent";
+import type { OAuthCredential } from "@zikilabs/ziki-ai";
+import { readStoredCredential } from "@zikilabs/ziki-coding-agent";
 import { getServerDir, getSocketPath, VERSION } from "./config.ts";
 import { loadMachine, saveMachine } from "./storage.ts";
 import type { InstanceRecord, MachineRecord, RadiusRegistration } from "./types.ts";
@@ -105,11 +105,11 @@ function logRadiusRetry(scope: string, action: string, delayMs: number, failureC
 }
 
 export function getRadiusUrl(): string {
-	return process.env.PI_RADIUS_URL || DEFAULT_RADIUS_URL;
+	return process.env.ZIKI_RADIUS_URL || DEFAULT_RADIUS_URL;
 }
 
 export function getRadiusServerBaseUrl(): string {
-	const explicitUrl = process.env.PI_RADIUS_SERVER_URL;
+	const explicitUrl = process.env.ZIKI_RADIUS_SERVER_URL;
 	if (explicitUrl) {
 		return explicitUrl;
 	}
@@ -133,7 +133,7 @@ export function getRadiusAccessToken(): string {
 		return apiKey;
 	}
 
-	throw new Error("Radius credentials are required in ~/.pi/agent/auth.json or RADIUS_API_KEY");
+	throw new Error("Radius credentials are required in ~/.ziki/agent/auth.json or RADIUS_API_KEY");
 }
 
 export function isRadiusEnabled(): boolean {
@@ -192,7 +192,7 @@ export class RadiusPresence {
 		}
 		const machine = this.machine ?? loadMachine();
 		if (!machine) {
-			throw new Error("No registered machine available for Pi registration");
+			throw new Error("No registered machine available for Ziki registration");
 		}
 		const registered = await post<RegisterPiResponse>("pis/register", {
 			machineId: machine.id,
@@ -365,7 +365,7 @@ export class RadiusPresence {
 			if (!isNotFoundError(error)) {
 				state.transientFailureCount += 1;
 				const delayMs = computeBackoffDelayMs(state.transientFailureCount);
-				logRadiusRetry(`Radius Pi ${instanceId}`, "heartbeat", delayMs, state.transientFailureCount, error);
+				logRadiusRetry(`Radius Ziki ${instanceId}`, "heartbeat", delayMs, state.transientFailureCount, error);
 				this.schedulePiHeartbeat(instanceId, delayMs);
 				return;
 			}
@@ -381,14 +381,14 @@ export class RadiusPresence {
 				const recovered = await this.reRegisterPi(instanceId);
 				if (!recovered) {
 					const delayMs = computeBackoffDelayMs(1);
-					console.error(`Radius Pi ${instanceId} re-registration skipped; retrying in ${delayMs}ms`);
+					console.error(`Radius Ziki ${instanceId} re-registration skipped; retrying in ${delayMs}ms`);
 					this.schedulePiHeartbeat(instanceId, delayMs);
 				}
 			} catch (recoveryError) {
 				state.transientFailureCount += 1;
 				const delayMs = computeBackoffDelayMs(state.transientFailureCount);
 				logRadiusRetry(
-					`Radius Pi ${instanceId}`,
+					`Radius Ziki ${instanceId}`,
 					"re-registration",
 					delayMs,
 					state.transientFailureCount,
@@ -408,7 +408,7 @@ export class RadiusPresence {
 			try {
 				await this.reRegisterPi(instance.id);
 			} catch (error) {
-				console.error(`Radius Pi ${instance.id} re-registration failed: ${formatRadiusError(error)}`);
+				console.error(`Radius Ziki ${instance.id} re-registration failed: ${formatRadiusError(error)}`);
 			}
 		}
 	}

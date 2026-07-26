@@ -1,8 +1,8 @@
-import { uuidv7 } from "@earendil-works/pi-ai";
-import { complete, getModel } from "@earendil-works/pi-ai/compat";
-import type { ExtensionAPI, ExtensionCommandContext } from "@earendil-works/pi-coding-agent";
-import { DynamicBorder, getMarkdownTheme } from "@earendil-works/pi-coding-agent";
-import { Container, Markdown, matchesKey, Text } from "@earendil-works/pi-tui";
+import { uuidv7 } from "@zikilabs/ziki-ai";
+import { complete, getModel } from "@zikilabs/ziki-ai/compat";
+import type { ExtensionAPI, ExtensionCommandContext } from "@zikilabs/ziki-coding-agent";
+import { DynamicBorder, getMarkdownTheme } from "@zikilabs/ziki-coding-agent";
+import { Container, Markdown, matchesKey, Text } from "@zikilabs/ziki-tui";
 
 type ContentBlock = {
 	type?: string;
@@ -143,8 +143,8 @@ const showSummaryUi = async (summary: string, ctx: ExtensionCommandContext) => {
 	});
 };
 
-export default function (pi: ExtensionAPI) {
-	pi.registerCommand("summarize", {
+export default function (ziki: ExtensionAPI) {
+	ziki.registerCommand("summarize", {
 		description: "Summarize the current conversation in a custom UI",
 		handler: async (_args, ctx) => {
 			const branch = ctx.sessionManager.getBranch();

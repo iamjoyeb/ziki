@@ -3,8 +3,8 @@ import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const CONFIG_DIR_NAME = ".pi";
-const ENV_SERVER_DIR = "PI_SERVER_DIR";
+const CONFIG_DIR_NAME = ".ziki";
+const ENV_SERVER_DIR = "ZIKI_SERVER_DIR";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -48,7 +48,7 @@ export function getServerDir(): string {
 		return envDir;
 	}
 
-	const piDir = process.env.PI_CONFIG_DIR || join(homedir(), CONFIG_DIR_NAME);
+	const piDir = process.env.ZIKI_CONFIG_DIR || join(homedir(), CONFIG_DIR_NAME);
 	return join(piDir, "server");
 }
 

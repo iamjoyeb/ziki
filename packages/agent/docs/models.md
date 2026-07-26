@@ -87,8 +87,8 @@ Provider, API, and compat entrypoints are explicit subpath exports.
 Minimal provider usage:
 
 ```ts
-import { createModels } from "@earendil-works/pi-ai";
-import { openaiProvider } from "@earendil-works/pi-ai/providers/openai";
+import { createModels } from "@zikilabs/ziki-ai";
+import { openaiProvider } from "@zikilabs/ziki-ai/providers/openai";
 
 const models = createModels();
 models.setProvider(openaiProvider());
@@ -110,7 +110,7 @@ models.setProvider(openrouterProvider());
 All built-ins, explicitly heavy metadata entrypoint:
 
 ```ts
-import { builtinModels } from "@earendil-works/pi-ai/providers/all";
+import { builtinModels } from "@zikilabs/ziki-ai/providers/all";
 
 const models = builtinModels();
 ```
@@ -700,7 +700,7 @@ Built-in provider factories use `createProvider()` internally. models.json custo
 
 ## Compat entrypoint
 
-`@earendil-works/pi-ai/compat` preserves the old global API surface until the coding-agent migration deletes it. New code never imports it.
+`@zikilabs/ziki-ai/compat` preserves the old global API surface until the coding-agent migration deletes it. New code never imports it.
 
 Old semantics being preserved: global `stream()` can still dispatch by `model.api` through the legacy api-registry for custom providers, mutated models, and tests/extensions that override a built-in API implementation.
 
@@ -710,9 +710,9 @@ Old semantics being preserved: global `stream()` can still dispatch by `model.ap
 - Re-exports the per-API lazy stream wrappers (incl. `setBedrockProviderModule`), `env-api-keys.ts`, and the image-generation registry/catalogs; none of these stay on the root barrel.
 - `export * from "./index.ts"`: compat is a strict superset of the core entrypoint, so consumers switch a file's import path wholesale without symbol surgery.
 
-coding-agent (and the interim agent package) switch imports of these symbols from `@earendil-works/pi-ai` to `@earendil-works/pi-ai/compat` (import-path-only change) and are otherwise untouched until the ModelManager migration.
+coding-agent (and the interim agent package) switch imports of these symbols from `@zikilabs/ziki-ai` to `@zikilabs/ziki-ai/compat` (import-path-only change) and are otherwise untouched until the ModelManager migration.
 
-Extension grace period: the coding-agent extension loader (jiti aliases + Bun `virtualModules`) resolves the `@earendil-works/pi-ai` ROOT specifier to the compat entrypoint. Existing user extensions using the old global API (`complete`, `getModel`, `registerApiProvider`, ...) keep working at runtime without changes; they break only when compat is removed at the ModelManager migration, with a migration guide in the changelog. Typechecking is the nudge: editors resolve the root to the slim core types, so extension sources that typecheck must import old globals from `/compat` — which is what the repo example extensions demonstrate.
+Extension grace period: the coding-agent extension loader (jiti aliases + Bun `virtualModules`) resolves the `@zikilabs/ziki-ai` ROOT specifier to the compat entrypoint. Existing user extensions using the old global API (`complete`, `getModel`, `registerApiProvider`, ...) keep working at runtime without changes; they break only when compat is removed at the ModelManager migration, with a migration guide in the changelog. Typechecking is the nudge: editors resolve the root to the slim core types, so extension sources that typecheck must import old globals from `/compat` — which is what the repo example extensions demonstrate.
 
 ## Builtin static helpers
 
@@ -732,7 +732,7 @@ Generated catalogs are split per provider (`providers/<id>.models.ts`) by updati
 
 Rules:
 
-1. Main `@earendil-works/pi-ai` import is core-only.
+1. Main `@zikilabs/ziki-ai` import is core-only.
 2. Provider modules import their catalog, auth helpers, and lazy API wrappers only.
 3. Lazy API wrappers dynamically import real API implementations.
 4. Real API implementations import SDK dependencies.
@@ -791,7 +791,7 @@ Current interim state:
 
 - `AgentHarness` already accepts a `Models` instance and uses it for turn streaming, compaction, and branch summaries.
 - coding-agent does not use `AgentHarness` yet; `AgentSession` still drives the low-level `Agent` with a `streamFn`.
-- coding-agent still uses legacy `AuthStorage` + `ModelRegistry` and imports old global pi-ai APIs through `@earendil-works/pi-ai/compat`.
+- coding-agent still uses legacy `AuthStorage` + `ModelRegistry` and imports old global pi-ai APIs through `@zikilabs/ziki-ai/compat`.
 - The extension loader still aliases the pi-ai root to `/compat` as the runtime grace period for old extensions.
 
 ## Implementation TODOs
@@ -844,7 +844,7 @@ Check items off as they land. Keep this list current; it is the working state fo
 
 ### Phase 7 — coding-agent bridge (minimal)
 
-- [x] Switch old-global imports to `@earendil-works/pi-ai/compat` (landed with Phase 5; compat is a superset so the switch was path-only). Extension loader resolves the pi-ai root to compat as the runtime grace period.
+- [x] Switch old-global imports to `@zikilabs/ziki-ai/compat` (landed with Phase 5; compat is a superset so the switch was path-only). Extension loader resolves the pi-ai root to compat as the runtime grace period.
 - [x] Everything else originally sketched here is gated on coding-agent actually streaming through a `Models` instance — coding-agent's `AgentSession` drives the low-level `Agent` via `streamFn`, not the harness — and moved to Phase 9.
 
 ### Phase 8 — wrap-up
@@ -857,7 +857,7 @@ Check items off as they land. Keep this list current; it is the working state fo
 
 ### Phase 9 — coding-agent on Models + CredentialStore (in scope)
 
-coding-agent replaces AuthStorage and ModelRegistry's internals with `FileCredentialStore` + a `MutableModels` collection. AgentSession itself stays (AgentHarness adoption is pi 2.0); only its model/auth substrate swaps. Layering is strictly one-directional:
+coding-agent replaces AuthStorage and ModelRegistry's internals with `FileCredentialStore` + a `MutableModels` collection. AgentSession itself stays (AgentHarness adoption is ziki 2.0); only its model/auth substrate swaps. Layering is strictly one-directional:
 
 ```txt
 FileCredentialStore (auth.json, locked, $ENV/!command resolution) + explicit --api-key overlay
@@ -933,7 +933,7 @@ Ordering for new sessions:
     - Update existing tests for sync last-known `ModelRegistry.getAll/find/getAvailable` plus explicit async refresh behavior.
     - Run targeted non-e2e suites plus tmux validation of login flows against real providers (Anthropic OAuth/API key, OpenAI Codex OAuth, GitHub Copilot OAuth, Cloudflare AI Gateway, Bedrock if credentials are available).
 
-### Phase 10 — compat deletion (pi 2.0 era, separate)
+### Phase 10 — compat deletion (ziki 2.0 era, separate)
 
 - [ ] AgentSession -> AgentHarness; the registry facade dies in favor of harness `Models`.
 - [ ] Move ALL internal `/compat` imports to the new API: every package's src, all tests, and the example extensions (examples then demonstrate the new API). Nothing inside the repo may import `/compat` at that point.

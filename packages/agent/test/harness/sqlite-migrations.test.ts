@@ -17,7 +17,7 @@ import { NodeExecutionEnv } from "../../src/harness/env/nodejs.ts";
 import { createAssistantMessage, createUserMessage } from "./session-test-utils.ts";
 
 function createTempDir(): string {
-	return mkdtempSync(join(tmpdir(), "pi-agent-sqlite-"));
+	return mkdtempSync(join(tmpdir(), "ziki-agent-sqlite-"));
 }
 
 class ThrowingStatement implements SqliteStatement {
