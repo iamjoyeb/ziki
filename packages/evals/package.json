@@ -1,6 +1,6 @@
 {
 	"name": "@zikilabs/ziki-evals",
-	"version": "0.82.1",
+	"version": "0.0.1",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -8,7 +8,7 @@
 		"eval": "node scripts/run-evals.mjs"
 	},
 	"devDependencies": {
-		"@zikilabs/ziki-coding-agent": "^0.82.1",
+		"@zikilabs/ziki-coding-agent": "^0.0.1",
 		"@types/node": "24.12.4",
 		"shx": "0.4.0",
 		"typescript": "5.9.3",

@@ -1,17 +1,17 @@
 {
 	"name": "@zikilabs/ziki-coding-agent",
-	"version": "0.82.1",
+	"version": "0.0.1",
 	"lockfileVersion": 3,
 	"requires": true,
 	"packages": {
 		"": {
 			"name": "@zikilabs/ziki-coding-agent",
-			"version": "0.82.1",
+			"version": "0.0.1",
 			"license": "MIT",
 			"dependencies": {
-				"@zikilabs/ziki-agent-core": "^0.82.1",
-				"@zikilabs/ziki-ai": "^0.82.1",
-				"@zikilabs/ziki-tui": "^0.82.1",
+				"@zikilabs/ziki-agent-core": "^0.0.1",
+				"@zikilabs/ziki-ai": "^0.0.1",
+				"@zikilabs/ziki-tui": "^0.0.1",
 				"@silvia-odwyer/photon-node": "0.3.4",
 				"chalk": "5.6.2",
 				"cross-spawn": "7.0.6",
@@ -919,11 +919,11 @@
 			}
 		},
 		"node_modules/@zikilabs/ziki-agent-core": {
-			"version": "0.82.1",
-			"resolved": "https://registry.npmjs.org/@zikilabs/ziki-agent-core/-/ziki-agent-core-0.82.1.tgz",
+			"version": "0.0.1",
+			"resolved": "https://registry.npmjs.org/@zikilabs/ziki-agent-core/-/ziki-agent-core-0.0.1.tgz",
 			"license": "MIT",
 			"dependencies": {
-				"@zikilabs/ziki-ai": "^0.82.1",
+				"@zikilabs/ziki-ai": "^0.0.1",
 				"diff": "8.0.4",
 				"ignore": "7.0.5",
 				"typebox": "1.1.38",
@@ -934,8 +934,8 @@
 			}
 		},
 		"node_modules/@zikilabs/ziki-ai": {
-			"version": "0.82.1",
-			"resolved": "https://registry.npmjs.org/@zikilabs/ziki-ai/-/ziki-ai-0.82.1.tgz",
+			"version": "0.0.1",
+			"resolved": "https://registry.npmjs.org/@zikilabs/ziki-ai/-/ziki-ai-0.0.1.tgz",
 			"license": "MIT",
 			"dependencies": {
 				"@anthropic-ai/sdk": "0.91.1",
@@ -958,8 +958,8 @@
 			}
 		},
 		"node_modules/@zikilabs/ziki-tui": {
-			"version": "0.82.1",
-			"resolved": "https://registry.npmjs.org/@zikilabs/ziki-tui/-/ziki-tui-0.82.1.tgz",
+			"version": "0.0.1",
+			"resolved": "https://registry.npmjs.org/@zikilabs/ziki-tui/-/ziki-tui-0.0.1.tgz",
 			"license": "MIT",
 			"dependencies": {
 				"get-east-asian-width": "1.6.0",
