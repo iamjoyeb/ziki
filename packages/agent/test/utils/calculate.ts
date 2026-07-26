@@ -1,4 +1,4 @@
-import type { Usage } from "@zikilabs/ziki-ai";
+import type { Usage } from "@iamjoyeb/ziki-ai";
 import { type Static, Type } from "typebox";
 import type { AgentTool, AgentToolResult } from "../../src/types.ts";
 

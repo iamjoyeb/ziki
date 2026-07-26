@@ -1,4 +1,4 @@
-import { type AssistantMessage, type AssistantMessageEvent, EventStream, getModel } from "@zikilabs/ziki-ai/compat";
+import { type AssistantMessage, type AssistantMessageEvent, EventStream, getModel } from "@iamjoyeb/ziki-ai/compat";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import {

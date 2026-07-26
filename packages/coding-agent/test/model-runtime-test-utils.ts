@@ -1,4 +1,4 @@
-import type { CredentialStore } from "@zikilabs/ziki-ai";
+import type { CredentialStore } from "@iamjoyeb/ziki-ai";
 import { ModelRegistry } from "../src/core/model-registry.ts";
 import { ModelRuntime } from "../src/core/model-runtime.ts";
 

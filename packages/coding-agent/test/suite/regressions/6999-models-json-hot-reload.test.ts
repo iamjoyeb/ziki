@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { setKeybindings, type TUI } from "@zikilabs/ziki-tui";
+import { setKeybindings, type TUI } from "@iamjoyeb/ziki-tui";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { KeybindingsManager } from "../../../src/core/keybindings.ts";
 import { ModelSelectorComponent } from "../../../src/modes/interactive/components/model-selector.ts";

@@ -1,4 +1,4 @@
-import { type Component, Container, getKeybindings, Spacer, Text, truncateToWidth } from "@zikilabs/ziki-tui";
+import { type Component, Container, getKeybindings, Spacer, Text, truncateToWidth } from "@iamjoyeb/ziki-tui";
 import { theme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";
 

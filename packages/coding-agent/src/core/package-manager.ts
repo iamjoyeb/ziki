@@ -1776,7 +1776,7 @@ export class DefaultPackageManager implements PackageManager {
 		// Extension packages run inside ziki and resolve ziki APIs through loader aliases/virtual modules.
 		// Disable peer dependency resolution for managed installs (npm's --legacy-peer-deps, and
 		// equivalent bun/pnpm settings) so package managers do not install or solve host-provided
-		// @zikilabs/ziki-* peers. Stale auto-installed ziki peers can otherwise block updates.
+		// @iamjoyeb/ziki-* peers. Stale auto-installed ziki peers can otherwise block updates.
 		if (packageManagerName === "bun") {
 			return ["install", ...specs, "--cwd", installRoot, "--omit=peer"];
 		}

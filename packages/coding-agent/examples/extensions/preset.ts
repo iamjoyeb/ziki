@@ -40,10 +40,10 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { Api, Model } from "@zikilabs/ziki-ai";
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
-import { CONFIG_DIR_NAME, DynamicBorder, getAgentDir } from "@zikilabs/ziki-coding-agent";
-import { Container, Key, type SelectItem, SelectList, Text } from "@zikilabs/ziki-tui";
+import type { Api, Model } from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
+import { CONFIG_DIR_NAME, DynamicBorder, getAgentDir } from "@iamjoyeb/ziki-coding-agent";
+import { Container, Key, type SelectItem, SelectList, Text } from "@iamjoyeb/ziki-tui";
 
 // Preset configuration
 interface Preset {

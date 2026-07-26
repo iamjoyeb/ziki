@@ -5,8 +5,8 @@
  * and converting the ANSI output to HTML.
  */
 
-import type { ImageContent, TextContent } from "@zikilabs/ziki-ai";
-import type { Component } from "@zikilabs/ziki-tui";
+import type { ImageContent, TextContent } from "@iamjoyeb/ziki-ai";
+import type { Component } from "@iamjoyeb/ziki-tui";
 import type { Theme } from "../../modes/interactive/theme/theme.ts";
 import type { ToolDefinition, ToolRenderContext } from "../extensions/types.ts";
 import { ansiLinesToHtml } from "./ansi-to-html.ts";

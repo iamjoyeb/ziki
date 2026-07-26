@@ -1,4 +1,4 @@
-import type { TUI } from "@zikilabs/ziki-tui";
+import type { TUI } from "@iamjoyeb/ziki-tui";
 import type { SettingsManager } from "../../../core/settings-manager.ts";
 import {
 	detectTerminalBackgroundFromEnv,

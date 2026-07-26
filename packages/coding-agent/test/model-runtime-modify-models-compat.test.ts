@@ -1,7 +1,7 @@
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { InMemoryModelsStore, type Model, type Provider } from "@zikilabs/ziki-ai";
+import { InMemoryModelsStore, type Model, type Provider } from "@iamjoyeb/ziki-ai";
 import { describe, expect, it } from "vitest";
 import { AuthStorage } from "../src/core/auth-storage.ts";
 import { ModelRegistry } from "../src/core/model-registry.ts";

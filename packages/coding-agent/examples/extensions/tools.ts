@@ -9,9 +9,9 @@
  * 2. Use /tools to open the tool selector
  */
 
-import type { ExtensionAPI, ExtensionContext, ToolInfo } from "@zikilabs/ziki-coding-agent";
-import { getSettingsListTheme } from "@zikilabs/ziki-coding-agent";
-import { Container, type SettingItem, SettingsList } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI, ExtensionContext, ToolInfo } from "@iamjoyeb/ziki-coding-agent";
+import { getSettingsListTheme } from "@iamjoyeb/ziki-coding-agent";
+import { Container, type SettingItem, SettingsList } from "@iamjoyeb/ziki-tui";
 
 // State persisted to session
 interface ToolsState {

@@ -12,7 +12,7 @@ import {
 	Text,
 	truncateToWidth,
 	visibleWidth,
-} from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-tui";
 import { KeybindingsManager } from "../../../core/keybindings.ts";
 import type { SessionInfo, SessionListProgress } from "../../../core/session-manager.ts";
 import { canonicalizePath as _canonicalizePath } from "../../../utils/paths.ts";

@@ -10,7 +10,7 @@
  * 3. When enabled, the agent will respond like a pirate
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function pirateExtension(ziki: ExtensionAPI) {
 	let pirateMode = false;

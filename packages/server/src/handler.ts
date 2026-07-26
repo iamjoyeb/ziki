@@ -4,7 +4,7 @@ import type {
 	RpcExtensionUIRequest,
 	RpcExtensionUIResponse,
 	RpcResponse,
-} from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-coding-agent";
 import type {
 	ErrorResponse,
 	InstanceSummary,

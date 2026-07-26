@@ -1,5 +1,5 @@
-import type { Api, Model } from "@zikilabs/ziki-ai";
-import { setKeybindings } from "@zikilabs/ziki-tui";
+import type { Api, Model } from "@iamjoyeb/ziki-ai";
+import { setKeybindings } from "@iamjoyeb/ziki-tui";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { KeybindingsManager } from "../../../src/core/keybindings.ts";
 import { ScopedModelsSelectorComponent } from "../../../src/modes/interactive/components/scoped-models-selector.ts";

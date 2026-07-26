@@ -1,4 +1,4 @@
-import { type AssistantMessage, fauxAssistantMessage } from "@zikilabs/ziki-ai";
+import { type AssistantMessage, fauxAssistantMessage } from "@iamjoyeb/ziki-ai";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createHarness, getUserTexts, type Harness } from "../harness.ts";
 

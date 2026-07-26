@@ -3,7 +3,7 @@
  * Provider auth orchestration belongs to ModelRuntime and pi-ai Models.
  */
 
-import type { Credential, CredentialInfo, CredentialStore } from "@zikilabs/ziki-ai";
+import type { Credential, CredentialInfo, CredentialStore } from "@iamjoyeb/ziki-ai";
 import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 import lockfile from "proper-lockfile";

@@ -14,7 +14,7 @@
  *
  * Note: Regular !command syntax (whole-line bash) is preserved and works as before.
  */
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	const PATTERN = /!\{([^}]+)\}/g;

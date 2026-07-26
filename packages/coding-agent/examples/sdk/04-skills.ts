@@ -12,7 +12,7 @@ import {
 	getAgentDir,
 	SessionManager,
 	type Skill,
-} from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-coding-agent";
 
 // Or define custom skills inline
 const customSkill: Skill = {

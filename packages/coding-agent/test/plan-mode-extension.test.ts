@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { AssistantMessage } from "@zikilabs/ziki-ai";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { AssistantMessage } from "@iamjoyeb/ziki-ai";
 import { describe, expect, it, vi } from "vitest";
 import planModeExtension from "../examples/extensions/plan-mode/index.ts";
 import type { ExtensionAPI, ExtensionContext } from "../src/core/extensions/index.ts";

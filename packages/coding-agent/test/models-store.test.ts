@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Model } from "@zikilabs/ziki-ai";
+import type { Model } from "@iamjoyeb/ziki-ai";
 import { afterEach, describe, expect, it } from "vitest";
 import { FileModelsStore } from "../src/core/models-store.ts";
 

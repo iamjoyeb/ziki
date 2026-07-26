@@ -14,7 +14,7 @@ import {
 	type SimpleStreamOptions,
 	type StopReason,
 	type ToolCall,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 
 // Create stream class matching ProxyMessageEventStream
 class ProxyMessageEventStream extends EventStream<AssistantMessageEvent, AssistantMessage> {

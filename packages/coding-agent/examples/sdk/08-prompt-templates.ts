@@ -11,7 +11,7 @@ import {
 	getAgentDir,
 	type PromptTemplate,
 	SessionManager,
-} from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-coding-agent";
 
 // Define custom templates
 const deployTemplate: PromptTemplate = {

@@ -5,8 +5,8 @@
  * and provides a transformer to convert them to LLM-compatible messages.
  */
 
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { ImageContent, Message, TextContent } from "@zikilabs/ziki-ai";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { ImageContent, Message, TextContent } from "@iamjoyeb/ziki-ai";
 
 export const COMPACTION_SUMMARY_PREFIX = `The conversation history before this point was compacted into the following summary:
 
@@ -67,7 +67,7 @@ export interface CompactionSummaryMessage {
 }
 
 // Extend CustomAgentMessages via declaration merging
-declare module "@zikilabs/ziki-agent-core" {
+declare module "@iamjoyeb/ziki-agent-core" {
 	interface CustomAgentMessages {
 		bashExecution: BashExecutionMessage;
 		custom: CustomMessage;

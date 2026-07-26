@@ -13,7 +13,7 @@
  * Try it in a project containing .ziki, AGENTS.md/CLAUDE.md, or .agents/skills.
  */
 
-import type { ExtensionAPI, ProjectTrustEventResult } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ProjectTrustEventResult } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	let loadCount = 0;

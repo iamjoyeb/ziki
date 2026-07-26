@@ -1,4 +1,4 @@
-import type { Credential, CredentialInfo, CredentialStore } from "@zikilabs/ziki-ai";
+import type { Credential, CredentialInfo, CredentialStore } from "@iamjoyeb/ziki-ai";
 
 /** Async credential store overlay for non-persistent runtime API keys. */
 export class RuntimeCredentials implements CredentialStore {

@@ -649,7 +649,7 @@ Content`,
 			writeFileSync(
 				join(ext1Dir, "index.ts"),
 				`
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 export default function(ziki: ExtensionAPI) {
   ziki.registerTool({
@@ -664,7 +664,7 @@ export default function(ziki: ExtensionAPI) {
 			writeFileSync(
 				join(ext2Dir, "index.ts"),
 				`
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 export default function(ziki: ExtensionAPI) {
   ziki.registerTool({
@@ -691,7 +691,7 @@ export default function(ziki: ExtensionAPI) {
 			writeFileSync(
 				join(globalExtDir, "global.ts"),
 				`
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 export default function(ziki: ExtensionAPI) {
   ziki.registerTool({
@@ -710,7 +710,7 @@ export default function(ziki: ExtensionAPI) {
 			writeFileSync(
 				explicitExtPath,
 				`
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 export default function(ziki: ExtensionAPI) {
   ziki.registerTool({

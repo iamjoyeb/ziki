@@ -1,4 +1,4 @@
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function widgetPlacementExtension(ziki: ExtensionAPI) {
 	ziki.on("session_start", (_event, ctx) => {

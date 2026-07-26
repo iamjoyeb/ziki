@@ -16,17 +16,17 @@ import { spawn } from "node:child_process";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult } from "@zikilabs/ziki-agent-core";
-import type { Message } from "@zikilabs/ziki-ai";
-import { StringEnum } from "@zikilabs/ziki-ai";
+import type { AgentToolResult } from "@iamjoyeb/ziki-agent-core";
+import type { Message } from "@iamjoyeb/ziki-ai";
+import { StringEnum } from "@iamjoyeb/ziki-ai";
 import {
 	CONFIG_DIR_NAME,
 	type ExtensionAPI,
 	getAgentDir,
 	getMarkdownTheme,
 	withFileMutationQueue,
-} from "@zikilabs/ziki-coding-agent";
-import { Container, Markdown, Spacer, Text } from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-coding-agent";
+import { Container, Markdown, Spacer, Text } from "@iamjoyeb/ziki-tui";
 import { Type } from "typebox";
 import { type AgentConfig, type AgentScope, discoverAgents } from "./agents.ts";
 

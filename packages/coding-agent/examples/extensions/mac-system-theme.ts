@@ -7,7 +7,7 @@
 
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 const execAsync = promisify(exec);
 

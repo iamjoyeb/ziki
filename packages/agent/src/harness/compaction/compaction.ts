@@ -12,7 +12,7 @@ import {
 	type TextContent,
 	type Usage,
 	uuidv7,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import type { AgentMessage, ThinkingLevel } from "../../types.ts";
 import {
 	convertToLlm,

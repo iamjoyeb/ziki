@@ -1,4 +1,4 @@
-import type { ApiKeyAuth, AuthCheck, OAuthAuth } from "@zikilabs/ziki-ai";
+import type { ApiKeyAuth, AuthCheck, OAuthAuth } from "@iamjoyeb/ziki-ai";
 import {
 	Container,
 	type Focusable,
@@ -7,7 +7,7 @@ import {
 	Input,
 	Spacer,
 	TruncatedText,
-} from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-tui";
 import { theme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";
 

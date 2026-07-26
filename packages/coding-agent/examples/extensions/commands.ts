@@ -10,7 +10,7 @@
  * 3. Use /commands extensions to filter by source
  */
 
-import type { ExtensionAPI, SlashCommandInfo } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, SlashCommandInfo } from "@iamjoyeb/ziki-coding-agent";
 
 export default function commandsExtension(ziki: ExtensionAPI) {
 	ziki.registerCommand("commands", {

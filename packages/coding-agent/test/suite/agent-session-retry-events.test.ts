@@ -1,5 +1,5 @@
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { fauxAssistantMessage, fauxThinking, fauxToolCall } from "@zikilabs/ziki-ai";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { fauxAssistantMessage, fauxThinking, fauxToolCall } from "@iamjoyeb/ziki-ai";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import { createHarness, type Harness } from "./harness.ts";

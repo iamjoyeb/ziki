@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { AssistantMessage, Model } from "@zikilabs/ziki-ai";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { AssistantMessage, Model } from "@iamjoyeb/ziki-ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
 	type CompactionPreparation,
@@ -12,8 +12,8 @@ const { completeSimpleMock } = vi.hoisted(() => ({
 	completeSimpleMock: vi.fn(),
 }));
 
-vi.mock("@zikilabs/ziki-ai/compat", async (importOriginal) => {
-	const actual = await importOriginal<typeof import("@zikilabs/ziki-ai/compat")>();
+vi.mock("@iamjoyeb/ziki-ai/compat", async (importOriginal) => {
+	const actual = await importOriginal<typeof import("@iamjoyeb/ziki-ai/compat")>();
 	return {
 		...actual,
 		completeSimple: completeSimpleMock,

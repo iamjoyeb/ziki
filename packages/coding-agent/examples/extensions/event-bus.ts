@@ -7,7 +7,7 @@
  * Usage: /emit [event-name] [data] - emit an event on the bus
  */
 
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	// Store ctx for use in event handler

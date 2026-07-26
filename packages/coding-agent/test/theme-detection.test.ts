@@ -1,4 +1,4 @@
-import { type RgbColor, resetCapabilitiesCache, setCapabilities } from "@zikilabs/ziki-tui";
+import { type RgbColor, resetCapabilitiesCache, setCapabilities } from "@iamjoyeb/ziki-tui";
 import { afterEach, describe, expect, it } from "vitest";
 import {
 	detectTerminalBackgroundFromEnv,

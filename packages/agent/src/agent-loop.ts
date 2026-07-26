@@ -9,7 +9,7 @@ import {
 	EventStream,
 	type ToolResultMessage,
 	validateToolArguments,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import { getDefaultStreamFn } from "./stream-fn.ts";
 import type {
 	AgentContext,

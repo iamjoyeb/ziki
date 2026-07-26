@@ -1,4 +1,4 @@
-import { fauxAssistantMessage, fauxToolCall } from "@zikilabs/ziki-ai";
+import { fauxAssistantMessage, fauxToolCall } from "@iamjoyeb/ziki-ai";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import type { ExtensionFactory } from "../../../src/index.ts";

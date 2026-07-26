@@ -1,4 +1,4 @@
-import { Container, getKeybindings, Spacer, Text } from "@zikilabs/ziki-tui";
+import { Container, getKeybindings, Spacer, Text } from "@iamjoyeb/ziki-tui";
 import {
 	getProjectTrustOptions,
 	type ProjectTrustOption,

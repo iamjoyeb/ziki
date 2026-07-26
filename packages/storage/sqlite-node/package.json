@@ -1,7 +1,7 @@
 {
-	"name": "@zikilabs/ziki-storage-sqlite-node",
+	"name": "@iamjoyeb/ziki-storage-sqlite-node",
 	"version": "0.0.1",
-	"description": "Node sqlite storage backend for @zikilabs/ziki-agent-core sessions",
+	"description": "Node sqlite storage backend for @iamjoyeb/ziki-agent-core sessions",
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -32,7 +32,7 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@zikilabs/ziki-ai": "^0.0.1",
-		"@zikilabs/ziki-agent-core": "^0.0.1"
+		"@iamjoyeb/ziki-ai": "^0.0.1",
+		"@iamjoyeb/ziki-agent-core": "^0.0.1"
 	}
 }

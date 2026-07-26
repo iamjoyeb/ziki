@@ -5,7 +5,7 @@
  * Demonstrates how to cancel session events using the before_* events.
  */
 
-import type { ExtensionAPI, SessionBeforeSwitchEvent, SessionMessageEntry } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, SessionBeforeSwitchEvent, SessionMessageEntry } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("session_before_switch", async (event: SessionBeforeSwitchEvent, ctx) => {

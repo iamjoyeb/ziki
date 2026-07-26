@@ -1,11 +1,11 @@
-import { Agent } from "@zikilabs/ziki-agent-core";
+import { Agent } from "@iamjoyeb/ziki-agent-core";
 import {
 	type AssistantMessage,
 	getModel,
 	streamSimple,
 	type ToolResultMessage,
 	type Usage,
-} from "@zikilabs/ziki-ai/compat";
+} from "@iamjoyeb/ziki-ai/compat";
 import { describe, expect, it } from "vitest";
 import { AgentSession } from "../src/core/agent-session.ts";
 import { AuthStorage } from "../src/core/auth-storage.ts";

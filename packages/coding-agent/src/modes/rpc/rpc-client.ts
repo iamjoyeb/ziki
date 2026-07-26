@@ -5,8 +5,8 @@
  */
 
 import { type ChildProcess, spawn } from "node:child_process";
-import type { AgentMessage, ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import type { ImageContent } from "@zikilabs/ziki-ai";
+import type { AgentMessage, ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import type { ImageContent } from "@iamjoyeb/ziki-ai";
 import type { AgentSessionEvent, SessionStats } from "../../core/agent-session.ts";
 import type { BashResult } from "../../core/bash-executor.ts";
 import type { CompactionResult } from "../../core/compaction/index.ts";

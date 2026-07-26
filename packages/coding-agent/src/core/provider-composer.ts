@@ -18,8 +18,8 @@ import {
 	type RefreshModelsContext,
 	type SimpleStreamOptions,
 	type StreamOptions,
-} from "@zikilabs/ziki-ai";
-import { getApiProvider } from "@zikilabs/ziki-ai/compat";
+} from "@iamjoyeb/ziki-ai";
+import { getApiProvider } from "@iamjoyeb/ziki-ai/compat";
 import type { ModelConfig, ModelsJsonModel, ModelsJsonModelOverride, ModelsJsonProvider } from "./model-config.ts";
 import {
 	clearConfigValueCache,

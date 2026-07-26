@@ -4,8 +4,8 @@
  * Shows how to select a specific model and thinking level.
  */
 
-import { getModel } from "@zikilabs/ziki-ai/compat";
-import { createAgentSession, ModelRuntime } from "@zikilabs/ziki-coding-agent";
+import { getModel } from "@iamjoyeb/ziki-ai/compat";
+import { createAgentSession, ModelRuntime } from "@iamjoyeb/ziki-coding-agent";
 
 const modelRuntime = await ModelRuntime.create();
 

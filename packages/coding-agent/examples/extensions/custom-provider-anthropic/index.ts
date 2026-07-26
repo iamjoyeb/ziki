@@ -42,8 +42,8 @@ import {
 	type Tool,
 	type ToolCall,
 	type ToolResultMessage,
-} from "@zikilabs/ziki-ai";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 // =============================================================================
 // OAuth implementation adapted for the legacy extension compatibility interface.

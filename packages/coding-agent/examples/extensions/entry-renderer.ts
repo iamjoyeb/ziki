@@ -8,8 +8,8 @@
  * Usage: /status-card [message]
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { Box, Text } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { Box, Text } from "@iamjoyeb/ziki-tui";
 
 interface StatusCardData {
 	message: string;

@@ -1,5 +1,5 @@
 {
-	"name": "@zikilabs/ziki-server",
+	"name": "@iamjoyeb/ziki-server",
 	"version": "0.0.1",
 	"description": "experimental server package for pi",
 	"type": "module",
@@ -40,7 +40,7 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@zikilabs/ziki-coding-agent": "^0.0.1"
+		"@iamjoyeb/ziki-coding-agent": "^0.0.1"
 	},
 	"devDependencies": {
 		"shx": "0.4.0"

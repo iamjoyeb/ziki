@@ -1,5 +1,5 @@
-import type { AgentTool, ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import { fauxAssistantMessage, fauxToolCall, type Model, type Usage } from "@zikilabs/ziki-ai";
+import type { AgentTool, ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import { fauxAssistantMessage, fauxToolCall, type Model, type Usage } from "@iamjoyeb/ziki-ai";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import type { BuildSystemPromptOptions, ExtensionAPI } from "../../src/index.ts";

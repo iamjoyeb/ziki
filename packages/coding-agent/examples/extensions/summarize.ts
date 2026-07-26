@@ -1,8 +1,8 @@
-import { uuidv7 } from "@zikilabs/ziki-ai";
-import { complete, getModel } from "@zikilabs/ziki-ai/compat";
-import type { ExtensionAPI, ExtensionCommandContext } from "@zikilabs/ziki-coding-agent";
-import { DynamicBorder, getMarkdownTheme } from "@zikilabs/ziki-coding-agent";
-import { Container, Markdown, matchesKey, Text } from "@zikilabs/ziki-tui";
+import { uuidv7 } from "@iamjoyeb/ziki-ai";
+import { complete, getModel } from "@iamjoyeb/ziki-ai/compat";
+import type { ExtensionAPI, ExtensionCommandContext } from "@iamjoyeb/ziki-coding-agent";
+import { DynamicBorder, getMarkdownTheme } from "@iamjoyeb/ziki-coding-agent";
+import { Container, Markdown, matchesKey, Text } from "@iamjoyeb/ziki-tui";
 
 type ContentBlock = {
 	type?: string;

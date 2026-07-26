@@ -1,4 +1,4 @@
-import { uuidv7 } from "@zikilabs/ziki-ai";
+import { uuidv7 } from "@iamjoyeb/ziki-ai";
 import {
 	type FileError,
 	type Result,

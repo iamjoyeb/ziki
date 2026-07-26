@@ -1,6 +1,6 @@
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { AssistantMessage, Usage } from "@zikilabs/ziki-ai/compat";
-import { getModel } from "@zikilabs/ziki-ai/compat";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { AssistantMessage, Usage } from "@iamjoyeb/ziki-ai/compat";
+import { getModel } from "@iamjoyeb/ziki-ai/compat";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { beforeEach, describe, expect, it } from "vitest";

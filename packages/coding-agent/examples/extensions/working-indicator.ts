@@ -16,7 +16,7 @@
  *   /working-indicator reset     Restore ziki's default spinner
  */
 
-import type { ExtensionAPI, ExtensionContext, WorkingIndicatorOptions } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ExtensionContext, WorkingIndicatorOptions } from "@iamjoyeb/ziki-coding-agent";
 
 type WorkingIndicatorMode = "dot" | "none" | "pulse" | "spinner" | "default";
 

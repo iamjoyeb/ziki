@@ -28,8 +28,8 @@ import {
 	type ProviderHeaders,
 	type SimpleStreamOptions,
 	type StreamOptions,
-} from "@zikilabs/ziki-ai";
-import * as builtinProviderCatalog from "@zikilabs/ziki-ai/providers/all";
+} from "@iamjoyeb/ziki-ai";
+import * as builtinProviderCatalog from "@iamjoyeb/ziki-ai/providers/all";
 import { getAgentDir } from "../config.ts";
 import { AuthStorage as DefaultAuthStorage } from "./auth-storage.ts";
 import { ModelConfig } from "./model-config.ts";

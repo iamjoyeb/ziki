@@ -10,9 +10,9 @@
  * correct for that point in history.
  */
 
-import { StringEnum } from "@zikilabs/ziki-ai";
-import type { ExtensionAPI, ExtensionContext, Theme } from "@zikilabs/ziki-coding-agent";
-import { matchesKey, Text, truncateToWidth } from "@zikilabs/ziki-tui";
+import { StringEnum } from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI, ExtensionContext, Theme } from "@iamjoyeb/ziki-coding-agent";
+import { matchesKey, Text, truncateToWidth } from "@iamjoyeb/ziki-tui";
 import { Type } from "typebox";
 
 interface Todo {

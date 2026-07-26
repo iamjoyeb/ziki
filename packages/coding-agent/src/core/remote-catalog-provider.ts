@@ -1,4 +1,4 @@
-import type { Api, Model, ModelsStoreEntry, Provider } from "@zikilabs/ziki-ai";
+import type { Api, Model, ModelsStoreEntry, Provider } from "@iamjoyeb/ziki-ai";
 import { VERSION } from "../config.ts";
 import { getPiUserAgent } from "../utils/ziki-user-agent.ts";
 

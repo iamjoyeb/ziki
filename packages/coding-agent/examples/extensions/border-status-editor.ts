@@ -3,9 +3,9 @@ import {
 	type ExtensionAPI,
 	type ExtensionContext,
 	type KeybindingsManager,
-} from "@zikilabs/ziki-coding-agent";
-import type { Component, EditorTheme, TUI } from "@zikilabs/ziki-tui";
-import { truncateToWidth, visibleWidth } from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-coding-agent";
+import type { Component, EditorTheme, TUI } from "@iamjoyeb/ziki-tui";
+import { truncateToWidth, visibleWidth } from "@iamjoyeb/ziki-tui";
 
 function fitBorder(
 	left: string,

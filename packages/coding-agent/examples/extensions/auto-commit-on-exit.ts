@@ -5,7 +5,7 @@
  * Uses the last assistant message to generate a commit message.
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("session_shutdown", async (_event, ctx) => {

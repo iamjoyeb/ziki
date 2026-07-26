@@ -12,11 +12,11 @@
  * The generated prompt appears as a draft in the editor for review/editing.
  */
 
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import { uuidv7 } from "@zikilabs/ziki-ai";
-import { complete, type Message } from "@zikilabs/ziki-ai/compat";
-import type { ExtensionAPI, SessionEntry } from "@zikilabs/ziki-coding-agent";
-import { BorderedLoader, convertToLlm, serializeConversation } from "@zikilabs/ziki-coding-agent";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import { uuidv7 } from "@iamjoyeb/ziki-ai";
+import { complete, type Message } from "@iamjoyeb/ziki-ai/compat";
+import type { ExtensionAPI, SessionEntry } from "@iamjoyeb/ziki-coding-agent";
+import { BorderedLoader, convertToLlm, serializeConversation } from "@iamjoyeb/ziki-coding-agent";
 
 const SYSTEM_PROMPT = `You are a context transfer assistant. Given a conversation history and the user's goal for a new thread, generate a focused prompt that:
 

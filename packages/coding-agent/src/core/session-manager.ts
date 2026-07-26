@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import { type ImageContent, type Message, type TextContent, type Usage, uuidv7 } from "@zikilabs/ziki-ai";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import { type ImageContent, type Message, type TextContent, type Usage, uuidv7 } from "@iamjoyeb/ziki-ai";
 import { randomUUID } from "crypto";
 import {
 	appendFileSync,

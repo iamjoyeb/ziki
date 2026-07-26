@@ -5,8 +5,8 @@
  * (logo + keybinding hints) with a custom component showing the ziki mascot.
  */
 
-import type { ExtensionAPI, Theme } from "@zikilabs/ziki-coding-agent";
-import { VERSION } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, Theme } from "@iamjoyeb/ziki-coding-agent";
+import { VERSION } from "@iamjoyeb/ziki-coding-agent";
 
 // --- PI MASCOT ---
 // Based on pi_mascot.ts - the ziki agent character

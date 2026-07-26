@@ -8,7 +8,7 @@ import {
 	type Model,
 	type Models,
 	type Usage,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
 	type CompactionPreparation,

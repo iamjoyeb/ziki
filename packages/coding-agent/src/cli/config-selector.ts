@@ -2,7 +2,7 @@
  * TUI config selector for `ziki config` command
  */
 
-import { ProcessTerminal, TUI } from "@zikilabs/ziki-tui";
+import { ProcessTerminal, TUI } from "@iamjoyeb/ziki-tui";
 import type { SettingsManager } from "../core/settings-manager.ts";
 import { ConfigSelectorComponent, type ScopedResolvedPaths } from "../modes/interactive/components/config-selector.ts";
 import { initTheme, stopThemeWatcher } from "../modes/interactive/theme/theme.ts";

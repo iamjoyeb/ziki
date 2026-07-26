@@ -15,7 +15,7 @@
  */
 
 import { mkdtemp, writeFile } from "node:fs/promises";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import {
 	DEFAULT_MAX_BYTES,
 	DEFAULT_MAX_LINES,
@@ -23,8 +23,8 @@ import {
 	type TruncationResult,
 	truncateHead,
 	withFileMutationQueue,
-} from "@zikilabs/ziki-coding-agent";
-import { Text } from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-coding-agent";
+import { Text } from "@iamjoyeb/ziki-tui";
 import { execSync } from "child_process";
 import { tmpdir } from "os";
 import { join } from "path";

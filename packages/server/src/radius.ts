@@ -1,6 +1,6 @@
 import { hostname, platform } from "node:os";
-import type { OAuthCredential } from "@zikilabs/ziki-ai";
-import { readStoredCredential } from "@zikilabs/ziki-coding-agent";
+import type { OAuthCredential } from "@iamjoyeb/ziki-ai";
+import { readStoredCredential } from "@iamjoyeb/ziki-coding-agent";
 import { getServerDir, getSocketPath, VERSION } from "./config.ts";
 import { loadMachine, saveMachine } from "./storage.ts";
 import type { InstanceRecord, MachineRecord, RadiusRegistration } from "./types.ts";

@@ -23,8 +23,8 @@ import type {
 	AgentTool,
 	PrepareNextTurnContext,
 	ThinkingLevel,
-} from "@zikilabs/ziki-agent-core";
-import { contentText } from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-agent-core";
+import { contentText } from "@iamjoyeb/ziki-ai";
 import type {
 	AssistantMessage,
 	AuthResult,
@@ -33,7 +33,7 @@ import type {
 	ProviderHeaders,
 	TextContent,
 	Usage,
-} from "@zikilabs/ziki-ai/compat";
+} from "@iamjoyeb/ziki-ai/compat";
 import {
 	clampThinkingLevel,
 	cleanupSessionResources,
@@ -44,7 +44,7 @@ import {
 	type RetryCallbacks,
 	resetApiProviders,
 	streamSimple,
-} from "@zikilabs/ziki-ai/compat";
+} from "@iamjoyeb/ziki-ai/compat";
 import { getThemeByName, theme } from "../modes/interactive/theme/theme.ts";
 import { stripFrontmatter } from "../utils/frontmatter.ts";
 import { resolvePath } from "../utils/paths.ts";

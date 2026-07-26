@@ -7,13 +7,13 @@ import * as fs from "node:fs";
 import { createRequire } from "node:module";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import * as _bundledPiAgentCore from "@zikilabs/ziki-agent-core";
-import type { Provider } from "@zikilabs/ziki-ai";
-import * as _bundledPiAiCompat from "@zikilabs/ziki-ai/compat";
-import * as _bundledPiAiOauth from "@zikilabs/ziki-ai/oauth";
-import * as _bundledPiAiProviders from "@zikilabs/ziki-ai/providers/all";
-import type { KeyId } from "@zikilabs/ziki-tui";
-import * as _bundledPiTui from "@zikilabs/ziki-tui";
+import * as _bundledPiAgentCore from "@iamjoyeb/ziki-agent-core";
+import type { Provider } from "@iamjoyeb/ziki-ai";
+import * as _bundledPiAiCompat from "@iamjoyeb/ziki-ai/compat";
+import * as _bundledPiAiOauth from "@iamjoyeb/ziki-ai/oauth";
+import * as _bundledPiAiProviders from "@iamjoyeb/ziki-ai/providers/all";
+import type { KeyId } from "@iamjoyeb/ziki-tui";
+import * as _bundledPiTui from "@iamjoyeb/ziki-tui";
 import { createJiti } from "jiti/static";
 // Static imports of packages that extensions may use.
 // These MUST be static so Bun bundles them into the compiled binary.
@@ -23,7 +23,7 @@ import * as _bundledTypeboxCompile from "typebox/compile";
 import * as _bundledTypeboxValue from "typebox/value";
 import { CONFIG_DIR_NAME, getAgentDir, isBunBinary } from "../../config.ts";
 // NOTE: This import works because loader.ts exports are NOT re-exported from index.ts,
-// avoiding a circular dependency. Extensions can import from @zikilabs/ziki-coding-agent.
+// avoiding a circular dependency. Extensions can import from @iamjoyeb/ziki-coding-agent.
 import * as _bundledPiCodingAgent from "../../index.ts";
 import { resolvePath } from "../../utils/paths.ts";
 import { createEventBus, type EventBus } from "../event-bus.ts";
@@ -52,16 +52,16 @@ const VIRTUAL_MODULES: Record<string, unknown> = {
 	"@sinclair/typebox": _bundledTypebox,
 	"@sinclair/typebox/compile": _bundledTypeboxCompile,
 	"@sinclair/typebox/value": _bundledTypeboxValue,
-	"@zikilabs/ziki-agent-core": _bundledPiAgentCore,
-	"@zikilabs/ziki-tui": _bundledPiTui,
+	"@iamjoyeb/ziki-agent-core": _bundledPiAgentCore,
+	"@iamjoyeb/ziki-tui": _bundledPiTui,
 	// Extensions resolve the pi-ai root to the compat entrypoint (a strict
 	// superset of the core entrypoint): existing extensions using the old
 	// global API keep working at runtime until compat is removed.
-	"@zikilabs/ziki-ai": _bundledPiAiCompat,
-	"@zikilabs/ziki-ai/compat": _bundledPiAiCompat,
-	"@zikilabs/ziki-ai/oauth": _bundledPiAiOauth,
-	"@zikilabs/ziki-ai/providers/all": _bundledPiAiProviders,
-	"@zikilabs/ziki-coding-agent": _bundledPiCodingAgent,
+	"@iamjoyeb/ziki-ai": _bundledPiAiCompat,
+	"@iamjoyeb/ziki-ai/compat": _bundledPiAiCompat,
+	"@iamjoyeb/ziki-ai/oauth": _bundledPiAiOauth,
+	"@iamjoyeb/ziki-ai/providers/all": _bundledPiAiProviders,
+	"@iamjoyeb/ziki-coding-agent": _bundledPiCodingAgent,
 	"@mariozechner/ziki-agent-core": _bundledPiAgentCore,
 	"@mariozechner/pi-tui": _bundledPiTui,
 	"@mariozechner/pi-ai": _bundledPiAiCompat,
@@ -99,23 +99,23 @@ function getAliases(): Record<string, string> {
 	};
 
 	const piCodingAgentEntry = packageIndex;
-	const piAgentCoreEntry = resolveWorkspaceOrImport("agent/dist/index.js", "@zikilabs/ziki-agent-core");
-	const piTuiEntry = resolveWorkspaceOrImport("tui/dist/index.js", "@zikilabs/ziki-tui");
+	const piAgentCoreEntry = resolveWorkspaceOrImport("agent/dist/index.js", "@iamjoyeb/ziki-agent-core");
+	const piTuiEntry = resolveWorkspaceOrImport("tui/dist/index.js", "@iamjoyeb/ziki-tui");
 	// Extensions resolve the pi-ai root to the compat entrypoint (a strict
 	// superset of the core entrypoint): existing extensions using the old
 	// global API keep working at runtime until compat is removed.
-	const piAiCompatEntry = resolveWorkspaceOrImport("ai/dist/compat.js", "@zikilabs/ziki-ai/compat");
-	const piAiOauthEntry = resolveWorkspaceOrImport("ai/dist/oauth.js", "@zikilabs/ziki-ai/oauth");
-	const piAiProvidersEntry = resolveWorkspaceOrImport("ai/dist/providers/all.js", "@zikilabs/ziki-ai/providers/all");
+	const piAiCompatEntry = resolveWorkspaceOrImport("ai/dist/compat.js", "@iamjoyeb/ziki-ai/compat");
+	const piAiOauthEntry = resolveWorkspaceOrImport("ai/dist/oauth.js", "@iamjoyeb/ziki-ai/oauth");
+	const piAiProvidersEntry = resolveWorkspaceOrImport("ai/dist/providers/all.js", "@iamjoyeb/ziki-ai/providers/all");
 
 	_aliases = {
-		"@zikilabs/ziki-coding-agent": piCodingAgentEntry,
-		"@zikilabs/ziki-agent-core": piAgentCoreEntry,
-		"@zikilabs/ziki-tui": piTuiEntry,
-		"@zikilabs/ziki-ai/providers/all": piAiProvidersEntry,
-		"@zikilabs/ziki-ai/compat": piAiCompatEntry,
-		"@zikilabs/ziki-ai/oauth": piAiOauthEntry,
-		"@zikilabs/ziki-ai": piAiCompatEntry,
+		"@iamjoyeb/ziki-coding-agent": piCodingAgentEntry,
+		"@iamjoyeb/ziki-agent-core": piAgentCoreEntry,
+		"@iamjoyeb/ziki-tui": piTuiEntry,
+		"@iamjoyeb/ziki-ai/providers/all": piAiProvidersEntry,
+		"@iamjoyeb/ziki-ai/compat": piAiCompatEntry,
+		"@iamjoyeb/ziki-ai/oauth": piAiOauthEntry,
+		"@iamjoyeb/ziki-ai": piAiCompatEntry,
 		"@mariozechner/pi-coding-agent": piCodingAgentEntry,
 		"@mariozechner/ziki-agent-core": piAgentCoreEntry,
 		"@mariozechner/pi-tui": piTuiEntry,

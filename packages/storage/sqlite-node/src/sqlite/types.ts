@@ -1,4 +1,4 @@
-import type { FileSystem, SessionCreateOptions, SessionMetadata, SessionRepo } from "@zikilabs/ziki-agent-core";
+import type { FileSystem, SessionCreateOptions, SessionMetadata, SessionRepo } from "@iamjoyeb/ziki-agent-core";
 
 /** Result of a prepared SQLite statement execution. */
 export interface SqliteRunResult {

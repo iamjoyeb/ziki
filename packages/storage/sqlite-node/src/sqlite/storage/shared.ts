@@ -1,6 +1,6 @@
-import type { SessionTreeEntry } from "@zikilabs/ziki-agent-core";
-import { SessionError } from "@zikilabs/ziki-agent-core";
-import { uuidv7 } from "@zikilabs/ziki-ai";
+import type { SessionTreeEntry } from "@iamjoyeb/ziki-agent-core";
+import { SessionError } from "@iamjoyeb/ziki-agent-core";
+import { uuidv7 } from "@iamjoyeb/ziki-ai";
 
 export function generateEntryId(byId: { has(id: string): boolean }): string {
 	for (let i = 0; i < 100; i++) {

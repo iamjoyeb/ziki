@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { Agent } from "@zikilabs/ziki-agent-core";
-import { type AssistantMessage, createAssistantMessageEventStream, fauxAssistantMessage } from "@zikilabs/ziki-ai";
-import { getModel, streamSimple } from "@zikilabs/ziki-ai/compat";
+import { Agent } from "@iamjoyeb/ziki-agent-core";
+import { type AssistantMessage, createAssistantMessageEventStream, fauxAssistantMessage } from "@iamjoyeb/ziki-ai";
+import { getModel, streamSimple } from "@iamjoyeb/ziki-ai/compat";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AgentSession } from "../src/core/agent-session.ts";
 import { AuthStorage } from "../src/core/auth-storage.ts";

@@ -5,7 +5,7 @@ import {
 	type KeyId,
 	TUI_KEYBINDINGS,
 	KeybindingsManager as TuiKeybindingsManager,
-} from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-tui";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { getAgentDir } from "../config.ts";
@@ -57,7 +57,7 @@ export interface AppKeybindings {
 
 export type AppKeybinding = keyof AppKeybindings;
 
-declare module "@zikilabs/ziki-tui" {
+declare module "@iamjoyeb/ziki-tui" {
 	interface Keybindings extends AppKeybindings {}
 }
 

@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import { Container, type SelectItem, SelectList, type SelectListLayoutOptions } from "@zikilabs/ziki-tui";
+import type { ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import { Container, type SelectItem, SelectList, type SelectListLayoutOptions } from "@iamjoyeb/ziki-tui";
 import { getSelectListTheme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";
 

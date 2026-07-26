@@ -13,7 +13,7 @@
  *   export default function (ziki: ExtensionAPI) { ... }
  */
 
-import { createAgentSession, DefaultResourceLoader, getAgentDir, SessionManager } from "@zikilabs/ziki-coding-agent";
+import { createAgentSession, DefaultResourceLoader, getAgentDir, SessionManager } from "@iamjoyeb/ziki-coding-agent";
 
 // Extensions are discovered automatically from standard locations.
 // You can also add paths via settings.json or DefaultResourceLoader options.
@@ -52,7 +52,7 @@ try {
 
 // Example extension file (./my-logging-extension.ts):
 /*
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("agent_start", async () => {

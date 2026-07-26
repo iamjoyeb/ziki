@@ -1,6 +1,6 @@
-import type { TextContent } from "@zikilabs/ziki-ai";
-import type { Component } from "@zikilabs/ziki-tui";
-import { Box, Container, Markdown, type MarkdownTheme, Spacer, Text } from "@zikilabs/ziki-tui";
+import type { TextContent } from "@iamjoyeb/ziki-ai";
+import type { Component } from "@iamjoyeb/ziki-tui";
+import { Box, Container, Markdown, type MarkdownTheme, Spacer, Text } from "@iamjoyeb/ziki-tui";
 import type { MessageRenderer } from "../../../core/extensions/types.ts";
 import type { CustomMessage } from "../../../core/messages.ts";
 import { getMarkdownTheme, theme } from "../theme/theme.ts";

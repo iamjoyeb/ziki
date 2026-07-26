@@ -9,7 +9,7 @@
  */
 
 import * as fs from "node:fs";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("session_start", async (_event, ctx) => {

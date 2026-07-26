@@ -3,7 +3,7 @@ import {
 	createAssistantMessageEventStream,
 	fauxAssistantMessage,
 	type Model,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { estimateTokens } from "../../src/core/compaction/index.ts";
 import { createHarness, type Harness } from "./harness.ts";

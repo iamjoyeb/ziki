@@ -16,7 +16,7 @@
  * Then use ctrl+o to toggle between minimal (collapsed) and full (expanded) views.
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import {
 	createBashTool,
 	createEditTool,
@@ -25,8 +25,8 @@ import {
 	createLsTool,
 	createReadTool,
 	createWriteTool,
-} from "@zikilabs/ziki-coding-agent";
-import { Text } from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-coding-agent";
+import { Text } from "@iamjoyeb/ziki-tui";
 import { homedir } from "os";
 
 /**

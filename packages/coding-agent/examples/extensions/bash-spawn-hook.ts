@@ -7,8 +7,8 @@
  *   ziki -e ./bash-spawn-hook.ts
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { createBashTool } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { createBashTool } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	const cwd = process.cwd();

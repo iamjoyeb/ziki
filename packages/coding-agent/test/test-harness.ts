@@ -11,8 +11,8 @@ import { createModelRegistry, getModelRuntime } from "./model-runtime-test-utils
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { Agent } from "@zikilabs/ziki-agent-core";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { Agent } from "@iamjoyeb/ziki-agent-core";
 import type {
 	AssistantMessage,
 	AssistantMessageEvent,
@@ -25,8 +25,8 @@ import type {
 	ThinkingContent,
 	ToolCall,
 	Usage,
-} from "@zikilabs/ziki-ai";
-import { createAssistantMessageEventStream } from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
+import { createAssistantMessageEventStream } from "@iamjoyeb/ziki-ai";
 import { AgentSession, type AgentSessionEvent } from "../src/core/agent-session.ts";
 import { AuthStorage } from "../src/core/auth-storage.ts";
 import { SessionManager } from "../src/core/session-manager.ts";

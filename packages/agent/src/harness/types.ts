@@ -7,7 +7,7 @@ import type {
 	TextContent,
 	Transport,
 	Usage,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import type { Static, TSchema } from "typebox";
 import type {
 	AgentEvent,

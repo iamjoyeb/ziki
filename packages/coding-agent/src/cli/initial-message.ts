@@ -1,4 +1,4 @@
-import type { ImageContent } from "@zikilabs/ziki-ai";
+import type { ImageContent } from "@iamjoyeb/ziki-ai";
 import type { Args } from "./args.ts";
 
 export interface InitialMessageInput {

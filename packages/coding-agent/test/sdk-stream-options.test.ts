@@ -7,7 +7,7 @@ import {
 	createAssistantMessageEventStream,
 	type Model,
 	type SimpleStreamOptions,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { AuthStorage } from "../src/core/auth-storage.ts";
 import { createAgentSession } from "../src/core/sdk.ts";

@@ -1,4 +1,4 @@
-import type { Api, Model, ProviderHeaders } from "@zikilabs/ziki-ai";
+import type { Api, Model, ProviderHeaders } from "@iamjoyeb/ziki-ai";
 import type { SettingsManager } from "./settings-manager.ts";
 import { isInstallTelemetryEnabled } from "./telemetry.ts";
 

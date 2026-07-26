@@ -1,5 +1,5 @@
 // Core Agent
-export { uuidv7 } from "@zikilabs/ziki-ai";
+export { uuidv7 } from "@iamjoyeb/ziki-ai";
 export * from "./agent.ts";
 // Loop functions
 export * from "./agent-loop.ts";

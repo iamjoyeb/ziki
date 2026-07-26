@@ -2,8 +2,8 @@
  * Shared utilities for compaction and branch summarization.
  */
 
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import { contentText, type Message } from "@zikilabs/ziki-ai";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import { contentText, type Message } from "@iamjoyeb/ziki-ai";
 
 // ============================================================================
 // File Operation Tracking

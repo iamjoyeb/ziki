@@ -1,4 +1,4 @@
-import { contentText, type Message } from "@zikilabs/ziki-ai";
+import { contentText, type Message } from "@iamjoyeb/ziki-ai";
 import type { AgentMessage } from "../../types.ts";
 
 /** File paths touched by a session branch or compaction range. */

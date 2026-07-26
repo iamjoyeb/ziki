@@ -6,7 +6,7 @@ import type {
 	TextContent,
 	ThinkingBudgets,
 	Transport,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import { runAgentLoop, runAgentLoopContinue } from "./agent-loop.ts";
 import { getDefaultStreamFn } from "./stream-fn.ts";
 import type {

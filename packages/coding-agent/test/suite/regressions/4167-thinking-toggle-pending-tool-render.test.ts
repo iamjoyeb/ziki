@@ -1,6 +1,6 @@
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { AssistantMessage, ToolResultMessage, Usage } from "@zikilabs/ziki-ai";
-import { Container, Text, type TUI } from "@zikilabs/ziki-tui";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { AssistantMessage, ToolResultMessage, Usage } from "@iamjoyeb/ziki-ai";
+import { Container, Text, type TUI } from "@iamjoyeb/ziki-tui";
 import { beforeAll, describe, expect, test, vi } from "vitest";
 import type { AgentSessionEvent } from "../../../src/core/agent-session.ts";
 import type { SessionEntry } from "../../../src/core/session-manager.ts";

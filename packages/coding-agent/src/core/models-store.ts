@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import type { ModelsStore, ModelsStoreEntry } from "@zikilabs/ziki-ai";
+import type { ModelsStore, ModelsStoreEntry } from "@iamjoyeb/ziki-ai";
 import { getAgentDir } from "../config.ts";
 import { type AuthStorageBackend, FileAuthStorageBackend } from "./auth-storage.ts";
 

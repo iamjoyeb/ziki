@@ -1,4 +1,4 @@
-import type { Message } from "@zikilabs/ziki-ai";
+import type { Message } from "@iamjoyeb/ziki-ai";
 import { describe, expect, it } from "vitest";
 import { serializeConversation } from "../src/core/compaction/utils.ts";
 

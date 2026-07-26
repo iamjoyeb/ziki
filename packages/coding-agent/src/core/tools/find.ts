@@ -1,6 +1,6 @@
 import { createInterface } from "node:readline";
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { Text } from "@zikilabs/ziki-tui";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { Text } from "@iamjoyeb/ziki-tui";
 import { spawn } from "child_process";
 import path from "path";
 import { type Static, Type } from "typebox";

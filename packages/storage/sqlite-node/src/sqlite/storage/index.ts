@@ -1,6 +1,6 @@
-import type { LeafEntry, SessionEntryCursorOptions, SessionStorage, SessionTreeEntry } from "@zikilabs/ziki-agent-core";
-import { SessionError } from "@zikilabs/ziki-agent-core";
-import { uuidv7 } from "@zikilabs/ziki-ai";
+import type { LeafEntry, SessionEntryCursorOptions, SessionStorage, SessionTreeEntry } from "@iamjoyeb/ziki-agent-core";
+import { SessionError } from "@iamjoyeb/ziki-agent-core";
+import { uuidv7 } from "@iamjoyeb/ziki-ai";
 import type { SqliteDatabase, SqliteSessionMetadata } from "../types.ts";
 import { getMaterializedBranchPathOrCompaction } from "./branch-entries.ts";
 import { decodeEntry, encodeEntry, type SessionEntryRow } from "./session-entries.ts";

@@ -1,4 +1,4 @@
-import { Container, getKeybindings, Spacer, Text } from "@zikilabs/ziki-tui";
+import { Container, getKeybindings, Spacer, Text } from "@iamjoyeb/ziki-tui";
 import { APP_NAME } from "../../../config.ts";
 import { type TerminalTheme, theme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";

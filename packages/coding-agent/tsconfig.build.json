@@ -3,12 +3,12 @@
 	"compilerOptions": {
 		"outDir": "./dist",
 		"paths": {
-			"@zikilabs/ziki-agent-core": ["../agent/dist/index.d.ts"],
-			"@zikilabs/ziki-agent-core/*": ["../agent/dist/*.d.ts"],
-			"@zikilabs/ziki-ai": ["../ai/dist/index.d.ts"],
-			"@zikilabs/ziki-ai/*": ["../ai/dist/*.d.ts", "../ai/dist/providers/*.d.ts"],
-			"@zikilabs/ziki-tui": ["../tui/dist/index.d.ts"],
-			"@zikilabs/ziki-tui/*": ["../tui/dist/*.d.ts", "../tui/dist/components/*.d.ts"]
+			"@iamjoyeb/ziki-agent-core": ["../agent/dist/index.d.ts"],
+			"@iamjoyeb/ziki-agent-core/*": ["../agent/dist/*.d.ts"],
+			"@iamjoyeb/ziki-ai": ["../ai/dist/index.d.ts"],
+			"@iamjoyeb/ziki-ai/*": ["../ai/dist/*.d.ts", "../ai/dist/providers/*.d.ts"],
+			"@iamjoyeb/ziki-tui": ["../tui/dist/index.d.ts"],
+			"@iamjoyeb/ziki-tui/*": ["../tui/dist/*.d.ts", "../tui/dist/components/*.d.ts"]
 		},
 		"rootDir": "./src"
 	},

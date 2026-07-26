@@ -1,5 +1,5 @@
-import { fauxAssistantMessage } from "@zikilabs/ziki-ai";
-import { Container, Text } from "@zikilabs/ziki-tui";
+import { fauxAssistantMessage } from "@iamjoyeb/ziki-ai";
+import { Container, Text } from "@iamjoyeb/ziki-tui";
 import { describe, expect, it, vi } from "vitest";
 import type { AgentSessionEvent } from "../../../src/core/agent-session.ts";
 import type { ExtensionUIContext } from "../../../src/core/extensions/index.ts";

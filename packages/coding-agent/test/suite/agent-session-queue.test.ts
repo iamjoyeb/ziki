@@ -1,6 +1,6 @@
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { fauxAssistantMessage, fauxToolCall } from "@zikilabs/ziki-ai";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { fauxAssistantMessage, fauxToolCall } from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import { createHarness, getAssistantTexts, getMessageText, getUserTexts, type Harness } from "./harness.ts";

@@ -1,5 +1,5 @@
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { Box, Container, Spacer, Text } from "@zikilabs/ziki-tui";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { Box, Container, Spacer, Text } from "@iamjoyeb/ziki-tui";
 import { constants } from "fs";
 import { access as fsAccess, readFile as fsReadFile, writeFile as fsWriteFile } from "fs/promises";
 import { type Static, Type } from "typebox";

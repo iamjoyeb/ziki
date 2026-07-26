@@ -5,7 +5,7 @@
  * tool that queues a follow-up command to trigger reload.
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 
 export default function (ziki: ExtensionAPI) {

@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { Container, Image, Spacer, Text } from "@zikilabs/ziki-tui";
+import { Container, Image, Spacer, Text } from "@iamjoyeb/ziki-tui";
 import { getBundledInteractiveAssetPath } from "../../../config.ts";
 import { theme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";

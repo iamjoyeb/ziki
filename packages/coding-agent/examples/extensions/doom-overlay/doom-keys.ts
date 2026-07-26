@@ -34,7 +34,7 @@ export const DoomKeys = {
 	KEY_RALT: 0x80 + 0x38,
 } as const;
 
-import { Key, matchesKey, parseKey } from "@zikilabs/ziki-tui";
+import { Key, matchesKey, parseKey } from "@iamjoyeb/ziki-tui";
 
 /**
  * Map terminal key input to DOOM key codes

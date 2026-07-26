@@ -1,7 +1,7 @@
 import { constants } from "node:fs";
 import { access as fsAccess } from "node:fs/promises";
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { Container, Text, truncateToWidth } from "@zikilabs/ziki-tui";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { Container, Text, truncateToWidth } from "@iamjoyeb/ziki-tui";
 import { spawn } from "child_process";
 import { type Static, Type } from "typebox";
 import { keyHint } from "../../modes/interactive/components/keybinding-hints.ts";

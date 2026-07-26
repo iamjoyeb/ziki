@@ -1,4 +1,4 @@
-import { fauxAssistantMessage } from "@zikilabs/ziki-ai";
+import { fauxAssistantMessage } from "@iamjoyeb/ziki-ai";
 import { describe, expect, it } from "vitest";
 import { createHarness } from "../harness.ts";
 

@@ -11,7 +11,7 @@ import {
 	truncateToWidth,
 	visibleWidth,
 	wrapTextWithAnsi,
-} from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-tui";
 import type { SessionTreeNode } from "../../../core/session-manager.ts";
 import { theme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";

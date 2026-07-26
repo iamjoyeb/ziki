@@ -1,5 +1,5 @@
-import type { AuthInfoLink, OAuthDeviceCodeInfo } from "@zikilabs/ziki-ai";
-import { Container, type Focusable, getKeybindings, Input, Spacer, Text, type TUI } from "@zikilabs/ziki-tui";
+import type { AuthInfoLink, OAuthDeviceCodeInfo } from "@iamjoyeb/ziki-ai";
+import { Container, type Focusable, getKeybindings, Input, Spacer, Text, type TUI } from "@iamjoyeb/ziki-tui";
 import { openBrowser } from "../../../utils/open-browser.ts";
 import { theme } from "../theme/theme.ts";
 import { DynamicBorder } from "./dynamic-border.ts";

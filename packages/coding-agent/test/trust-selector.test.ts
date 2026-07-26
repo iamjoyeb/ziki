@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { setKeybindings } from "@zikilabs/ziki-tui";
+import { setKeybindings } from "@iamjoyeb/ziki-tui";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { KeybindingsManager } from "../src/core/keybindings.ts";
 import { TrustSelectorComponent } from "../src/modes/interactive/components/trust-selector.ts";

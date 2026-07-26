@@ -1,5 +1,5 @@
-import { createAssistantMessageEventStream, Type } from "@zikilabs/ziki-ai";
-import { complete, getModel, getProviders, streamSimple } from "@zikilabs/ziki-ai/compat";
+import { createAssistantMessageEventStream, Type } from "@iamjoyeb/ziki-ai";
+import { complete, getModel, getProviders, streamSimple } from "@iamjoyeb/ziki-ai/compat";
 import {
 	Agent,
 	bashExecutionToText,
@@ -16,7 +16,7 @@ import {
 	streamProxy,
 	toError,
 	truncateHead,
-} from "@zikilabs/ziki-agent-core";
+} from "@iamjoyeb/ziki-agent-core";
 
 // Keep this entry browser-safe. It is bundled by scripts/check-browser-smoke.mjs
 // to catch accidental Node-only runtime imports in browser-facing package exports.

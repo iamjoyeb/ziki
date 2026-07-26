@@ -1,4 +1,4 @@
-import { truncateToWidth, visibleWidth } from "@zikilabs/ziki-tui";
+import { truncateToWidth, visibleWidth } from "@iamjoyeb/ziki-tui";
 import { describe, expect, it } from "vitest";
 
 /**

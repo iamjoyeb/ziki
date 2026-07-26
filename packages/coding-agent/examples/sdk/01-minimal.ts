@@ -5,7 +5,7 @@
  * from cwd and ~/.ziki/agent. Model chosen from settings or first available.
  */
 
-import { createAgentSession } from "@zikilabs/ziki-coding-agent";
+import { createAgentSession } from "@iamjoyeb/ziki-coding-agent";
 
 const { session } = await createAgentSession();
 

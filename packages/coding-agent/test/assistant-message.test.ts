@@ -1,4 +1,4 @@
-import type { AssistantMessage } from "@zikilabs/ziki-ai";
+import type { AssistantMessage } from "@iamjoyeb/ziki-ai";
 import { describe, expect, test } from "vitest";
 import { AssistantMessageComponent } from "../src/modes/interactive/components/assistant-message.ts";
 import { UserMessageComponent } from "../src/modes/interactive/components/user-message.ts";

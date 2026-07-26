@@ -3,8 +3,8 @@
  * Uses Kitty keyboard protocol for smooth movement (press/release detection)
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { isKeyRelease, Key, matchesKey, visibleWidth } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { isKeyRelease, Key, matchesKey, visibleWidth } from "@iamjoyeb/ziki-tui";
 
 const GAME_WIDTH = 60;
 const GAME_HEIGHT = 24;

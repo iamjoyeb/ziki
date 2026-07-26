@@ -11,8 +11,8 @@ const outputDir = join(codingAgentDir, "install-lock");
 const rootLockfilePath = join(repoRoot, "package-lock.json");
 const outputPackageJsonPath = join(outputDir, "package.json");
 const outputLockfilePath = join(outputDir, "package-lock.json");
-const internalPackagePrefix = "@zikilabs/ziki-";
-const installPackageName = "@zikilabs/ziki-coding-agent-install";
+const internalPackagePrefix = "@iamjoyeb/ziki-";
+const installPackageName = "@iamjoyeb/ziki-coding-agent-install";
 const allowedInstallScriptPackages = new Map([
 	["@google/genai@1.52.0", "preinstall is a no-op in the published package"],
 	["protobufjs@7.6.5", "postinstall only warns about protobufjs version scheme mismatches"],

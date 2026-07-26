@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import type { ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import type { Model } from "@zikilabs/ziki-ai";
+import type { ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import type { Model } from "@iamjoyeb/ziki-ai";
 import { getAgentDir } from "../config.ts";
 import { resolvePath } from "../utils/paths.ts";
 import type { SessionStartEvent, ToolDefinition } from "./extensions/index.ts";

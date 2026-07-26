@@ -11,7 +11,7 @@
  * Start ziki with this extension:
  *   ziki -e ./examples/extensions/input-transform-streaming.ts
  */
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 const TRIGGER = /\b(changes?|diff|modified)\b/i;
 

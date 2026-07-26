@@ -4,7 +4,7 @@
  * Override settings using SettingsManager.
  */
 
-import { createAgentSession, SessionManager, SettingsManager } from "@zikilabs/ziki-coding-agent";
+import { createAgentSession, SessionManager, SettingsManager } from "@iamjoyeb/ziki-coding-agent";
 
 const cwd = process.cwd();
 

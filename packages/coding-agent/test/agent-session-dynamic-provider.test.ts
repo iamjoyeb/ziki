@@ -1,8 +1,8 @@
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Provider } from "@zikilabs/ziki-ai";
-import { getModel } from "@zikilabs/ziki-ai/compat";
+import type { Provider } from "@iamjoyeb/ziki-ai";
+import { getModel } from "@iamjoyeb/ziki-ai/compat";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { AuthStorage } from "../src/core/auth-storage.ts";
 import { ModelRuntime } from "../src/core/model-runtime.ts";

@@ -1,4 +1,4 @@
-import type { Model } from "@zikilabs/ziki-ai";
+import type { Model } from "@iamjoyeb/ziki-ai";
 import { describe, expect, test, vi } from "vitest";
 import {
 	defaultModelPerProvider,

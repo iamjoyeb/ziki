@@ -6,11 +6,11 @@ import { isAbsolute, join, relative, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const packages = [
-	{ directory: "packages/ai", name: "@zikilabs/ziki-ai" },
-	{ directory: "packages/tui", name: "@zikilabs/ziki-tui" },
-	{ directory: "packages/agent", name: "@zikilabs/ziki-agent-core" },
-	{ directory: "packages/storage/sqlite-node", name: "@zikilabs/ziki-storage-sqlite-node" },
-	{ directory: "packages/coding-agent", name: "@zikilabs/ziki-coding-agent" },
+	{ directory: "packages/ai", name: "@iamjoyeb/ziki-ai" },
+	{ directory: "packages/tui", name: "@iamjoyeb/ziki-tui" },
+	{ directory: "packages/agent", name: "@iamjoyeb/ziki-agent-core" },
+	{ directory: "packages/storage/sqlite-node", name: "@iamjoyeb/ziki-storage-sqlite-node" },
+	{ directory: "packages/coding-agent", name: "@iamjoyeb/ziki-coding-agent" },
 ];
 
 function printUsage() {

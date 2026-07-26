@@ -7,8 +7,8 @@
  * Usage: /status [message] - sends a status message with custom rendering
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { Box, Text } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { Box, Text } from "@iamjoyeb/ziki-tui";
 
 export default function (ziki: ExtensionAPI) {
 	// Register custom renderer for "status-update" messages

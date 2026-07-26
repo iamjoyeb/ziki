@@ -1,6 +1,6 @@
-import { Agent } from "@zikilabs/ziki-agent-core";
-import { createModels } from "@zikilabs/ziki-ai";
-import { anthropicProvider } from "@zikilabs/ziki-ai/providers/anthropic";
+import { Agent } from "@iamjoyeb/ziki-agent-core";
+import { createModels } from "@iamjoyeb/ziki-ai";
+import { anthropicProvider } from "@iamjoyeb/ziki-ai/providers/anthropic";
 
 const models = createModels();
 models.setProvider(anthropicProvider());

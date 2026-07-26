@@ -1,5 +1,5 @@
-import type { StreamFn } from "@zikilabs/ziki-agent-core";
-import { type AssistantMessage, createAssistantMessageEventStream, fauxAssistantMessage } from "@zikilabs/ziki-ai";
+import type { StreamFn } from "@iamjoyeb/ziki-agent-core";
+import { type AssistantMessage, createAssistantMessageEventStream, fauxAssistantMessage } from "@iamjoyeb/ziki-ai";
 import { afterEach, describe, expect, it } from "vitest";
 import { createHarness, type Harness } from "../harness.ts";
 

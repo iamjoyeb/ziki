@@ -3,8 +3,8 @@
 	"compilerOptions": {
 		"outDir": "./dist",
 		"paths": {
-			"@zikilabs/ziki-ai": ["../ai/dist/index.d.ts"],
-			"@zikilabs/ziki-ai/*": ["../ai/dist/*.d.ts", "../ai/dist/providers/*.d.ts"]
+			"@iamjoyeb/ziki-ai": ["../ai/dist/index.d.ts"],
+			"@iamjoyeb/ziki-ai/*": ["../ai/dist/*.d.ts", "../ai/dist/providers/*.d.ts"]
 		},
 		"rootDir": "./src"
 	},

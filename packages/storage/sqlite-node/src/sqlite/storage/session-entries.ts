@@ -1,4 +1,4 @@
-import type { SessionTreeEntry, SessionTreeEntryBase } from "@zikilabs/ziki-agent-core";
+import type { SessionTreeEntry, SessionTreeEntryBase } from "@iamjoyeb/ziki-agent-core";
 import { invalidEntry, isRecord } from "./shared.ts";
 
 export interface SessionEntryRow {

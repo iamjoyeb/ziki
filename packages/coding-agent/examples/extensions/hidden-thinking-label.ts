@@ -18,7 +18,7 @@
  *   /thinking-label          Reset to the default label
  */
 
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
 
 const DEFAULT_LABEL = "Pondering...";
 

@@ -2,8 +2,8 @@
  * Model resolution, scoping, and initial selection
  */
 
-import type { ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import { type Api, type KnownProvider, type Model, modelsAreEqual } from "@zikilabs/ziki-ai";
+import type { ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import { type Api, type KnownProvider, type Model, modelsAreEqual } from "@iamjoyeb/ziki-ai";
 import chalk from "chalk";
 import { minimatch } from "minimatch";
 import { isValidThinkingLevel } from "../cli/args.ts";

@@ -1,4 +1,4 @@
-import type { SessionStats, SessionTreeEntry, ThinkingLevel } from "@zikilabs/ziki-agent-core";
+import type { SessionStats, SessionTreeEntry, ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
 import { invalidSession, isRecord } from "./shared.ts";
 
 export interface SessionMaterializedRow {

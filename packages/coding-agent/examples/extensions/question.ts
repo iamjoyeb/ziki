@@ -4,8 +4,8 @@
  * Escape in editor returns to options, Escape in options cancels
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { Editor, type EditorTheme, Key, matchesKey, Text, visibleWidth, wrapTextWithAnsi } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { Editor, type EditorTheme, Key, matchesKey, Text, visibleWidth, wrapTextWithAnsi } from "@iamjoyeb/ziki-tui";
 import { Type } from "typebox";
 
 interface OptionWithDesc {

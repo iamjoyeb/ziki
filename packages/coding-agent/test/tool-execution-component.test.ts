@@ -1,5 +1,5 @@
 import { join, resolve } from "node:path";
-import { Text, type TUI } from "@zikilabs/ziki-tui";
+import { Text, type TUI } from "@iamjoyeb/ziki-tui";
 import { Type } from "typebox";
 import { beforeAll, describe, expect, test } from "vitest";
 import { getReadmePath } from "../src/config.ts";

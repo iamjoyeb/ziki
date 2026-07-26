@@ -7,7 +7,7 @@ import {
 	ModelRuntime,
 	SessionManager,
 	SettingsManager,
-} from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-coding-agent";
 import { createHarness, type SimpleHarnessResult } from "vitest-evals/harness";
 
 type EvalSession = Awaited<ReturnType<typeof createAgentSession>>["session"];

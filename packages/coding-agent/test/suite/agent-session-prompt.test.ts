@@ -1,8 +1,8 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { fauxAssistantMessage, fauxToolCall, type Model } from "@zikilabs/ziki-ai";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { fauxAssistantMessage, fauxToolCall, type Model } from "@iamjoyeb/ziki-ai";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import type { InputEvent } from "../../src/core/extensions/index.ts";

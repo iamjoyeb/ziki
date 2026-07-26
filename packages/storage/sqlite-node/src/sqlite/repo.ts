@@ -1,11 +1,11 @@
-import type { Session, SessionStorage, SessionTreeEntry } from "@zikilabs/ziki-agent-core";
+import type { Session, SessionStorage, SessionTreeEntry } from "@iamjoyeb/ziki-agent-core";
 import {
 	createSessionId,
 	getEntriesToFork,
 	getFileSystemResultOrThrow,
 	SessionError,
 	toSession,
-} from "@zikilabs/ziki-agent-core";
+} from "@iamjoyeb/ziki-agent-core";
 import { applyMigrations } from "./migrations.ts";
 import { SqliteSessionStorage } from "./storage/index.ts";
 import { rowToMetadata, type SessionRow } from "./storage/sessions.ts";

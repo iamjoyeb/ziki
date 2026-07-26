@@ -3,7 +3,7 @@
  *
  * Demonstrates ctx.getSystemPrompt() for accessing the effective system prompt.
  */
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("agent_start", (_event, ctx) => {

@@ -1,4 +1,4 @@
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
 
 const COMPACT_THRESHOLD_TOKENS = 100_000;
 

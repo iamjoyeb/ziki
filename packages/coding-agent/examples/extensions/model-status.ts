@@ -7,7 +7,7 @@
  * Usage: ziki -e ./model-status.ts
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("model_select", async (event, ctx) => {

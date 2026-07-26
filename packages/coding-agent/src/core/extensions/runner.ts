@@ -2,9 +2,9 @@
  * Extension runner - executes extensions and manages their lifecycle.
  */
 
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { ImageContent, Model, Provider, ProviderHeaders } from "@zikilabs/ziki-ai";
-import type { KeyId } from "@zikilabs/ziki-tui";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { ImageContent, Model, Provider, ProviderHeaders } from "@iamjoyeb/ziki-ai";
+import type { KeyId } from "@iamjoyeb/ziki-tui";
 import { type Theme, theme } from "../../modes/interactive/theme/theme.ts";
 import type { ResourceDiagnostic } from "../diagnostics.ts";
 import type { KeybindingsConfig } from "../keybindings.ts";

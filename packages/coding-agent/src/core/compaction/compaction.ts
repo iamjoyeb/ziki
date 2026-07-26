@@ -5,10 +5,10 @@
  * and after compaction the session is reloaded.
  */
 
-import type { AgentMessage, StreamFn, ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import { contentText, type RetryCallbacks, type RetryPolicy, retryAssistantCall, uuidv7 } from "@zikilabs/ziki-ai";
-import type { AssistantMessage, Context, Model, SimpleStreamOptions, Usage } from "@zikilabs/ziki-ai/compat";
-import { completeSimple } from "@zikilabs/ziki-ai/compat";
+import type { AgentMessage, StreamFn, ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import { contentText, type RetryCallbacks, type RetryPolicy, retryAssistantCall, uuidv7 } from "@iamjoyeb/ziki-ai";
+import type { AssistantMessage, Context, Model, SimpleStreamOptions, Usage } from "@iamjoyeb/ziki-ai/compat";
+import { completeSimple } from "@iamjoyeb/ziki-ai/compat";
 import { convertToLlm } from "../messages.ts";
 import {
 	buildSessionContext,

@@ -1,4 +1,4 @@
-import { type Model, modelsAreEqual } from "@zikilabs/ziki-ai";
+import { type Model, modelsAreEqual } from "@iamjoyeb/ziki-ai";
 import {
 	Container,
 	type Focusable,
@@ -8,7 +8,7 @@ import {
 	Spacer,
 	Text,
 	type TUI,
-} from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-tui";
 import type { ModelRuntime } from "../../../core/model-runtime.ts";
 import type { SettingsManager } from "../../../core/settings-manager.ts";
 import { getModelSelectorSearchText } from "../model-search.ts";

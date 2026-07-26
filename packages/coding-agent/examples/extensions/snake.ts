@@ -2,8 +2,8 @@
  * Snake game extension - play snake with /snake command
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { matchesKey, visibleWidth } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { matchesKey, visibleWidth } from "@iamjoyeb/ziki-tui";
 
 const GAME_WIDTH = 40;
 const GAME_HEIGHT = 15;

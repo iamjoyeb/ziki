@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import { Agent, type AgentMessage, setDefaultStreamFn, type ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import { clampThinkingLevel, type Message, type Model, streamSimple } from "@zikilabs/ziki-ai/compat";
+import { Agent, type AgentMessage, setDefaultStreamFn, type ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import { clampThinkingLevel, type Message, type Model, streamSimple } from "@iamjoyeb/ziki-ai/compat";
 import { getAgentDir } from "../config.ts";
 import { resolvePath } from "../utils/paths.ts";
 import { AgentSession } from "./agent-session.ts";
@@ -140,7 +140,7 @@ function getDefaultAgentDir(): string {
  * const { session } = await createAgentSession();
  *
  * // With explicit model
- * import { getModel } from '@zikilabs/ziki-ai';
+ * import { getModel } from '@iamjoyeb/ziki-ai';
  * const { session } = await createAgentSession({
  *   model: getModel('anthropic', 'claude-opus-4-5'),
  *   thinkingLevel: 'high',

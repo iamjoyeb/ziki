@@ -1,4 +1,4 @@
-import type { Component } from "@zikilabs/ziki-tui";
+import type { Component } from "@iamjoyeb/ziki-tui";
 import { theme } from "../theme/theme.ts";
 
 /**

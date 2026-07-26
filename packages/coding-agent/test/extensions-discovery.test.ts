@@ -55,7 +55,7 @@ describe("extensions discovery", () => {
 		fs.writeFileSync(
 			path.join(extensionsDir, "coding-agent-import.ts"),
 			`
-				import { getAgentDir } from "@zikilabs/ziki-coding-agent";
+				import { getAgentDir } from "@iamjoyeb/ziki-coding-agent";
 				void getAgentDir;
 				export default function(ziki) {
 					ziki.registerCommand("test", { handler: async () => {} });
@@ -73,7 +73,7 @@ describe("extensions discovery", () => {
 		fs.writeFileSync(
 			path.join(extensionsDir, "oauth-import.ts"),
 			`
-				import * as oauth from "@zikilabs/ziki-ai/oauth";
+				import * as oauth from "@iamjoyeb/ziki-ai/oauth";
 				void oauth;
 				export default function(ziki) {
 					ziki.registerCommand("test", { handler: async () => {} });

@@ -1,4 +1,4 @@
-import { bedrockProviderModule } from "@zikilabs/ziki-ai/bedrock-provider";
-import { setBedrockProviderModule } from "@zikilabs/ziki-ai/compat";
+import { bedrockProviderModule } from "@iamjoyeb/ziki-ai/bedrock-provider";
+import { setBedrockProviderModule } from "@iamjoyeb/ziki-ai/compat";
 
 setBedrockProviderModule(bedrockProviderModule);

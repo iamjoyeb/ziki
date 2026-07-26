@@ -10,7 +10,7 @@
  * extensions system using ziki.registerTool().
  */
 
-import { createAgentSession, SessionManager } from "@zikilabs/ziki-coding-agent";
+import { createAgentSession, SessionManager } from "@iamjoyeb/ziki-coding-agent";
 
 // Read-only mode (no edit/write)
 const { session: readOnlySession } = await createAgentSession({

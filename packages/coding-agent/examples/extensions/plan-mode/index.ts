@@ -12,10 +12,10 @@
  * - Progress tracking widget during execution
  */
 
-import type { AgentMessage } from "@zikilabs/ziki-agent-core";
-import type { AssistantMessage, TextContent } from "@zikilabs/ziki-ai";
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
-import { Key } from "@zikilabs/ziki-tui";
+import type { AgentMessage } from "@iamjoyeb/ziki-agent-core";
+import type { AssistantMessage, TextContent } from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
+import { Key } from "@iamjoyeb/ziki-tui";
 import { extractTodoItems, isSafeCommand, markCompletedSteps, type TodoItem } from "./utils.ts";
 
 // Tools

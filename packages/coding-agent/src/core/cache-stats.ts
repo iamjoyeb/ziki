@@ -1,4 +1,4 @@
-import type { AssistantMessage } from "@zikilabs/ziki-ai";
+import type { AssistantMessage } from "@iamjoyeb/ziki-ai";
 import type { SessionEntry } from "./session-manager.ts";
 
 /**

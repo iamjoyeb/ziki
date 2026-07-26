@@ -188,8 +188,8 @@ describe("detectInstallMethod", () => {
 		);
 
 		expect(detectInstallMethod()).toBe("pnpm");
-		expect(getUpdateInstruction("@zikilabs/ziki-coding-agent")).toBe(
-			"Run: pnpm install -g --ignore-scripts --config.minimumReleaseAge=0 @zikilabs/ziki-coding-agent",
+		expect(getUpdateInstruction("@iamjoyeb/ziki-coding-agent")).toBe(
+			"Run: pnpm install -g --ignore-scripts --config.minimumReleaseAge=0 @iamjoyeb/ziki-coding-agent",
 		);
 	});
 
@@ -197,16 +197,16 @@ describe("detectInstallMethod", () => {
 		setExecPath("/usr/local/bin/node");
 
 		expect(detectInstallMethod()).toBe("unknown");
-		expect(getSelfUpdateCommand("@zikilabs/ziki-coding-agent")).toBeUndefined();
-		expect(getUpdateInstruction("@zikilabs/ziki-coding-agent")).toBe(
-			"Update @zikilabs/ziki-coding-agent using the package manager, wrapper, or source checkout that provides this installation.",
+		expect(getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent")).toBeUndefined();
+		expect(getUpdateInstruction("@iamjoyeb/ziki-coding-agent")).toBe(
+			"Update @iamjoyeb/ziki-coding-agent using the package manager, wrapper, or source checkout that provides this installation.",
 		);
 	});
 
 	test("self-updates npm installs from custom prefixes", () => {
 		const { prefix } = createNpmPrefixInstall();
 
-		const command = getSelfUpdateCommand("@zikilabs/ziki-coding-agent");
+		const command = getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent");
 
 		expect(detectInstallMethod()).toBe("npm");
 		expect(command).toEqual({
@@ -218,18 +218,18 @@ describe("detectInstallMethod", () => {
 				"-g",
 				"--ignore-scripts",
 				"--min-release-age=0",
-				"@zikilabs/ziki-coding-agent",
+				"@iamjoyeb/ziki-coding-agent",
 			],
-			display: `npm --prefix ${prefix} install -g --ignore-scripts --min-release-age=0 @zikilabs/ziki-coding-agent`,
+			display: `npm --prefix ${prefix} install -g --ignore-scripts --min-release-age=0 @iamjoyeb/ziki-coding-agent`,
 		});
 	});
 
 	test("self-updates exact npm versions without uninstalling the current package", () => {
 		const { prefix } = createNpmPrefixInstall();
 
-		const command = getSelfUpdateCommand("@zikilabs/ziki-coding-agent", undefined, {
-			packageName: "@zikilabs/ziki-coding-agent",
-			installSpec: "@zikilabs/ziki-coding-agent@1.2.3",
+		const command = getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent", undefined, {
+			packageName: "@iamjoyeb/ziki-coding-agent",
+			installSpec: "@iamjoyeb/ziki-coding-agent@1.2.3",
 		});
 
 		expect(command).toEqual({
@@ -241,9 +241,9 @@ describe("detectInstallMethod", () => {
 				"-g",
 				"--ignore-scripts",
 				"--min-release-age=0",
-				"@zikilabs/ziki-coding-agent@1.2.3",
+				"@iamjoyeb/ziki-coding-agent@1.2.3",
 			],
-			display: `npm --prefix ${prefix} install -g --ignore-scripts --min-release-age=0 @zikilabs/ziki-coding-agent@1.2.3`,
+			display: `npm --prefix ${prefix} install -g --ignore-scripts --min-release-age=0 @iamjoyeb/ziki-coding-agent@1.2.3`,
 		});
 	});
 
@@ -282,7 +282,7 @@ describe("detectInstallMethod", () => {
 	test("self-update respects configured npmCommand", () => {
 		const { prefix } = createNpmPrefixInstall();
 
-		const command = getSelfUpdateCommand("@zikilabs/ziki-coding-agent", ["npm", "--prefix", prefix]);
+		const command = getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent", ["npm", "--prefix", prefix]);
 
 		expect(command).toEqual({
 			command: "npm",
@@ -293,16 +293,16 @@ describe("detectInstallMethod", () => {
 				"-g",
 				"--ignore-scripts",
 				"--min-release-age=0",
-				"@zikilabs/ziki-coding-agent",
+				"@iamjoyeb/ziki-coding-agent",
 			],
-			display: `npm --prefix ${prefix} install -g --ignore-scripts --min-release-age=0 @zikilabs/ziki-coding-agent`,
+			display: `npm --prefix ${prefix} install -g --ignore-scripts --min-release-age=0 @iamjoyeb/ziki-coding-agent`,
 		});
 	});
 
 	test("self-update treats empty npmCommand as unset", () => {
 		const { prefix } = createNpmPrefixInstall();
 
-		const command = getSelfUpdateCommand("@zikilabs/ziki-coding-agent", []);
+		const command = getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent", []);
 
 		expect(command?.args).toEqual([
 			"--prefix",
@@ -311,17 +311,17 @@ describe("detectInstallMethod", () => {
 			"-g",
 			"--ignore-scripts",
 			"--min-release-age=0",
-			"@zikilabs/ziki-coding-agent",
+			"@iamjoyeb/ziki-coding-agent",
 		]);
 	});
 
 	test("quotes npm self-update display paths", () => {
 		const { prefix } = createNpmPrefixInstall("ziki prefix ");
 
-		const command = getSelfUpdateCommand("@zikilabs/ziki-coding-agent");
+		const command = getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent");
 
 		expect(command?.display).toBe(
-			`npm --prefix "${prefix}" install -g --ignore-scripts --min-release-age=0 @zikilabs/ziki-coding-agent`,
+			`npm --prefix "${prefix}" install -g --ignore-scripts --min-release-age=0 @iamjoyeb/ziki-coding-agent`,
 		);
 	});
 
@@ -331,21 +331,21 @@ describe("detectInstallMethod", () => {
 		setExecPath(`${packageDir}\\dist\\cli.js`);
 
 		expect(detectInstallMethod()).toBe("npm");
-		expect(getUpdateInstruction("@zikilabs/ziki-coding-agent")).toBe(
-			"Run: npm install -g --ignore-scripts --min-release-age=0 @zikilabs/ziki-coding-agent",
+		expect(getUpdateInstruction("@iamjoyeb/ziki-coding-agent")).toBe(
+			"Run: npm install -g --ignore-scripts --min-release-age=0 @iamjoyeb/ziki-coding-agent",
 		);
 	});
 
 	test("self-updates bun global installs from bun pm bin", () => {
 		createBunGlobalInstall();
 
-		const command = getSelfUpdateCommand("@zikilabs/ziki-coding-agent");
+		const command = getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent");
 
 		expect(detectInstallMethod()).toBe("bun");
 		expect(command).toEqual({
 			command: "bun",
-			args: ["install", "-g", "--ignore-scripts", "--minimum-release-age=0", "@zikilabs/ziki-coding-agent"],
-			display: "bun install -g --ignore-scripts --minimum-release-age=0 @zikilabs/ziki-coding-agent",
+			args: ["install", "-g", "--ignore-scripts", "--minimum-release-age=0", "@iamjoyeb/ziki-coding-agent"],
+			display: "bun install -g --ignore-scripts --minimum-release-age=0 @iamjoyeb/ziki-coding-agent",
 		});
 	});
 
@@ -379,7 +379,7 @@ describe("detectInstallMethod", () => {
 		const temp = mkdtempSync(join(tmpdir(), "ziki-pnpm11-"));
 		const binDir = join(temp, "bin");
 		const root = join(temp, "Library", "pnpm", "global", "v11");
-		const packageName = "@zikilabs/ziki-coding-agent";
+		const packageName = "@iamjoyeb/ziki-coding-agent";
 		const globalPackageDir = join(root, "11e9a", "node_modules", "@earendil-works", "pi-coding-agent");
 		const storePackageDir = join(
 			temp,
@@ -479,8 +479,8 @@ describe("detectInstallMethod", () => {
 		writeFileSync(packageDir, "");
 		chmodSync(packageDir, 0o400);
 
-		expect(getSelfUpdateCommand("@zikilabs/ziki-coding-agent")).toBeUndefined();
-		expect(getSelfUpdateUnavailableInstruction("@zikilabs/ziki-coding-agent")).toContain(
+		expect(getSelfUpdateCommand("@iamjoyeb/ziki-coding-agent")).toBeUndefined();
+		expect(getSelfUpdateUnavailableInstruction("@iamjoyeb/ziki-coding-agent")).toContain(
 			"the install path is not writable",
 		);
 	});

@@ -1,4 +1,4 @@
-import { Editor, type EditorOptions, type EditorTheme, type TUI } from "@zikilabs/ziki-tui";
+import { Editor, type EditorOptions, type EditorTheme, type TUI } from "@iamjoyeb/ziki-tui";
 import type { AppKeybinding, KeybindingsManager } from "../../../core/keybindings.ts";
 
 /**

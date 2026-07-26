@@ -7,7 +7,7 @@
  * - /timed-signal - Shows confirm using AbortSignal (manual approach)
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	// Simple approach: use timeout option (recommended)

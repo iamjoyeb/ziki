@@ -2,7 +2,7 @@
  * Utilities for formatting keybinding hints in the UI.
  */
 
-import { getKeybindings, type Keybinding, type KeyId } from "@zikilabs/ziki-tui";
+import { getKeybindings, type Keybinding, type KeyId } from "@iamjoyeb/ziki-tui";
 import { theme } from "../theme/theme.ts";
 
 export interface KeyTextFormatOptions {

@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import type { Transport } from "@zikilabs/ziki-ai";
+import type { ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import type { Transport } from "@iamjoyeb/ziki-ai";
 import {
 	type Component,
 	Container,
@@ -11,7 +11,7 @@ import {
 	SettingsList,
 	Spacer,
 	Text,
-} from "@zikilabs/ziki-tui";
+} from "@iamjoyeb/ziki-tui";
 import { formatHttpIdleTimeoutMs, HTTP_IDLE_TIMEOUT_CHOICES } from "../../../core/http-dispatcher.ts";
 import type { DefaultProjectTrust, WarningSettings } from "../../../core/settings-manager.ts";
 import {

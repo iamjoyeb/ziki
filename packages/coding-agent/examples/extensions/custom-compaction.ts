@@ -13,10 +13,10 @@
  *   ziki --extension examples/extensions/custom-compaction.ts
  */
 
-import { uuidv7 } from "@zikilabs/ziki-ai";
-import { complete } from "@zikilabs/ziki-ai/compat";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { convertToLlm, serializeConversation } from "@zikilabs/ziki-coding-agent";
+import { uuidv7 } from "@iamjoyeb/ziki-ai";
+import { complete } from "@iamjoyeb/ziki-ai/compat";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { convertToLlm, serializeConversation } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.on("session_before_compact", async (event, ctx) => {

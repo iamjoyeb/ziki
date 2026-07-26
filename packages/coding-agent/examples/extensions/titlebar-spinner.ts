@@ -9,7 +9,7 @@
  */
 
 import path from "node:path";
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
 
 const BRAILLE_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 

@@ -7,8 +7,8 @@
  * (issues #6259, #6276).
  */
 
-import type { AgentMessage, AgentToolResult } from "@zikilabs/ziki-agent-core";
-import { fauxAssistantMessage, fauxToolCall } from "@zikilabs/ziki-ai";
+import type { AgentMessage, AgentToolResult } from "@iamjoyeb/ziki-agent-core";
+import { fauxAssistantMessage, fauxToolCall } from "@iamjoyeb/ziki-ai";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import { type SessionEntry, sessionEntryToContextMessages } from "../../src/core/session-manager.ts";

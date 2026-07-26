@@ -20,8 +20,8 @@
  *   ziki -e ./tool-override.ts
  */
 
-import type { TextContent } from "@zikilabs/ziki-ai";
-import { type ExtensionAPI, getAgentDir, withFileMutationQueue } from "@zikilabs/ziki-coding-agent";
+import type { TextContent } from "@iamjoyeb/ziki-ai";
+import { type ExtensionAPI, getAgentDir, withFileMutationQueue } from "@iamjoyeb/ziki-coding-agent";
 import { constants, readFileSync } from "fs";
 import { access, appendFile, readFile } from "fs/promises";
 import { join, resolve } from "path";

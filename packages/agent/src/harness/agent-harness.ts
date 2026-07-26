@@ -7,7 +7,7 @@ import {
 	type RetryCallbacks,
 	type RetryPolicy,
 	type UserMessage,
-} from "@zikilabs/ziki-ai";
+} from "@iamjoyeb/ziki-ai";
 import { runAgentLoop } from "../agent-loop.ts";
 import type {
 	AgentContext,

@@ -6,7 +6,7 @@
  */
 
 import { createInterface } from "node:readline";
-import { type ImageContent, modelsAreEqual } from "@zikilabs/ziki-ai";
+import { type ImageContent, modelsAreEqual } from "@iamjoyeb/ziki-ai";
 import chalk from "chalk";
 import { type Args, type Mode, parseArgs, printHelp } from "./cli/args.ts";
 import { processFileArguments } from "./cli/file-processor.ts";

@@ -6,7 +6,7 @@ import type {
 	RpcExtensionUIRequest,
 	RpcExtensionUIResponse,
 	RpcResponse,
-} from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-coding-agent";
 import { radiusPresence } from "./radius.ts";
 import { createRpcProcessInstance, type RpcProcessInstance } from "./rpc-process.ts";
 import { getInstance, loadInstances, removeInstance, saveInstances, upsertInstance } from "./storage.ts";

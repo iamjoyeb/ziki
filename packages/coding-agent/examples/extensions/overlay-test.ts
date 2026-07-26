@@ -8,8 +8,8 @@
  * - Edge case tests (wide chars, styled text, emoji)
  */
 
-import type { ExtensionAPI, ExtensionCommandContext, Theme } from "@zikilabs/ziki-coding-agent";
-import { CURSOR_MARKER, type Focusable, matchesKey, visibleWidth } from "@zikilabs/ziki-tui";
+import type { ExtensionAPI, ExtensionCommandContext, Theme } from "@iamjoyeb/ziki-coding-agent";
+import { CURSOR_MARKER, type Focusable, matchesKey, visibleWidth } from "@iamjoyeb/ziki-tui";
 
 export default function (ziki: ExtensionAPI) {
 	ziki.registerCommand("overlay-test", {

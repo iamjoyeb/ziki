@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "@zikilabs/ziki-agent-core";
-import type { Transport } from "@zikilabs/ziki-ai";
+import type { ThinkingLevel } from "@iamjoyeb/ziki-agent-core";
+import type { Transport } from "@iamjoyeb/ziki-ai";
 import { randomUUID } from "crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";

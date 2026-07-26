@@ -1,4 +1,4 @@
-import type { ImageContent, TextContent, Usage } from "@zikilabs/ziki-ai";
+import type { ImageContent, TextContent, Usage } from "@iamjoyeb/ziki-ai";
 import type { AgentMessage } from "../../types.ts";
 import { createBranchSummaryMessage, createCompactionSummaryMessage, createCustomMessage } from "../messages.ts";
 import type {

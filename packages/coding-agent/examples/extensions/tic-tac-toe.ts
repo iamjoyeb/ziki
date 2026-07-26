@@ -17,9 +17,9 @@
  * separate variables. Only the agent cursor is ever exposed to the agent.
  */
 
-import { StringEnum } from "@zikilabs/ziki-ai";
-import type { ExtensionAPI, ExtensionContext, Theme, ToolExecutionMode } from "@zikilabs/ziki-coding-agent";
-import { type Component, matchesKey, Text, truncateToWidth, visibleWidth } from "@zikilabs/ziki-tui";
+import { StringEnum } from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI, ExtensionContext, Theme, ToolExecutionMode } from "@iamjoyeb/ziki-coding-agent";
+import { type Component, matchesKey, Text, truncateToWidth, visibleWidth } from "@iamjoyeb/ziki-tui";
 import { Type } from "typebox";
 
 // Thrown from the tool on illegal actions. The agent runtime surfaces thrown

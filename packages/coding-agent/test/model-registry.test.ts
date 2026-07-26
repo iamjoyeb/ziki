@@ -1,8 +1,8 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AnthropicMessagesCompat, Api, Context, Model, OpenAICompletionsCompat } from "@zikilabs/ziki-ai/compat";
-import { getApiProvider, getSupportedThinkingLevels } from "@zikilabs/ziki-ai/compat";
+import type { AnthropicMessagesCompat, Api, Context, Model, OpenAICompletionsCompat } from "@iamjoyeb/ziki-ai/compat";
+import { getApiProvider, getSupportedThinkingLevels } from "@iamjoyeb/ziki-ai/compat";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { AuthStorage } from "../src/core/auth-storage.ts";
 import { clearApiKeyCache, type ModelRegistry, type ProviderConfigInput } from "../src/core/model-registry.ts";

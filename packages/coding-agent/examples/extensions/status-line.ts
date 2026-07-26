@@ -5,7 +5,7 @@
  * Shows turn progress with themed colors.
  */
 
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 export default function (ziki: ExtensionAPI) {
 	let turnCount = 0;

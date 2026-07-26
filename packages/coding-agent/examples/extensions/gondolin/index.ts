@@ -21,7 +21,7 @@
 
 import path from "node:path";
 import { RealFSProvider, VM } from "@earendil-works/gondolin";
-import type { ExtensionAPI, ExtensionContext } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@iamjoyeb/ziki-coding-agent";
 import {
 	type BashOperations,
 	createBashTool,
@@ -42,7 +42,7 @@ import {
 	truncateHead,
 	truncateLine,
 	type WriteOperations,
-} from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-coding-agent";
 
 const GUEST_WORKSPACE = "/workspace";
 const DEFAULT_GREP_LIMIT = 100;

@@ -5,10 +5,10 @@
  * a summary of the branch being left so context isn't lost.
  */
 
-import type { AgentMessage, StreamFn } from "@zikilabs/ziki-agent-core";
-import type { RetryCallbacks, RetryPolicy } from "@zikilabs/ziki-ai";
-import { contentText } from "@zikilabs/ziki-ai";
-import type { Model, SimpleStreamOptions, Usage } from "@zikilabs/ziki-ai/compat";
+import type { AgentMessage, StreamFn } from "@iamjoyeb/ziki-agent-core";
+import type { RetryCallbacks, RetryPolicy } from "@iamjoyeb/ziki-ai";
+import { contentText } from "@iamjoyeb/ziki-ai";
+import type { Model, SimpleStreamOptions, Usage } from "@iamjoyeb/ziki-ai/compat";
 import {
 	convertToLlm,
 	createBranchSummaryMessage,

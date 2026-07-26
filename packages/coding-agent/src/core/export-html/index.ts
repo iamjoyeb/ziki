@@ -1,4 +1,4 @@
-import type { AgentState } from "@zikilabs/ziki-agent-core";
+import type { AgentState } from "@iamjoyeb/ziki-agent-core";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { basename, join } from "path";
 import { APP_NAME, getExportTemplateDir } from "../../config.ts";

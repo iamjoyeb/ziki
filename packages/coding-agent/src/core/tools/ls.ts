@@ -1,6 +1,6 @@
 import { readdir as fsReaddir, stat as fsStat } from "node:fs/promises";
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { Text } from "@zikilabs/ziki-tui";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { Text } from "@iamjoyeb/ziki-tui";
 import nodePath from "path";
 import { type Static, Type } from "typebox";
 import { keyHint } from "../../modes/interactive/components/keybinding-hints.ts";

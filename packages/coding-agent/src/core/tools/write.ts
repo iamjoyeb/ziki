@@ -1,5 +1,5 @@
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import { Container, Text } from "@zikilabs/ziki-tui";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import { Container, Text } from "@iamjoyeb/ziki-tui";
 import { mkdir as fsMkdir, writeFile as fsWriteFile } from "fs/promises";
 import { dirname } from "path";
 import { type Static, Type } from "typebox";

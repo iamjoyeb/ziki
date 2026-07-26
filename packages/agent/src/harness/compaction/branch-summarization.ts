@@ -1,4 +1,4 @@
-import { contentText, type Model, type Models, type RetryCallbacks, type RetryPolicy } from "@zikilabs/ziki-ai";
+import { contentText, type Model, type Models, type RetryCallbacks, type RetryPolicy } from "@iamjoyeb/ziki-ai";
 
 import type { AgentMessage } from "../../types.ts";
 import {

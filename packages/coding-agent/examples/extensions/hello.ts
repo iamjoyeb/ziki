@@ -2,8 +2,8 @@
  * Hello Tool - Minimal custom tool example
  */
 
-import { Type } from "@zikilabs/ziki-ai";
-import { defineTool, type ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import { Type } from "@iamjoyeb/ziki-ai";
+import { defineTool, type ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 const helloTool = defineTool({
 	name: "hello",

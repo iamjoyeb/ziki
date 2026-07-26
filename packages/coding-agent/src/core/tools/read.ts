@@ -1,7 +1,7 @@
 import { basename, dirname, isAbsolute, relative, resolve as resolvePath, sep } from "node:path";
-import type { AgentTool } from "@zikilabs/ziki-agent-core";
-import type { Api, ImageContent, Model, TextContent } from "@zikilabs/ziki-ai";
-import { Text } from "@zikilabs/ziki-tui";
+import type { AgentTool } from "@iamjoyeb/ziki-agent-core";
+import type { Api, ImageContent, Model, TextContent } from "@iamjoyeb/ziki-ai";
+import { Text } from "@iamjoyeb/ziki-tui";
 import { constants } from "fs";
 import { access as fsAccess, readFile as fsReadFile } from "fs/promises";
 import { type Static, Type } from "typebox";

@@ -3,10 +3,10 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"paths": {
-			"@zikilabs/ziki-coding-agent": ["./src/index.ts"],
-			"@zikilabs/ziki-coding-agent/hooks": ["./src/core/hooks/index.ts"],
-			"@zikilabs/ziki-tui": ["../tui/src/index.ts"],
-			"@zikilabs/ziki-ai": ["../ai/src/index.ts"],
+			"@iamjoyeb/ziki-coding-agent": ["./src/index.ts"],
+			"@iamjoyeb/ziki-coding-agent/hooks": ["./src/core/hooks/index.ts"],
+			"@iamjoyeb/ziki-tui": ["../tui/src/index.ts"],
+			"@iamjoyeb/ziki-ai": ["../ai/src/index.ts"],
 			"typebox": ["../../node_modules/typebox"]
 		},
 		"skipLibCheck": true

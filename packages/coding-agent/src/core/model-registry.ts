@@ -1,4 +1,4 @@
-import type { Api, AuthResult, Model, Provider } from "@zikilabs/ziki-ai";
+import type { Api, AuthResult, Model, Provider } from "@iamjoyeb/ziki-ai";
 import type { ModelRuntime } from "./model-runtime.ts";
 import type { AuthStatus, ProviderConfigInput } from "./provider-composer.ts";
 

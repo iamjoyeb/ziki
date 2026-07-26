@@ -6,10 +6,10 @@ import { createModelRegistry, getModelRuntime } from "./model-runtime-test-utils
 import { chmodSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { Agent } from "@zikilabs/ziki-agent-core";
-import type { OAuthCredentials } from "@zikilabs/ziki-ai";
-import { getModel, streamSimple } from "@zikilabs/ziki-ai/compat";
-import { builtinProviders } from "@zikilabs/ziki-ai/providers/all";
+import { Agent } from "@iamjoyeb/ziki-agent-core";
+import type { OAuthCredentials } from "@iamjoyeb/ziki-ai";
+import { getModel, streamSimple } from "@iamjoyeb/ziki-ai/compat";
+import { builtinProviders } from "@iamjoyeb/ziki-ai/providers/all";
 import { AgentSession } from "../src/core/agent-session.ts";
 import { AuthStorage } from "../src/core/auth-storage.ts";
 import { createEventBus } from "../src/core/event-bus.ts";

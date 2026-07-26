@@ -1,8 +1,8 @@
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { createModels } from "@zikilabs/ziki-ai";
-import { cloudflareAIGatewayProvider } from "@zikilabs/ziki-ai/providers/cloudflare-ai-gateway";
-import { openaiProvider } from "@zikilabs/ziki-ai/providers/openai";
+import { createModels } from "@iamjoyeb/ziki-ai";
+import { cloudflareAIGatewayProvider } from "@iamjoyeb/ziki-ai/providers/cloudflare-ai-gateway";
+import { openaiProvider } from "@iamjoyeb/ziki-ai/providers/openai";
 import { NodeExecutionEnv } from "../../src/harness/env/nodejs.ts";
 import { InMemorySessionStorage } from "../../src/harness/session/memory-storage.ts";
 import {

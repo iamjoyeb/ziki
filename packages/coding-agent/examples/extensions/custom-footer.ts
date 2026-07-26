@@ -8,9 +8,9 @@
  * Token stats come from ctx.sessionManager/ctx.model (already accessible).
  */
 
-import type { AssistantMessage } from "@zikilabs/ziki-ai";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
-import { truncateToWidth, visibleWidth } from "@zikilabs/ziki-tui";
+import type { AssistantMessage } from "@iamjoyeb/ziki-ai";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
+import { truncateToWidth, visibleWidth } from "@iamjoyeb/ziki-tui";
 
 export default function (ziki: ExtensionAPI) {
 	let enabled = false;

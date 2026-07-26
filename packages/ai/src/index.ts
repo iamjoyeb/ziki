@@ -3,9 +3,9 @@ export { Type } from "typebox";
 
 // Core only, side-effect free: no generated catalogs, no provider factories,
 // no api-registry, no OAuth implementations, no compat. Provider factories
-// live under "@zikilabs/ziki-ai/providers/*", API implementations under
-// "@zikilabs/ziki-ai/api/*", the old global API under
-// "@zikilabs/ziki-ai/compat".
+// live under "@iamjoyeb/ziki-ai/providers/*", API implementations under
+// "@iamjoyeb/ziki-ai/api/*", the old global API under
+// "@iamjoyeb/ziki-ai/compat".
 export type { AnthropicEffort, AnthropicOptions, AnthropicThinkingDisplay } from "./api/anthropic-messages.ts";
 export type { AzureOpenAIResponsesOptions } from "./api/azure-openai-responses.ts";
 export type { BedrockOptions, BedrockThinkingDisplay } from "./api/bedrock-converse-stream.ts";

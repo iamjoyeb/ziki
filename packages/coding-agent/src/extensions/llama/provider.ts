@@ -6,8 +6,8 @@ import type {
 	Provider,
 	ProviderStreamOptions,
 	RefreshModelsContext,
-} from "@zikilabs/ziki-ai";
-import { stream, streamSimple } from "@zikilabs/ziki-ai/compat";
+} from "@iamjoyeb/ziki-ai";
+import { stream, streamSimple } from "@iamjoyeb/ziki-ai/compat";
 import { LlamaClient, type LlamaModelInfo, llamaInferenceUrl, normalizeLlamaServerUrl } from "./client.ts";
 
 export const LLAMA_PROVIDER_ID = "llama.cpp";

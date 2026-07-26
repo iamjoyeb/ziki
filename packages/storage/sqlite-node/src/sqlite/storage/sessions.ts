@@ -1,4 +1,4 @@
-import { SessionError } from "@zikilabs/ziki-agent-core";
+import { SessionError } from "@iamjoyeb/ziki-agent-core";
 import type { SqliteSessionMetadata } from "../types.ts";
 
 export interface SessionRow {

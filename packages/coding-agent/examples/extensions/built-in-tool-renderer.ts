@@ -25,9 +25,9 @@
  *   ziki -e ./built-in-tool-renderer.ts
  */
 
-import type { BashToolDetails, EditToolDetails, ExtensionAPI, ReadToolDetails } from "@zikilabs/ziki-coding-agent";
-import { createBashTool, createEditTool, createReadTool, createWriteTool } from "@zikilabs/ziki-coding-agent";
-import { Text } from "@zikilabs/ziki-tui";
+import type { BashToolDetails, EditToolDetails, ExtensionAPI, ReadToolDetails } from "@iamjoyeb/ziki-coding-agent";
+import { createBashTool, createEditTool, createReadTool, createWriteTool } from "@iamjoyeb/ziki-coding-agent";
+import { Text } from "@iamjoyeb/ziki-tui";
 
 export default function (ziki: ExtensionAPI) {
 	const cwd = process.cwd();

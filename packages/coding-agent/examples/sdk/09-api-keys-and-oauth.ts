@@ -4,7 +4,7 @@
  * Configure provider auth through ModelRuntime.
  */
 
-import { createAgentSession, ModelRuntime, SessionManager } from "@zikilabs/ziki-coding-agent";
+import { createAgentSession, ModelRuntime, SessionManager } from "@iamjoyeb/ziki-coding-agent";
 
 const modelRuntime = await ModelRuntime.create();
 const { session: defaultAuthSession } = await createAgentSession({
