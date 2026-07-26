@@ -1,12 +1,12 @@
 {
 	"name": "@iamjoyeb/ziki-coding-agent",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"lockfileVersion": 3,
 	"requires": true,
 	"packages": {
 		"": {
 			"name": "@iamjoyeb/ziki-coding-agent",
-			"version": "0.0.1",
+			"version": "0.0.2",
 			"license": "MIT",
 			"dependencies": {
 				"@iamjoyeb/ziki-agent-core": "^0.0.1",
@@ -498,8 +498,8 @@
 			"hasInstallScript": true
 		},
 		"node_modules/@iamjoyeb/ziki-agent-core": {
-			"version": "0.0.1",
-			"resolved": "https://registry.npmjs.org/@iamjoyeb/ziki-agent-core/-/ziki-agent-core-0.0.1.tgz",
+			"version": "0.0.2",
+			"resolved": "https://registry.npmjs.org/@iamjoyeb/ziki-agent-core/-/ziki-agent-core-0.0.2.tgz",
 			"license": "MIT",
 			"dependencies": {
 				"@iamjoyeb/ziki-ai": "^0.0.1",
@@ -513,8 +513,8 @@
 			}
 		},
 		"node_modules/@iamjoyeb/ziki-ai": {
-			"version": "0.0.1",
-			"resolved": "https://registry.npmjs.org/@iamjoyeb/ziki-ai/-/ziki-ai-0.0.1.tgz",
+			"version": "0.0.2",
+			"resolved": "https://registry.npmjs.org/@iamjoyeb/ziki-ai/-/ziki-ai-0.0.2.tgz",
 			"license": "MIT",
 			"dependencies": {
 				"@anthropic-ai/sdk": "0.91.1",
@@ -537,8 +537,8 @@
 			}
 		},
 		"node_modules/@iamjoyeb/ziki-tui": {
-			"version": "0.0.1",
-			"resolved": "https://registry.npmjs.org/@iamjoyeb/ziki-tui/-/ziki-tui-0.0.1.tgz",
+			"version": "0.0.2",
+			"resolved": "https://registry.npmjs.org/@iamjoyeb/ziki-tui/-/ziki-tui-0.0.2.tgz",
 			"license": "MIT",
 			"dependencies": {
 				"get-east-asian-width": "1.6.0",

@@ -1,7 +1,7 @@
 import { compare, valid } from "semver";
-import { getPiUserAgent } from "./ziki-user-agent.ts";
+import { PACKAGE_NAME } from "../config.ts";
 
-const LATEST_VERSION_URL = "https://pi.dev/api/latest-version";
+const NPM_LATEST_URL = `https://registry.npmjs.org/${PACKAGE_NAME}/latest`;
 const DEFAULT_VERSION_CHECK_TIMEOUT_MS = 10000;
 
 export interface LatestPiRelease {
@@ -28,36 +28,23 @@ export function isNewerPackageVersion(candidateVersion: string, currentVersion: 
 }
 
 export async function getLatestPiRelease(
-	currentVersion: string,
+	_currentVersion: string,
 	options: { timeoutMs?: number } = {},
 ): Promise<LatestPiRelease | undefined> {
 	if (process.env.ZIKI_OFFLINE) return undefined;
 
-	const response = await fetch(LATEST_VERSION_URL, {
-		headers: {
-			"User-Agent": getPiUserAgent(currentVersion),
-			accept: "application/json",
-		},
+	const response = await fetch(NPM_LATEST_URL, {
 		signal: AbortSignal.timeout(options.timeoutMs ?? DEFAULT_VERSION_CHECK_TIMEOUT_MS),
 	});
 	if (!response.ok) return undefined;
 
 	const data = (await response.json()) as {
-		packageName?: unknown;
 		version?: unknown;
-		note?: unknown;
 	};
 	if (typeof data.version !== "string" || !data.version.trim()) {
 		return undefined;
 	}
-	const packageName =
-		typeof data.packageName === "string" && data.packageName.trim() ? data.packageName.trim() : undefined;
-	const note = typeof data.note === "string" && data.note.trim() ? data.note.trim() : undefined;
-	return {
-		version: data.version.trim(),
-		packageName,
-		...(note ? { note } : {}),
-	};
+	return { version: data.version.trim() };
 }
 
 export async function getLatestPiVersion(
