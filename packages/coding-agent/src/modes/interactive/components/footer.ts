@@ -40,7 +40,9 @@ export function formatCwdForFooter(cwd: string, home: string | undefined): strin
 		(relativeToHome !== ".." && !relativeToHome.startsWith(`..${sep}`) && !isAbsolute(relativeToHome));
 
 	if (!isInsideHome) return cwd;
-	return relativeToHome === "" ? "~" : `~${sep}${relativeToHome}`;
+	// Normalize separator to forward-slash since this is a display path (e.g. ~/project)
+	const normalized = relativeToHome.split(sep).join("/");
+	return relativeToHome === "" ? "~" : `~/${normalized}`;
 }
 
 /**

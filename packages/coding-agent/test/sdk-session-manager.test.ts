@@ -41,7 +41,10 @@ describe("createAgentSession session manager defaults", () => {
 		const sessionFile = session.sessionManager.getSessionFile();
 
 		expect(sessionDir).toBe(expectedSessionDir);
-		expect(sessionFile?.startsWith(`${expectedSessionDir}/`)).toBe(true);
+		// Windows uses backslashes in paths; normalize to forward slash for the prefix check
+		const normalizedSessionFile = sessionFile?.replace(/\\/g, "/");
+		const normalizedExpectedDir = expectedSessionDir.replace(/\\/g, "/");
+		expect(normalizedSessionFile?.startsWith(`${normalizedExpectedDir}/`)).toBe(true);
 
 		session.dispose();
 	});
@@ -78,7 +81,9 @@ describe("createAgentSession session manager defaults", () => {
 		});
 
 		expect(session.sessionManager).toBe(sessionManager);
-		expect(session.systemPrompt).toContain(`Current working directory: ${sessionCwd}`);
+		// The system prompt uses forward slashes in cwd path on all platforms
+		const promptCwd = sessionCwd.replace(/\\/g, "/");
+		expect(session.systemPrompt).toContain(`Current working directory: ${promptCwd}`);
 
 		const bashTool = session.agent.state.tools.find((tool) => tool.name === "bash");
 		expect(bashTool).toBeTruthy();
@@ -88,7 +93,14 @@ describe("createAgentSession session manager defaults", () => {
 			.map((item) => item.text)
 			.join("");
 
-		expect(realpathSync(output.trim())).toBe(realpathSync(sessionCwd));
+		// On Windows, bash shell may output MSYS2-style paths (/tmp/...) that need conversion
+		const pwdOutput = output.trim();
+		if (process.platform === "win32") {
+			const nativePath = pwdOutput.replace(/^\/tmp\//, () => `${join(tmpdir(), "/").replace(/\\/g, "/")}`);
+			expect(realpathSync(nativePath)).toBe(realpathSync(sessionCwd));
+		} else {
+			expect(realpathSync(pwdOutput)).toBe(realpathSync(sessionCwd));
+		}
 
 		session.dispose();
 	});

@@ -21,8 +21,10 @@ async function runExternalEditor(fixtureFlag?: "--fail" | "--empty"): Promise<{
 	const testDirectory = mkdtempSync(join(tmpdir(), "ziki-external-editor-test-"));
 	const capturePath = join(testDirectory, "capture.json");
 	try {
+		// On Windows, quote paths with spaces so the command parser handles them correctly
+		const q = (s: string) => (s.includes(" ") ? `"${s}"` : s);
 		const result = await editInExternalEditor({
-			command: `${process.execPath} ${editorFixturePath} ${capturePath}${fixtureFlag ? ` ${fixtureFlag}` : ""}`,
+			command: `${q(process.execPath)} ${q(editorFixturePath)} ${q(capturePath)}${fixtureFlag ? ` ${fixtureFlag}` : ""}`,
 			content: "original",
 		});
 		const capture = JSON.parse(readFileSync(capturePath, "utf-8")) as EditorCapture;

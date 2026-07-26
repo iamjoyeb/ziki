@@ -27,7 +27,6 @@ describe("issue #2791 fs.watch error event crashes process", () => {
 		const themesDir = join(agentDir, "themes");
 		mkdirSync(themesDir, { recursive: true });
 
-		// Copy dark.json as "custom-test" theme
 		const darkThemePath = join(__dirname, "../../../src/modes/interactive/theme/dark.json");
 		const darkTheme = JSON.parse(readFileSync(darkThemePath, "utf-8"));
 		darkTheme.name = "custom-test";
@@ -41,46 +40,42 @@ describe("issue #2791 fs.watch error event crashes process", () => {
 	it("process should survive an error event on the theme FSWatcher", () => {
 		const themeModulePath = join(__dirname, "../../../src/modes/interactive/theme/theme.ts").replace(/\\/g, "/");
 		const agentDir = join(tempRoot, "agent").replace(/\\/g, "/");
+		// On Windows, ESM imports require file:// URL scheme for absolute paths
+		const moduleUrl = process.platform === "win32" ? `file:///${themeModulePath}` : themeModulePath;
 
-		// Script that sets up the watcher and emits a synthetic error on it.
-		// If no .on('error') handler is attached, EventEmitter.emit('error')
-		// throws, which either crashes the process or gets caught by our try/catch.
 		const scriptPath = join(tempRoot, "test-watcher-error.mts");
 		writeFileSync(
 			scriptPath,
-			`
-import { setTheme, stopThemeWatcher } from "${themeModulePath}";
-
-process.env.ZIKI_CODING_AGENT_DIR = "${agentDir}";
-
-setTheme("custom-test", true);
-
-// Find the FSWatcher among active handles
-const handles = (process as any)._getActiveHandles();
-const fsWatcher = handles.find((h: any) => h.constructor?.name === "FSWatcher");
-
-if (!fsWatcher) {
-	process.stderr.write("no FSWatcher found among active handles\\n");
-	process.exit(2);
-}
-
-const errorListenerCount = fsWatcher.listenerCount("error");
-if (errorListenerCount === 0) {
-	process.stderr.write("BUG: FSWatcher has no error handler (issue #2791)\\n");
-}
-
-// Emitting 'error' on an EventEmitter with no error listener throws.
-// This simulates an async OS error (e.g. ReadDirectoryChangesW invalidation).
-try {
-	fsWatcher.emit("error", new Error("simulated OS watcher failure"));
-} catch {
-	process.stderr.write("error event was unhandled and threw\\n");
-	process.exit(1);
-}
-
-stopThemeWatcher();
-process.exit(0);
-`,
+			[
+				`import { setTheme, stopThemeWatcher } from "${moduleUrl}";`,
+				``,
+				`process.env.ZIKI_CODING_AGENT_DIR = "${agentDir}";`,
+				``,
+				`setTheme("custom-test", true);`,
+				``,
+				`const handles = (process as any)._getActiveHandles();`,
+				`const fsWatcher = handles.find((h: any) => h.constructor?.name === "FSWatcher");`,
+				``,
+				`if (!fsWatcher) {`,
+				`\tprocess.stderr.write("no FSWatcher found among active handles\\n");`,
+				`\tprocess.exit(2);`,
+				`}`,
+				``,
+				`const errorListenerCount = fsWatcher.listenerCount("error");`,
+				`if (errorListenerCount === 0) {`,
+				`\tprocess.stderr.write("BUG: FSWatcher has no error handler (issue #2791)\\n");`,
+				`}`,
+				``,
+				`try {`,
+				`\tfsWatcher.emit("error", new Error("simulated OS watcher failure"));`,
+				`} catch {`,
+				`\tprocess.stderr.write("error event was unhandled and threw\\n");`,
+				`\tprocess.exit(1);`,
+				`}`,
+				``,
+				`stopThemeWatcher();`,
+				`process.exit(0);`,
+			].join("\n"),
 		);
 
 		let _stdout = "";

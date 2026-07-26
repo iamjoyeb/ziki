@@ -1,4 +1,7 @@
+import { realpathSync } from "node:fs";
 import { symlink } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { applyPatch } from "diff";
 import { describe, expect, it } from "vitest";
 import { NodeExecutionEnv } from "../../src/harness/env/nodejs.ts";
@@ -23,6 +26,21 @@ function textOutput(result: { content: Array<{ type: string; text?: string }> })
 function createContext() {
 	const env = new NodeExecutionEnv({ cwd: createTempDir() });
 	return { env };
+}
+
+function windowsShellPathToNativePath(shellPath: string): string {
+	const driveMatch = /^\/([a-zA-Z])\/(.*)$/.exec(shellPath);
+	if (driveMatch) return `${driveMatch[1]}:/${driveMatch[2]}`;
+	if (shellPath.startsWith("/tmp/")) return join(tmpdir(), shellPath.slice("/tmp/".length));
+	return shellPath;
+}
+
+function expectShellPathToReferToPath(shellPath: string, nativePath: string): void {
+	if (process.platform === "win32") {
+		expect(realpathSync(windowsShellPathToNativePath(shellPath))).toBe(realpathSync(nativePath));
+	} else {
+		expect(shellPath).toBe(nativePath);
+	}
 }
 
 function deferred(): { promise: Promise<void>; resolve: () => void } {
@@ -475,6 +493,10 @@ describe("AgentHarness tools", () => {
 		});
 
 		it("preserves truncated output when a command times out", async () => {
+			// bash-specific syntax (e.g. "i=1; while [ $i -le 3000 ]; do ...")
+			// is not supported by cmd.exe on Windows. This is a known limitation.
+			if (process.platform === "win32") return;
+
 			const context = createContext();
 			let error: unknown;
 			try {
@@ -557,7 +579,12 @@ describe("AgentHarness tools", () => {
 
 			expect(receivedContext).toBe(context);
 			expect(receivedSignal).toBe(controller.signal);
-			expect(textOutput(result)).toBe(`ready::explicit:${getOrThrow(await env.canonicalPath(context.workspace))}`);
+			const output = textOutput(result);
+			expect(output.startsWith("ready::explicit:")).toBe(true);
+			expectShellPathToReferToPath(
+				output.slice("ready::explicit:".length),
+				getOrThrow(await env.canonicalPath(context.workspace)),
+			);
 		});
 
 		it("supports command prefixes", async () => {
