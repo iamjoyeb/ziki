@@ -4,7 +4,7 @@ Ziki uses environment variables in three ways:
 
 - Variables such as `ZIKI_OFFLINE` configure the Ziki process.
 - Ziki sets `ZIKI_CODING_AGENT` so child processes can detect that they run inside Ziki.
-- Commands run by the LLM-callable bash tool receive `PI_*` variables describing the current session.
+- Commands run by the LLM-callable bash tool receive `ZIKI_*` variables describing the current session.
 
 Provider API-key variables are documented separately in [Providers](providers.md#environment-variables-or-auth-file).
 
