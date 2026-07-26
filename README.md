@@ -12,6 +12,8 @@
 
 # Ziki Agent Harness
 
+Ziki is an independently developed coding agent built using the source code of [pi-mono](https://github.com/badlogic/pi-mono) by Mario Zechner.
+
 This is the home of the Ziki agent harness project including our self extensible coding agent.
 
 * **[@zikilabs/ziki-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
@@ -20,8 +22,8 @@ This is the home of the Ziki agent harness project including our self extensible
 
 To learn more about Ziki:
 
-* [Visit pi.dev](https://pi.dev), the project website with demos
-* [Read the documentation](https://pi.dev/docs/latest), but you can also ask the agent to explain itself
+* [Visit ziki.dev](https://ziki.dev), the project website with demos
+* [Read the documentation](https://ziki.dev/docs/latest), but you can also ask the agent to explain itself
 
 ## All Packages
 
@@ -96,9 +98,9 @@ For the full explanation, see [this post on X](https://x.com/badlogicgames/statu
 
 To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf). Read its README.md for setup instructions. All you need is a Hugging Face account, the Hugging Face CLI, and `ziki-share-hf`.
 
-You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where I show how I publish my `pi-mono` sessions.
+You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where Mario shows how he publishes `pi-mono` sessions.
 
-I regularly publish my own `pi-mono` work sessions here:
+You can view `pi-mono` work sessions here (which apply to Ziki as well):
 
 - [badlogicgames/pi-mono on Hugging Face](https://huggingface.co/datasets/badlogicgames/pi-mono)
 
@@ -107,7 +109,7 @@ I regularly publish my own `pi-mono` work sessions here:
 MIT
 
 <p align="center">
-  <a href="https://pi.dev">pi.dev</a> domain graciously donated by
+  <a href="https://ziki.dev">ziki.dev</a> domain graciously donated by
   <br /><br />
   <a href="https://exe.dev"><img src="packages/coding-agent/docs/images/exy.png" alt="Exy mascot" width="48" /><br />exe.dev</a>
 </p>
