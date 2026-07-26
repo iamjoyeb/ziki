@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { access, chmod, realpath, symlink } from "node:fs/promises";
-import { homedir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { delimiter, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
@@ -33,6 +33,21 @@ function withTimeout<T>(promise: Promise<T>, ms: number, onTimeout?: () => void)
 
 function toBashSingleQuotedArg(value: string): string {
 	return `'${value.replace(/\\/g, "/").replace(/'/g, `'"'"'`)}'`;
+}
+
+function windowsShellPathToNativePath(shellPath: string): string {
+	const driveMatch = /^\/([a-zA-Z])\/(.*)$/.exec(shellPath);
+	if (driveMatch) return `${driveMatch[1]}:/${driveMatch[2]}`;
+	if (shellPath.startsWith("/tmp/")) return join(tmpdir(), shellPath.slice("/tmp/".length));
+	return shellPath;
+}
+
+function expectShellPathToReferToPath(shellPath: string, nativePath: string): void {
+	if (process.platform === "win32") {
+		expect(realpathSync(windowsShellPathToNativePath(shellPath))).toBe(realpathSync(nativePath));
+	} else {
+		expect(shellPath).toBe(nativePath);
+	}
 }
 
 function createInheritedStdioCommand(pidFile: string): string {
@@ -256,7 +271,10 @@ describe("NodeExecutionEnv", () => {
 				env: { NODE_ENV_TEST: "ok" },
 			}),
 		);
-		expect(result).toEqual({ stdout: `${await realpath(root)}:ok`, stderr: "", exitCode: 0 });
+		expect(result.stderr).toBe("");
+		expect(result.exitCode).toBe(0);
+		expect(result.stdout.endsWith(":ok")).toBe(true);
+		expectShellPathToReferToPath(result.stdout.slice(0, -":ok".length), await realpath(root));
 	});
 
 	it("can replace rather than inherit the default shell environment", async () => {

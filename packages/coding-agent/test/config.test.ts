@@ -1,7 +1,33 @@
+import type { SpawnSyncReturns } from "child_process";
 import { chmodSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "fs";
 import { tmpdir } from "os";
 import { delimiter, join } from "path";
-import { afterEach, describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
+
+const mocks = vi.hoisted(() => {
+	const commandOutputs = new Map<string, string>();
+	return {
+		commandOutputs,
+		spawnProcessSync: vi.fn((command: string, args: string[]): SpawnSyncReturns<string> => {
+			const stdout = commandOutputs.get([command, ...args].join("\0"));
+			return {
+				pid: 123,
+				output: [null, stdout ?? "", ""],
+				stdout: stdout ?? "",
+				stderr: "",
+				status: stdout === undefined ? 1 : 0,
+				signal: null,
+			};
+		}),
+	};
+});
+
+vi.mock("../src/utils/child-process.ts", () => {
+	return {
+		spawnProcessSync: mocks.spawnProcessSync,
+	};
+});
+
 import {
 	detectInstallMethod,
 	getSelfUpdateCommand,
@@ -23,6 +49,8 @@ function setExecPath(value: string): void {
 }
 
 afterEach(() => {
+	mocks.commandOutputs.clear();
+	mocks.spawnProcessSync.mockClear();
 	if (execPathDescriptor) {
 		Object.defineProperty(process, "execPath", execPathDescriptor);
 	}
@@ -48,6 +76,10 @@ afterEach(() => {
 	}
 });
 
+function setCommandOutput(command: string, args: string[], stdout: string): void {
+	mocks.commandOutputs.set([command, ...args].join("\0"), stdout);
+}
+
 function createNpmPrefixInstall(template = "ziki-prefix-"): { prefix: string; packageDir: string } {
 	const prefix = mkdtempSync(join(tmpdir(), template));
 	const root = join(prefix, "lib", "node_modules");
@@ -55,6 +87,7 @@ function createNpmPrefixInstall(template = "ziki-prefix-"): { prefix: string; pa
 	const packageDir = join(scopeDir, "pi-coding-agent");
 	mkdirSync(packageDir, { recursive: true });
 	tempDir = prefix;
+	setCommandOutput("npm", ["--prefix", prefix, "root", "-g"], root);
 	process.env.ZIKI_PACKAGE_DIR = packageDir;
 	setExecPath(join(packageDir, "dist", "cli.js"));
 	return { prefix, packageDir };
@@ -70,6 +103,7 @@ function createPnpmGlobalInstall(): { root: string; packageDir: string } {
 	writeFileSync(join(binDir, process.platform === "win32" ? "pnpm.cmd" : "pnpm"), createFakePnpmScript(root));
 	chmodSync(join(binDir, process.platform === "win32" ? "pnpm.cmd" : "pnpm"), 0o755);
 	tempDir = temp;
+	setCommandOutput("pnpm", ["root", "-g"], root);
 	process.env.PATH = `${binDir}${delimiter}${originalPath ?? ""}`;
 	process.env.ZIKI_PACKAGE_DIR = packageDir;
 	setExecPath(
@@ -97,6 +131,7 @@ function createYarnGlobalInstall(): { globalDir: string; packageDir: string } {
 	writeFileSync(join(binDir, process.platform === "win32" ? "yarn.cmd" : "yarn"), createFakeYarnScript(globalDir));
 	chmodSync(join(binDir, process.platform === "win32" ? "yarn.cmd" : "yarn"), 0o755);
 	tempDir = temp;
+	setCommandOutput("yarn", ["global", "dir"], globalDir);
 	process.env.PATH = `${binDir}${delimiter}${originalPath ?? ""}`;
 	process.env.ZIKI_PACKAGE_DIR = packageDir;
 	setExecPath(join(globalDir, ".yarn", "@mariozechner", "pi-coding-agent", "dist", "cli.js"));
@@ -115,6 +150,7 @@ function createBunGlobalInstall(): { packageDir: string } {
 	writeFileSync(join(bunBin, process.platform === "win32" ? "bun.cmd" : "bun"), createFakeBunScript(bunBin));
 	chmodSync(join(bunBin, process.platform === "win32" ? "bun.cmd" : "bun"), 0o755);
 	tempDir = temp;
+	setCommandOutput("bun", ["pm", "bin", "-g"], bunBin);
 	process.env.PATH = `${bunBin}${delimiter}${originalPath ?? ""}`;
 	process.env.ZIKI_PACKAGE_DIR = packageDir;
 	setExecPath(join(packageDir, "dist", "cli.js"));
@@ -367,6 +403,7 @@ describe("detectInstallMethod", () => {
 		writeFileSync(join(binDir, process.platform === "win32" ? "pnpm.cmd" : "pnpm"), createFakePnpmScript(root));
 		chmodSync(join(binDir, process.platform === "win32" ? "pnpm.cmd" : "pnpm"), 0o755);
 		tempDir = temp;
+		setCommandOutput("pnpm", ["root", "-g"], root);
 		process.env.PATH = `${binDir}${delimiter}${originalPath ?? ""}`;
 		process.env.ZIKI_PACKAGE_DIR = storePackageDir;
 		process.argv[1] = join(globalPackageDir, "dist", "cli.js");
@@ -436,7 +473,11 @@ describe("detectInstallMethod", () => {
 
 	test("does not self-update when npm install path is not writable", () => {
 		const { packageDir } = createNpmPrefixInstall();
-		chmodSync(packageDir, 0o500);
+		// chmod on directories does not reliably remove write access on native Windows.
+		// Use a read-only file at the package path to deterministically make accessSync(..., W_OK) fail.
+		rmSync(packageDir, { recursive: true, force: true });
+		writeFileSync(packageDir, "");
+		chmodSync(packageDir, 0o400);
 
 		expect(getSelfUpdateCommand("@zikilabs/ziki-coding-agent")).toBeUndefined();
 		expect(getSelfUpdateUnavailableInstruction("@zikilabs/ziki-coding-agent")).toContain(

@@ -216,7 +216,10 @@ export function createGrepToolDefinition(
 						if (ignoreCase) args.push("--ignore-case");
 						if (literal) args.push("--fixed-strings");
 						if (glob) args.push("--glob", glob);
-						args.push("--", pattern, searchPath);
+						// Escape backslashes in the pattern so rg doesn't interpret them as regex escapes.
+						// This matters on Windows where file paths in patterns contain \ (e.g. C:\Users\...).
+						const escapedPattern = pattern.replace(/\\/g, "\\\\");
+						args.push("--", escapedPattern, searchPath);
 
 						const child = spawn(rgPath, args, { stdio: ["ignore", "pipe", "pipe"] });
 						const rl = createInterface({ input: child.stdout });

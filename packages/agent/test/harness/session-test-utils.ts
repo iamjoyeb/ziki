@@ -49,7 +49,11 @@ afterEach(() => {
 	while (tempDirs.length > 0) {
 		const dir = tempDirs.pop()!;
 		if (existsSync(dir)) {
-			rmSync(dir, { recursive: true, force: true });
+			try {
+				rmSync(dir, { recursive: true, force: true });
+			} catch {
+				// Best-effort cleanup: on Windows, child processes may still hold handles.
+			}
 		}
 	}
 });

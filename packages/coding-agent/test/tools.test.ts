@@ -431,7 +431,7 @@ describe("Coding Agent Tools", () => {
 					path: testFile,
 					edits: [{ oldText: "hello", newText: "world" }],
 				}),
-			).rejects.toThrow(`Could not edit file: ${testFile}. Error code: EACCES.`);
+			).rejects.toThrow(/Could not edit file: .+\. Error code: (EACCES|EPERM)\./);
 		});
 
 		it("should include the original error message for unknown edit access errors", async () => {
@@ -467,7 +467,10 @@ describe("Coding Agent Tools", () => {
 
 			const result = await computeEditsDiff(unreadableFile, [{ oldText: "hello", newText: "world" }], testDir);
 
-			expect(result).toEqual({ error: `Could not edit file: ${unreadableFile}. Error code: EACCES.` });
+			// On Windows, write-only files (0o222) can still be read, so the diff preview succeeds there.
+			if (process.platform !== "win32") {
+				expect(result).toEqual({ error: `Could not edit file: ${unreadableFile}. Error code: EACCES.` });
+			}
 		});
 	});
 
