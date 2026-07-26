@@ -140,9 +140,14 @@ function readClipboardImageViaWlPaste(): ClipboardImage | null {
 	return { bytes: data.stdout, mimeType: baseMimeType(selectedType) };
 }
 
-function isWSL(env: NodeJS.ProcessEnv = process.env): boolean {
-	if (env.WSL_DISTRO_NAME || env.WSLENV) {
+function isWSL(env?: NodeJS.ProcessEnv): boolean {
+	const effectiveEnv = env ?? process.env;
+	if (effectiveEnv.WSL_DISTRO_NAME || effectiveEnv.WSLENV) {
 		return true;
+	}
+
+	if (env) {
+		return false;
 	}
 
 	try {
@@ -255,10 +260,11 @@ export async function readClipboardImage(options?: {
 	env?: NodeJS.ProcessEnv;
 	platform?: NodeJS.Platform;
 }): Promise<ClipboardImage | null> {
-	const env = options?.env ?? process.env;
+	const env = options?.env;
+	const effectiveEnv = env ?? process.env;
 	const platform = options?.platform ?? process.platform;
 
-	if (env.TERMUX_VERSION) {
+	if (effectiveEnv.TERMUX_VERSION) {
 		return null;
 	}
 
@@ -266,7 +272,7 @@ export async function readClipboardImage(options?: {
 
 	if (platform === "linux") {
 		const wsl = isWSL(env);
-		const wayland = isWaylandSession(env);
+		const wayland = isWaylandSession(effectiveEnv);
 
 		if (wayland || wsl) {
 			image = readClipboardImageViaWlPaste() ?? readClipboardImageViaXclip();
