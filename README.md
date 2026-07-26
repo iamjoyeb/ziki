@@ -1,13 +1,3 @@
-<p align="center">
-  <a href="https://pi.dev">
-    <img alt="ziki logo" src="https://pi.dev/logo-auto.svg" width="128">
-  </a>
-</p>
-<p align="center">
-  <a href="https://discord.com/invite/3cU7Bz4UPx"><img alt="Discord" src="https://img.shields.io/badge/discord-community-5865F2?style=flat-square&logo=discord&logoColor=white" /></a>
-  <a href="https://www.npmjs.com/package/@zikilabs/ziki-coding-agent"><img alt="npm" src="https://img.shields.io/npm/v/@zikilabs/ziki-coding-agent?style=flat-square" /></a>
-</p>
-
 > New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 # Ziki Agent Harness
