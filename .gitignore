@@ -42,3 +42,5 @@ plans/
 .ziki/hf-sessions/
 .ziki/hf-sessions-backup/
 collect.sh
+.pi/
+.ziki/
