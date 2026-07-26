@@ -7,7 +7,7 @@ import {
 	ModelRuntime,
 	SessionManager,
 	SettingsManager,
-} from "@earendil-works/pi-coding-agent";
+} from "@zikilabs/ziki-coding-agent";
 import { createHarness, type SimpleHarnessResult } from "vitest-evals/harness";
 
 type EvalSession = Awaited<ReturnType<typeof createAgentSession>>["session"];
@@ -30,15 +30,15 @@ async function cleanupEvalResources(session: EvalSession | undefined, removeRoot
 		throw failures[0];
 	}
 	if (failures.length > 1) {
-		throw new AggregateError(failures, "Pi eval session disposal and temporary directory cleanup failed.");
+		throw new AggregateError(failures, "Ziki eval session disposal and temporary directory cleanup failed.");
 	}
 }
 
 function getRequiredModelSelection(): { provider: string; model: string } {
-	const provider = process.env.PI_PROVIDER?.trim();
-	const model = process.env.PI_MODEL?.trim();
+	const provider = process.env.ZIKI_PROVIDER?.trim();
+	const model = process.env.ZIKI_MODEL?.trim();
 	if (!provider || !model) {
-		throw new Error("PI_PROVIDER and PI_MODEL must both be set for eval runs.");
+		throw new Error("ZIKI_PROVIDER and ZIKI_MODEL must both be set for eval runs.");
 	}
 	return { provider, model };
 }
@@ -58,7 +58,7 @@ async function runPiEval(input: string, signal: AbortSignal | undefined): Promis
 		throw new Error(`No authentication configured for eval model ${selection.provider}/${selection.model}.`);
 	}
 
-	const root = await mkdtemp(join(tmpdir(), "pi-eval-"));
+	const root = await mkdtemp(join(tmpdir(), "ziki-eval-"));
 	const cwd = join(root, "workspace");
 	const agentDir = join(root, "agent");
 	const cleanup = () => rm(root, { recursive: true, force: true });
@@ -100,12 +100,12 @@ async function runPiEval(input: string, signal: AbortSignal | undefined): Promis
 		try {
 			await cleanupEvalResources(createdSession, cleanup);
 		} catch (cleanupError) {
-			throw new AggregateError([error, cleanupError], "Pi eval setup failed and cleanup also failed.");
+			throw new AggregateError([error, cleanupError], "Ziki eval setup failed and cleanup also failed.");
 		}
 		throw error;
 	}
 	if (!createdSession) {
-		throw new Error("Pi eval session setup completed without a session.");
+		throw new Error("Ziki eval session setup completed without a session.");
 	}
 
 	const session = createdSession;
@@ -120,15 +120,15 @@ async function runPiEval(input: string, signal: AbortSignal | undefined): Promis
 			.reverse()
 			.find((message) => message.role === "assistant");
 		if (!assistant) {
-			throw new Error("Pi eval did not produce an assistant message.");
+			throw new Error("Ziki eval did not produce an assistant message.");
 		}
 		if (assistant.stopReason !== "stop") {
-			throw new Error(assistant.errorMessage ?? `Pi eval stopped unexpectedly: ${assistant.stopReason}`);
+			throw new Error(assistant.errorMessage ?? `Ziki eval stopped unexpectedly: ${assistant.stopReason}`);
 		}
 
 		const output = session.getLastAssistantText();
 		if (!output) {
-			throw new Error("Pi eval produced an empty assistant response.");
+			throw new Error("Ziki eval produced an empty assistant response.");
 		}
 
 		const stats = session.getSessionStats();
@@ -151,7 +151,7 @@ async function runPiEval(input: string, signal: AbortSignal | undefined): Promis
 		try {
 			await cleanupEvalResources(session, cleanup);
 		} catch (cleanupError) {
-			throw new AggregateError([error, cleanupError], "Pi eval run failed and cleanup also failed.");
+			throw new AggregateError([error, cleanupError], "Ziki eval run failed and cleanup also failed.");
 		}
 		throw error;
 	}
@@ -160,7 +160,7 @@ async function runPiEval(input: string, signal: AbortSignal | undefined): Promis
 	return result;
 }
 
-export const piCodingAgentHarness = createHarness<string, string>({
+export const zikiCodingAgentHarness = createHarness<string, string>({
 	name: "pi-coding-agent",
 	run: ({ input, signal }) => runPiEval(input, signal),
 });

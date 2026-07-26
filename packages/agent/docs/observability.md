@@ -1,12 +1,12 @@
 <!-- Synced from jot qe0ikdqs. Edit this file in-repo going forward. -->
 
-# Pi Observability Design Notes
+# Ziki Observability Design Notes
 
 ## Goal
 
 Make `packages/ai` and `packages/agent`/harness observable without depending on OpenTelemetry, Sentry, or any APM vendor.
 
-Pi should emit stable, structured lifecycle events. External listeners can convert those events into OTel spans, Sentry spans, logs, metrics, or custom telemetry.
+Ziki should emit stable, structured lifecycle events. External listeners can convert those events into OTel spans, Sentry spans, logs, metrics, or custom telemetry.
 
 ## Mental model
 
@@ -30,11 +30,11 @@ interface SpanRecord {
 Example tree:
 
 ```text
-traceId=t1 spanId=s1 parent=-  name=pi.agent.prompt
-traceId=t1 spanId=s2 parent=s1 name=pi.agent.turn
-traceId=t1 spanId=s3 parent=s2 name=pi.ai.provider.request
-traceId=t1 spanId=s4 parent=s2 name=pi.agent.tool_call
-traceId=t1 spanId=s5 parent=s4 name=pi.session.append_entry
+traceId=t1 spanId=s1 parent=-  name=ziki.agent.prompt
+traceId=t1 spanId=s2 parent=s1 name=ziki.agent.turn
+traceId=t1 spanId=s3 parent=s2 name=ziki.ai.provider.request
+traceId=t1 spanId=s4 parent=s2 name=ziki.agent.tool_call
+traceId=t1 spanId=s5 parent=s4 name=ziki.session.append_entry
 ```
 
 ## Async context
@@ -52,11 +52,11 @@ await Promise.all([
 
 Deep code can then read the correct current context for the active async chain.
 
-Pi must run in Node, Bun, browser, workers, and other JS runtimes, so ALS cannot be the core abstraction. It should be a runtime adapter.
+Ziki must run in Node, Bun, browser, workers, and other JS runtimes, so ALS cannot be the core abstraction. It should be a runtime adapter.
 
 ## Core design
 
-Pi owns a small runtime-agnostic observability abstraction:
+Ziki owns a small runtime-agnostic observability abstraction:
 
 ```ts
 export interface PiObservabilityContext {
@@ -147,25 +147,25 @@ For Node, diagnostics channels can be used as a passive event bus:
 
 ```ts
 import { channel } from "diagnostics_channel";
-channel("pi.observability").publish(event);
+channel("ziki.observability").publish(event);
 ```
 
-Subscribers can create OTel/Sentry spans without monkey-patching pi.
+Subscribers can create OTel/Sentry spans without monkey-patching ziki.
 
-## What pi emits
+## What ziki emits
 
-Pi emits what happened. It does not create OTel/Sentry spans directly.
+Ziki emits what happened. It does not create OTel/Sentry spans directly.
 
 Initial minimal event names:
 
 ```text
-pi.agent.prompt
-pi.agent.skill
-pi.agent.prompt_template
-pi.agent.compaction
-pi.agent.branch_navigation
-pi.agent.session.append_entry
-pi.ai.provider.request
+ziki.agent.prompt
+ziki.agent.skill
+ziki.agent.prompt_template
+ziki.agent.compaction
+ziki.agent.branch_navigation
+ziki.agent.session.append_entry
+ziki.ai.provider.request
 ```
 
 Each operation emits:
@@ -179,14 +179,14 @@ error
 Later additions:
 
 ```text
-pi.agent.turn
-pi.agent.tool_call
-pi.agent.queue_update
-pi.ai.provider.retry
-pi.ai.provider.first_token
-pi.ai.provider.usage
-pi.session.read
-pi.session.write
+ziki.agent.turn
+ziki.agent.tool_call
+ziki.agent.queue_update
+ziki.ai.provider.retry
+ziki.ai.provider.first_token
+ziki.ai.provider.usage
+ziki.session.read
+ziki.session.write
 ```
 
 ## Minimal instrumentation points
@@ -206,7 +206,7 @@ Example:
 
 ```ts
 return traceOperation(
-  "pi.agent.prompt",
+  "ziki.agent.prompt",
   {
     sessionId: turnState.sessionId,
     provider: turnState.model.provider,
@@ -222,7 +222,7 @@ Session write:
 
 ```ts
 return traceOperation(
-  "pi.agent.session.append_entry",
+  "ziki.agent.session.append_entry",
   { entryType: entry.type },
   async () => {
     await this.unwrap(this.storage.appendEntry(entry));
@@ -242,7 +242,7 @@ Example:
 
 ```ts
 return traceOperation(
-  "pi.ai.provider.request",
+  "ziki.ai.provider.request",
   {
     api: model.api,
     provider: model.provider,
@@ -298,7 +298,7 @@ Content capture can be opt-in later with explicit redaction hooks.
 
 ## Listener behavior
 
-Observability must never affect pi execution.
+Observability must never affect ziki execution.
 
 Subscriber errors should be swallowed or isolated. Harness hooks are control-plane and may affect execution; observability subscribers are passive and must not.
 
@@ -322,7 +322,7 @@ Every emitted event inside that async chain includes the context:
 ```ts
 {
   type: "start",
-  name: "pi.ai.provider.request",
+  name: "ziki.ai.provider.request",
   traceId: "t1",
   spanId: "s3",
   parentSpanId: "s1",
@@ -353,10 +353,10 @@ Then:
 
 ```text
 packages/ai
-  emits pi.ai.* events
+  emits ziki.ai.* events
 
 packages/agent
-  emits pi.agent.* / pi.session.* events
+  emits ziki.agent.* / ziki.session.* events
 ```
 
 Optional later:
@@ -366,11 +366,11 @@ packages/observability-node
   AsyncLocalStorage + diagnostics_channel bridge
 
 packages/otel
-  subscribes to pi events and creates OpenTelemetry spans
+  subscribes to ziki events and creates OpenTelemetry spans
 ```
 
 ## Thesis
 
-Pi defines a stable, safe event contract. Adapters define where events go.
+Ziki defines a stable, safe event contract. Adapters define where events go.
 
 This makes ai/harness observable without binding core packages to OTel, Sentry, Node-only APIs, or monkey-patching.

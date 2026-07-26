@@ -4,6 +4,7 @@
 
 import chalk from "chalk";
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "fs";
+import { homedir } from "os";
 import { dirname, join } from "path";
 import { CONFIG_DIR_NAME, getAgentDir, getBinDir } from "./config.ts";
 import { migrateKeybindingsConfig } from "./core/keybindings.ts";
@@ -73,10 +74,10 @@ export function migrateAuthToAuthJson(): string[] {
 }
 
 /**
- * Migrate sessions from ~/.pi/agent/*.jsonl to proper session directories.
+ * Migrate sessions from ~/.ziki/agent/*.jsonl to proper session directories.
  *
- * Bug in v0.30.0: Sessions were saved to ~/.pi/agent/ instead of
- * ~/.pi/agent/sessions/<encoded-cwd>/. This migration moves them
+ * Bug in v0.30.0: Sessions were saved to ~/.ziki/agent/ instead of
+ * ~/.ziki/agent/sessions/<encoded-cwd>/. This migration moves them
  * to the correct location based on the cwd in their session header.
  *
  * See: https://github.com/earendil-works/pi-mono/issues/320
@@ -217,7 +218,7 @@ function migrateToolsToBin(): void {
 
 /**
  * Check for deprecated hooks/ and tools/ directories.
- * Note: tools/ may contain fd/rg binaries extracted by pi, so only warn if it has other files.
+ * Note: tools/ may contain fd/rg binaries extracted by ziki, so only warn if it has other files.
  */
 function checkDeprecatedExtensionDirs(baseDir: string, label: string): string[] {
 	const hooksDir = join(baseDir, "hooks");
@@ -302,10 +303,45 @@ export async function showDeprecationWarnings(warnings: string[]): Promise<void>
  *
  * @returns Object with migration results and deprecation warnings
  */
+
+export function migrateLegacyPiDirectories(cwd: string): void {
+	const oldGlobal = join(homedir(), ".pi");
+	const newGlobal = join(homedir(), ".ziki");
+
+	if (!existsSync(newGlobal) && existsSync(oldGlobal)) {
+		try {
+			renameSync(oldGlobal, newGlobal);
+			console.log(
+				chalk?.green
+					? chalk.green("Migrated global data directory: ~/.pi → ~/.ziki")
+					: "Migrated global data directory: ~/.pi → ~/.ziki",
+			);
+		} catch (err) {
+			console.log(`Warning: Could not migrate ~/.pi to ~/.ziki: ${err}`);
+		}
+	}
+
+	const oldProject = join(cwd, ".pi");
+	const newProject = join(cwd, ".ziki");
+	if (!existsSync(newProject) && existsSync(oldProject)) {
+		try {
+			renameSync(oldProject, newProject);
+			console.log(
+				chalk?.green
+					? chalk.green("Migrated project data directory: .pi → .ziki")
+					: "Migrated project data directory: .pi → .ziki",
+			);
+		} catch (err) {
+			console.log(`Warning: Could not migrate project .pi to .ziki: ${err}`);
+		}
+	}
+}
+
 export function runMigrations(cwd: string): {
 	migratedAuthProviders: string[];
 	deprecationWarnings: string[];
 } {
+	migrateLegacyPiDirectories(cwd);
 	const migratedAuthProviders = migrateAuthToAuthJson();
 	migrateSessionsFromAgentRoot();
 	migrateToolsToBin();

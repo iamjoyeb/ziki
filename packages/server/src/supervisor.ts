@@ -6,7 +6,7 @@ import type {
 	RpcExtensionUIRequest,
 	RpcExtensionUIResponse,
 	RpcResponse,
-} from "@earendil-works/pi-coding-agent";
+} from "@zikilabs/ziki-coding-agent";
 import { radiusPresence } from "./radius.ts";
 import { createRpcProcessInstance, type RpcProcessInstance } from "./rpc-process.ts";
 import { getInstance, loadInstances, removeInstance, saveInstances, upsertInstance } from "./storage.ts";
@@ -127,7 +127,7 @@ export class ServerSupervisor {
 				await radiusPresence.disconnectPi(live.record);
 				this.updateRecord(live, { radiusPiId: undefined });
 			} catch (error) {
-				console.error(`Failed to disconnect Radius Pi ${live.record.id}: ${String(error)}`);
+				console.error(`Failed to disconnect Radius Ziki ${live.record.id}: ${String(error)}`);
 			}
 		}
 		this.liveInstances.delete(live.record.id);

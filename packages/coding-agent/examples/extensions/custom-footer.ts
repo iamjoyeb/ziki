@@ -8,14 +8,14 @@
  * Token stats come from ctx.sessionManager/ctx.model (already accessible).
  */
 
-import type { AssistantMessage } from "@earendil-works/pi-ai";
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
+import type { AssistantMessage } from "@zikilabs/ziki-ai";
+import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import { truncateToWidth, visibleWidth } from "@zikilabs/ziki-tui";
 
-export default function (pi: ExtensionAPI) {
+export default function (ziki: ExtensionAPI) {
 	let enabled = false;
 
-	pi.registerCommand("footer", {
+	ziki.registerCommand("footer", {
 		description: "Toggle custom footer",
 		handler: async (_args, ctx) => {
 			enabled = !enabled;

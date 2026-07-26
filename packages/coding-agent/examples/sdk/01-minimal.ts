@@ -2,10 +2,10 @@
  * Minimal SDK Usage
  *
  * Uses all defaults: discovers skills, extensions, tools, context files
- * from cwd and ~/.pi/agent. Model chosen from settings or first available.
+ * from cwd and ~/.ziki/agent. Model chosen from settings or first available.
  */
 
-import { createAgentSession } from "@earendil-works/pi-coding-agent";
+import { createAgentSession } from "@zikilabs/ziki-coding-agent";
 
 const { session } = await createAgentSession();
 

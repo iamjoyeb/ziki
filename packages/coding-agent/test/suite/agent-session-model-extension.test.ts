@@ -1,5 +1,5 @@
-import type { AgentTool, ThinkingLevel } from "@earendil-works/pi-agent-core";
-import { fauxAssistantMessage, fauxToolCall, type Model, type Usage } from "@earendil-works/pi-ai";
+import type { AgentTool, ThinkingLevel } from "@zikilabs/ziki-agent-core";
+import { fauxAssistantMessage, fauxToolCall, type Model, type Usage } from "@zikilabs/ziki-ai";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import type { BuildSystemPromptOptions, ExtensionAPI } from "../../src/index.ts";
@@ -22,8 +22,8 @@ describe("AgentSession model and extension characterization", () => {
 				{ id: "faux-2", name: "Two", reasoning: true },
 			],
 			extensionFactories: [
-				(pi) => {
-					pi.on("model_select", async (event) => {
+				(ziki) => {
+					ziki.on("model_select", async (event) => {
 						modelEvents.push(`${event.previousModel?.id ?? "none"}->${event.model.id}:${event.source}`);
 					});
 				},
@@ -126,8 +126,8 @@ describe("AgentSession model and extension characterization", () => {
 		const harness = await createHarness({
 			tools: [echoTool],
 			extensionFactories: [
-				(pi) => {
-					pi.on("tool_call", async () => ({ block: true, reason: "Blocked by test" }));
+				(ziki) => {
+					ziki.on("tool_call", async () => ({ block: true, reason: "Blocked by test" }));
 				},
 			],
 		});
@@ -186,8 +186,8 @@ describe("AgentSession model and extension characterization", () => {
 		const harness = await createHarness({
 			tools: [echoTool],
 			extensionFactories: [
-				(pi) => {
-					pi.on("tool_result", async (event) => {
+				(ziki) => {
+					ziki.on("tool_result", async (event) => {
 						observedToolUsage = event.usage;
 						return {
 							content: [{ type: "text", text: "patched result" }],
@@ -228,8 +228,8 @@ describe("AgentSession model and extension characterization", () => {
 	it("allows extension context handlers to modify messages before the LLM call", async () => {
 		const harness = await createHarness({
 			extensionFactories: [
-				(pi) => {
-					pi.on("context", async (event) => ({
+				(ziki) => {
+					ziki.on("context", async (event) => ({
 						messages: event.messages.map((message) =>
 							message.role === "user"
 								? { ...message, content: [{ type: "text", text: "rewritten" }], timestamp: message.timestamp }
@@ -269,9 +269,9 @@ describe("AgentSession model and extension characterization", () => {
 		let extensionApi: ExtensionAPI | undefined;
 		const transformedHarness = await createHarness({
 			extensionFactories: [
-				(pi) => {
-					extensionApi = pi;
-					pi.on("input", async (event) => {
+				(ziki) => {
+					extensionApi = ziki;
+					ziki.on("input", async (event) => {
 						if (event.text === "ping") {
 							return { action: "handled" };
 						}
@@ -308,8 +308,8 @@ describe("AgentSession model and extension characterization", () => {
 		const seenOptions: BuildSystemPromptOptions[] = [];
 		const harness = await createHarness({
 			extensionFactories: [
-				(pi) => {
-					pi.registerCommand("inspect-options", {
+				(ziki) => {
+					ziki.registerCommand("inspect-options", {
 						description: "Inspect system prompt options",
 						handler: async (_args, ctx) => {
 							const options = ctx.getSystemPromptOptions();
@@ -335,8 +335,8 @@ describe("AgentSession model and extension characterization", () => {
 	it("allows before_agent_start handlers to inject custom messages and modify the system prompt", async () => {
 		const harness = await createHarness({
 			extensionFactories: [
-				(pi) => {
-					pi.on("before_agent_start", async (event) => ({
+				(ziki) => {
+					ziki.on("before_agent_start", async (event) => ({
 						message: {
 							customType: "before-start",
 							content: "injected",
@@ -377,11 +377,11 @@ describe("AgentSession model and extension characterization", () => {
 		const lifecycleEvents: string[] = [];
 		const harness = await createHarness({
 			extensionFactories: [
-				(pi) => {
-					pi.on("session_start", async (event) => {
+				(ziki) => {
+					ziki.on("session_start", async (event) => {
 						lifecycleEvents.push(`start:${event.reason}`);
 					});
-					pi.on("session_shutdown", async (event) => {
+					ziki.on("session_shutdown", async (event) => {
 						lifecycleEvents.push(`shutdown:${event.reason}`);
 					});
 				},

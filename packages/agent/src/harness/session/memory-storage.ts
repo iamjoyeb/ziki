@@ -1,4 +1,4 @@
-import { uuidv7 } from "@earendil-works/pi-ai";
+import { uuidv7 } from "@zikilabs/ziki-ai";
 import {
 	type LeafEntry,
 	type SessionEntryCursorOptions,

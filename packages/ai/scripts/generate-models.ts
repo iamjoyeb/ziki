@@ -824,7 +824,7 @@ function applyThinkingLevelMetadata(model: Model<any>): void {
 		// Mercury 2 in instant mode (reasoning_effort: "none") disables tool calling.
 		// Mark "off" unsupported so the openai-completions provider omits the reasoning param
 		// instead of defaulting to {reasoning:{effort:"none"}} (see openai-completions.ts:575).
-		// Pi's low/medium/high pass through verbatim; OpenRouter normalizes to Mercury's vocabulary.
+		// Ziki's low/medium/high pass through verbatim; OpenRouter normalizes to Mercury's vocabulary.
 		mergeThinkingLevelMap(model, { off: null });
 	}
 	if (model.provider === "openrouter" && model.id === "z-ai/glm-5.2") {
@@ -1179,7 +1179,7 @@ async function loadModelsDevData(): Promise<Model<any>[]> {
 				}
 
 				// models.dev reports Vertex cache_read/cache_write values for Gemini 2.5 Flash that
-				// do not match the official Gemini API standard pricing table. pi only accounts
+				// do not match the official Gemini API standard pricing table. ziki only accounts
 				// cachedContentTokenCount as cacheRead.
 				const cacheRead = modelId === "gemini-2.5-flash" ? 0.03 : source.cost?.cache_read || 0;
 				models.push({
@@ -1964,7 +1964,7 @@ async function loadModelsDevData(): Promise<Model<any>[]> {
 		// Process Alibaba Cloud Model Studio Token Plan models
 		// Two regions (international / cn) with identical catalogs, separate
 		// endpoints and API keys (sk-sp- prefix). models.dev keys are
-		// "alibaba-token-plan[-cn]"; pi exposes them as "qwen-token-plan[-cn]".
+		// "alibaba-token-plan[-cn]"; ziki exposes them as "qwen-token-plan[-cn]".
 		const qwenTokenPlanCompat: OpenAICompletionsCompat = {
 			thinkingFormat: "qwen",
 			supportsDeveloperRole: false,
