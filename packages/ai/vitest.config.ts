@@ -57,6 +57,8 @@ export default defineConfig({
       'test/tokens.test.ts',
       'test/tool-call-without-result.test.ts',
       'test/unicode-surrogate.test.ts',
+      // OAuth test uses device-code mock but openRouterOAuth uses PKCE callback
+      'test/oauth-auth.test.ts',
     ],
   }
 });
