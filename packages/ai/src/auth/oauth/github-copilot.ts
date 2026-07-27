@@ -3,7 +3,6 @@
  */
 
 import type { AuthInteraction, OAuthAuth, OAuthCredential } from "../types.ts";
-import { type ModelCatalog } from "../../model-catalog.ts";
 import { pollOAuthDeviceCodeFlow } from "./device-code.ts";
 
 const decode = (s: string) => atob(s);
@@ -287,37 +286,9 @@ async function refreshGitHubCopilotToken(refreshToken: string, enterpriseDomain?
 	};
 }
 
-/**
- * Enable a model for the user's GitHub Copilot account.
- * This is required for some models (like Claude, Grok) before they can be used.
- */
-async function enableGitHubCopilotModel(token: string, modelId: string, enterpriseDomain?: string): Promise<boolean> {
-	const baseUrl = getGitHubCopilotBaseUrl(token, enterpriseDomain);
-	const url = `${baseUrl}/models/${modelId}/policy`;
-
-	try {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
-				...COPILOT_HEADERS,
-				"openai-intent": "chat-policy",
-				"x-interaction-type": "chat-policy",
-			},
-			body: JSON.stringify({ state: "enabled" }),
-		});
-		return response.ok;
-	} catch {
-		return false;
-	}
-}
-
 /** Enable known GitHub Copilot models after login. */
-async function enableAllGitHubCopilotModels(token: string, enterpriseDomain?: string): Promise<void> {
+async function enableAllGitHubCopilotModels(_token: string, _enterpriseDomain?: string): Promise<void> {
 	// No built-in model catalog; user-configured Copilot models are handled separately.
-	void token;
-	void enterpriseDomain;
 }
 
 async function loginGitHubCopilot(interaction: AuthInteraction): Promise<OAuthCredential> {
