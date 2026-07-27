@@ -18,6 +18,11 @@ export default mergeConfig(
 		},
 		resolve: {
 			alias: [
+				{ find: /^@iamjoyeb\/ziki-ai$/, replacement: workspaceSourcePaths.aiIndex },
+				{ find: /^@iamjoyeb\/ziki-ai\/oauth$/, replacement: workspaceSourcePaths.aiOAuth },
+				{ find: /^@iamjoyeb\/ziki-agent-core$/, replacement: workspaceSourcePaths.agentIndex },
+				{ find: /^@iamjoyeb\/ziki-tui$/, replacement: workspaceSourcePaths.tuiIndex },
+				// Backward compat aliases for old scopes
 				{ find: /^@mariozechner\/pi-ai$/, replacement: workspaceSourcePaths.aiIndex },
 				{ find: /^@mariozechner\/pi-ai\/oauth$/, replacement: workspaceSourcePaths.aiOAuth },
 				{ find: /^@mariozechner\/ziki-agent-core$/, replacement: workspaceSourcePaths.agentIndex },

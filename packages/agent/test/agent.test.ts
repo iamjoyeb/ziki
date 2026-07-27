@@ -119,7 +119,7 @@ describe("Agent", () => {
 	});
 
 	it("should create an agent instance with custom initial state", () => {
-		const customModel = getModel("openai", "gpt-4o-mini");
+		const customModel = getModel("google", "gemini-2.5-flash");
 		const agent = new Agent({
 			streamFn: unusedStreamFunction,
 			initialState: {
