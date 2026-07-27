@@ -40,11 +40,20 @@ export async function getLatestZikiRelease(
 
 	const data = (await response.json()) as {
 		version?: unknown;
+		packageName?: unknown;
+		note?: unknown;
 	};
 	if (typeof data.version !== "string" || !data.version.trim()) {
 		return undefined;
 	}
-	return { version: data.version.trim() };
+	const result: LatestZikiRelease = { version: data.version.trim() };
+	if (typeof data.packageName === "string" && data.packageName.trim()) {
+		result.packageName = data.packageName.trim();
+	}
+	if (typeof data.note === "string" && data.note.trim()) {
+		result.note = data.note.trim();
+	}
+	return result;
 }
 
 export async function getLatestZikiVersion(

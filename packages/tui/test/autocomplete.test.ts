@@ -14,7 +14,16 @@ const resolveFdPath = (): string | null => {
 	}
 
 	const firstLine = result.stdout.split(/\r?\n/).find(Boolean);
-	return firstLine ? firstLine.trim() : null;
+	const path = firstLine ? firstLine.trim() : null;
+	if (!path) return null;
+
+	// Verify fd actually works (e.g. not a mismatched architecture binary)
+	const verifyResult = spawnSync(path, ["--version"], { encoding: "utf-8" });
+	if (verifyResult.status !== 0) {
+		return null;
+	}
+
+	return path;
 };
 
 type FolderStructure = {

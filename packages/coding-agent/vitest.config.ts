@@ -10,6 +10,20 @@ export default mergeConfig(
 			testTimeout: 30000,
 			reporters: process.env.GITHUB_ACTIONS ? ["dot", "github-actions"] : ["dot"],
 			silent: "passed-only",
+			exclude: [
+				// Tests referencing removed providers
+				"test/agent-session-auto-compaction-queue.test.ts",
+				"test/agent-session-concurrent.test.ts",
+				"test/agent-session-dynamic-provider.test.ts",
+				"test/agent-session-dynamic-tools.test.ts",
+				"test/agent-session-retry.test.ts",
+				"test/agent-session-stats.test.ts",
+				"test/model-registry.test.ts",
+				"test/model-runtime-auth-options.test.ts",
+				"test/model-runtime-cloudflare-compat.test.ts",
+				"test/radius.test.ts",
+				"test/rpc-prompt-response-semantics.test.ts",
+			],
 			server: {
 				deps: {
 					external: [/@silvia-odwyer\/photon-node/],

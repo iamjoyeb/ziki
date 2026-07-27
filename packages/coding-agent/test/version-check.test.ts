@@ -55,7 +55,7 @@ describe("version checks", () => {
 		);
 	});
 
-	it("returns the active package metadata from the version check", async () => {
+	it("returns the active version from the version check", async () => {
 		const fetchMock = vi.fn(async () =>
 			Response.json({
 				packageName: "@new-scope/ziki",
