@@ -353,8 +353,6 @@ export class InteractiveMode {
 
 	private lastSigintTime = 0;
 	private lastEscapeTime = 0;
-	private changelogMarkdown: string | undefined = undefined;
-	private startupNoticesShown = false;
 	private anthropicSubscriptionWarningShown = false;
 
 	// Status line tracking (for mutating immediately-sequential status updates)
@@ -647,17 +645,13 @@ export class InteractiveMode {
 	}
 
 	private showStartupNoticesIfNeeded(): void {
-		// Startup notices disabled - no changelog display
-		this.startupNoticesShown = true;
+		// Startup notices disabled
 	}
 
 	async init(): Promise<void> {
 		if (this.isInitialized) return;
 
 		this.registerSignalHandlers();
-
-		// Skip changelog display - no startup noise
-		this.changelogMarkdown = undefined;
 
 		// Ensure fd and rg are available (downloads if missing, adds to PATH via getBinDir)
 		// Both are needed: fd for autocomplete, rg for grep tool and bash commands
@@ -963,25 +957,6 @@ export class InteractiveMode {
 	 * Get changelog entries to display on startup.
 	 * Disabled - no changelog shown on startup for cleaner experience.
 	 */
-	private getChangelogForDisplay(): string | undefined {
-		// Record the version for telemetry, but never show changelog
-		if (this.session.state.messages.length === 0) {
-			const lastVersion = this.settingsManager.getLastChangelogVersion();
-			if (!lastVersion) {
-				this.settingsManager.setLastChangelogVersion(VERSION);
-				void this.reportInstallTelemetry(VERSION);
-			} else {
-				const changelogPath = getChangelogPath();
-				const entries = parseChangelog(changelogPath);
-				if (getNewEntries(entries, lastVersion).length > 0) {
-					this.settingsManager.setLastChangelogVersion(VERSION);
-					void this.reportInstallTelemetry(VERSION);
-				}
-			}
-		}
-		return undefined;
-	}
-
 	private reportInstallTelemetry(version: string): void {
 		if (process.env.ZIKI_OFFLINE) {
 			return;
