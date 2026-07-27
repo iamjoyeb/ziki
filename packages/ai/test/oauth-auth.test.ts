@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { openRouterOAuth } from "../src/auth/oauth/openrouter.ts";
 import * as extensionOAuthCompatibility from "../src/oauth.ts";
 

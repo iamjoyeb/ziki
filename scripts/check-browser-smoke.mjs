@@ -84,9 +84,9 @@ try {
 	const catalogInputs = Array.from(contributingInputs).filter((input) =>
 		normalizePath(input).includes("packages/ai/src/providers/data/"),
 	);
-	if (catalogInputs.length !== 1 || !normalizePath(catalogInputs[0]).endsWith("/anthropic.json")) {
+	if (catalogInputs.length !== 1 || !normalizePath(catalogInputs[0]).endsWith("/deepseek.json")) {
 		throw new Error(
-			`Agent selective-provider bundle catalogs: expected only anthropic.json, found ${catalogInputs.join(", ") || "none"}`,
+			`Agent selective-provider bundle catalogs: expected only deepseek.json, found ${catalogInputs.join(", ") || "none"}`,
 		);
 	}
 
@@ -98,12 +98,11 @@ try {
 		"openai",
 	];
 	const includedAiSdkPackages = aiSdkPackages.filter((packageName) => includesNodePackage(inputs, packageName));
-	if (
-		includedAiSdkPackages.length !== 1 ||
-		includedAiSdkPackages[0] !== "@anthropic-ai/sdk"
+	if (includedAiSdkPackages.length !== 1 ||
+		includedAiSdkPackages[0] !== "openai"
 	) {
 		throw new Error(
-			`Agent selective-provider bundle SDKs: expected only @anthropic-ai/sdk, found ${includedAiSdkPackages.join(", ") || "none"}`,
+			`Agent selective-provider bundle SDKs: expected only openai, found ${includedAiSdkPackages.join(", ") || "none"}`,
 		);
 	}
 

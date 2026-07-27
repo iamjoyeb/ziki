@@ -1,11 +1,11 @@
 import { Agent } from "@iamjoyeb/ziki-agent-core";
 import { createModels } from "@iamjoyeb/ziki-ai";
-import { anthropicProvider } from "@iamjoyeb/ziki-ai/providers/anthropic";
+import { deepseekProvider } from "@iamjoyeb/ziki-ai/providers/deepseek";
 
 const models = createModels();
-models.setProvider(anthropicProvider());
-const model = models.getModel("anthropic", "claude-sonnet-4-5");
-if (!model) throw new Error("Anthropic smoke-test model not found");
+models.setProvider(deepseekProvider());
+const model = models.getModel("deepseek", "deepseek-chat");
+if (!model) throw new Error("DeepSeek smoke-test model not found");
 
 export const agent = new Agent({
 	initialState: { model },
