@@ -21,8 +21,8 @@ import {
 	openAIResponsesApi,
 	type SimpleStreamOptions,
 	type ThinkingLevelMap,
-} from "@zikilabs/ziki-ai/compat";
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+} from "@iamjoyeb/ziki-ai/compat";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 
 // =============================================================================
 // Constants

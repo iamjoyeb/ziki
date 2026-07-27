@@ -2,8 +2,8 @@
  * GitHub Copilot OAuth flow
  */
 
-import { GITHUB_COPILOT_MODELS } from "../../providers/github-copilot.models.ts";
 import type { AuthInteraction, OAuthAuth, OAuthCredential } from "../types.ts";
+import { type ModelCatalog } from "../../model-catalog.ts";
 import { pollOAuthDeviceCodeFlow } from "./device-code.ts";
 
 const decode = (s: string) => atob(s);
@@ -313,17 +313,11 @@ async function enableGitHubCopilotModel(token: string, modelId: string, enterpri
 	}
 }
 
-/**
- * Enable all known GitHub Copilot models that may require policy acceptance.
- * Called after successful login to ensure all models are available.
- */
+/** Enable known GitHub Copilot models after login. */
 async function enableAllGitHubCopilotModels(token: string, enterpriseDomain?: string): Promise<void> {
-	const models = Object.values(GITHUB_COPILOT_MODELS);
-	await Promise.all(
-		models.map(async (model) => {
-			await enableGitHubCopilotModel(token, model.id, enterpriseDomain);
-		}),
-	);
+	// No built-in model catalog; user-configured Copilot models are handled separately.
+	void token;
+	void enterpriseDomain;
 }
 
 async function loginGitHubCopilot(interaction: AuthInteraction): Promise<OAuthCredential> {
