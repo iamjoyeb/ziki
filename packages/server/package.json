@@ -40,7 +40,7 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@iamjoyeb/ziki-coding-agent": "^0.0.1"
+		"@iamjoyeb/ziki-coding-agent": "^0.0.2"
 	},
 	"devDependencies": {
 		"shx": "0.4.0"
