@@ -9,7 +9,7 @@ export function opencodeGoProvider(): Provider<"anthropic-messages" | "openai-co
 	return createProvider<"anthropic-messages" | "openai-completions" | "openai-responses">({
 		id: "opencode-go",
 		name: "OpenCode Zen Go",
-		auth: { apiKey: envApiKeyAuth("OpenCode API key", ["OPENCODE_API_KEY"]) },
+		auth: { apiKey: envApiKeyAuth("OpenCode API key", ["OPENCODE_API_KEY"], "https://opencode.ai/api-keys") },
 		models: Object.values(OPENCODE_GO_MODELS),
 		api: {
 			"anthropic-messages": anthropicMessagesApi(),

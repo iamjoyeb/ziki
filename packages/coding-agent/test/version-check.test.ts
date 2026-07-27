@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
-	checkForNewPiVersion,
+	checkForNewZikiVersion,
 	comparePackageVersions,
-	getLatestPiRelease,
-	getLatestPiVersion,
+	getLatestZikiRelease,
+	getLatestZikiVersion,
 	isNewerPackageVersion,
 } from "../src/utils/version-check.ts";
 
@@ -38,27 +38,24 @@ describe("version checks", () => {
 		const fetchMock = vi.fn(async () => Response.json({ version: "1.2.3" }));
 		vi.stubGlobal("fetch", fetchMock);
 
-		await expect(checkForNewPiVersion("1.2.3")).resolves.toBeUndefined();
-		await expect(checkForNewPiVersion("1.2.2")).resolves.toEqual({ version: "1.2.3" });
+		await expect(checkForNewZikiVersion("1.2.3")).resolves.toBeUndefined();
+		await expect(checkForNewZikiVersion("1.2.2")).resolves.toEqual({ version: "1.2.3" });
 	});
 
-	it("uses the pi.dev version check api with a ziki user agent", async () => {
+	it("fetches latest version from npm registry", async () => {
 		const fetchMock = vi.fn(async () => Response.json({ version: "1.2.4" }));
 		vi.stubGlobal("fetch", fetchMock);
 
-		await expect(getLatestPiVersion("1.2.3")).resolves.toBe("1.2.4");
+		await expect(getLatestZikiVersion("1.2.3")).resolves.toBe("1.2.4");
 		expect(fetchMock).toHaveBeenCalledWith(
-			"https://pi.dev/api/latest-version",
+			expect.stringMatching(/registry\.npmjs\.org/),
 			expect.objectContaining({
-				headers: expect.objectContaining({
-					"User-Agent": expect.stringMatching(/^ziki\/1\.2\.3 /),
-					accept: "application/json",
-				}),
+				signal: expect.any(AbortSignal),
 			}),
 		);
 	});
 
-	it("returns the active package metadata from the version check api", async () => {
+	it("returns the active package metadata from the version check", async () => {
 		const fetchMock = vi.fn(async () =>
 			Response.json({
 				packageName: "@new-scope/ziki",
@@ -67,17 +64,17 @@ describe("version checks", () => {
 		);
 		vi.stubGlobal("fetch", fetchMock);
 
-		await expect(getLatestPiRelease("1.2.3")).resolves.toEqual({
+		await expect(getLatestZikiRelease("1.2.3")).resolves.toEqual({
 			packageName: "@new-scope/ziki",
 			version: "1.2.4",
 		});
 	});
 
-	it("returns update notes from the version check api", async () => {
+	it("returns update notes from the version check", async () => {
 		const fetchMock = vi.fn(async () => Response.json({ note: " **Read this** ", version: "1.2.4" }));
 		vi.stubGlobal("fetch", fetchMock);
 
-		await expect(getLatestPiRelease("1.2.3")).resolves.toEqual({ note: "**Read this**", version: "1.2.4" });
+		await expect(getLatestZikiRelease("1.2.3")).resolves.toEqual({ note: "**Read this**", version: "1.2.4" });
 	});
 
 	it("skips automatic api calls when version checks are disabled", async () => {
@@ -85,7 +82,7 @@ describe("version checks", () => {
 		const fetchMock = vi.fn();
 		vi.stubGlobal("fetch", fetchMock);
 
-		await expect(checkForNewPiVersion("1.2.3")).resolves.toBeUndefined();
+		await expect(checkForNewZikiVersion("1.2.3")).resolves.toBeUndefined();
 		expect(fetchMock).not.toHaveBeenCalled();
 	});
 
@@ -94,7 +91,7 @@ describe("version checks", () => {
 		const fetchMock = vi.fn(async () => Response.json({ version: "1.2.4" }));
 		vi.stubGlobal("fetch", fetchMock);
 
-		await expect(getLatestPiVersion("1.2.3")).resolves.toBe("1.2.4");
+		await expect(getLatestZikiVersion("1.2.3")).resolves.toBe("1.2.4");
 		expect(fetchMock).toHaveBeenCalledOnce();
 	});
 });

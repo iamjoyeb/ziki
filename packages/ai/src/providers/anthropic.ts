@@ -9,6 +9,7 @@ import { ANTHROPIC_MODELS } from "./anthropic.models.ts";
 function anthropicApiKeyAuth(): ApiKeyAuth {
 	return {
 		name: "Anthropic API key",
+		loginUrl: "https://console.anthropic.com/settings/keys",
 		login: async (interaction) => ({
 			type: "api_key",
 			key: await interaction.prompt({ type: "secret", message: "Enter Anthropic API key" }),

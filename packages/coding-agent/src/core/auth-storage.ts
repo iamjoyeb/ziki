@@ -1,6 +1,6 @@
 /**
  * CredentialStore implementation backed by auth.json.
- * Provider auth orchestration belongs to ModelRuntime and pi-ai Models.
+ * Provider auth orchestration belongs to ModelRuntime.
  */
 
 import type { Credential, CredentialInfo, CredentialStore } from "@iamjoyeb/ziki-ai";

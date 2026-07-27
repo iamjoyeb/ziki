@@ -4,7 +4,7 @@ import { PACKAGE_NAME } from "../config.ts";
 const NPM_LATEST_URL = `https://registry.npmjs.org/${PACKAGE_NAME}/latest`;
 const DEFAULT_VERSION_CHECK_TIMEOUT_MS = 10000;
 
-export interface LatestPiRelease {
+export interface LatestZikiRelease {
 	version: string;
 	packageName?: string;
 	note?: string;
@@ -27,10 +27,10 @@ export function isNewerPackageVersion(candidateVersion: string, currentVersion: 
 	return candidateVersion.trim() !== currentVersion.trim();
 }
 
-export async function getLatestPiRelease(
+export async function getLatestZikiRelease(
 	_currentVersion: string,
 	options: { timeoutMs?: number } = {},
-): Promise<LatestPiRelease | undefined> {
+): Promise<LatestZikiRelease | undefined> {
 	if (process.env.ZIKI_OFFLINE) return undefined;
 
 	const response = await fetch(NPM_LATEST_URL, {
@@ -47,18 +47,18 @@ export async function getLatestPiRelease(
 	return { version: data.version.trim() };
 }
 
-export async function getLatestPiVersion(
+export async function getLatestZikiVersion(
 	currentVersion: string,
 	options: { timeoutMs?: number } = {},
 ): Promise<string | undefined> {
-	return (await getLatestPiRelease(currentVersion, options))?.version;
+	return (await getLatestZikiRelease(currentVersion, options))?.version;
 }
 
-export async function checkForNewPiVersion(currentVersion: string): Promise<LatestPiRelease | undefined> {
+export async function checkForNewZikiVersion(currentVersion: string): Promise<LatestZikiRelease | undefined> {
 	if (process.env.ZIKI_SKIP_VERSION_CHECK) return undefined;
 
 	try {
-		const latestRelease = await getLatestPiRelease(currentVersion);
+		const latestRelease = await getLatestZikiRelease(currentVersion);
 		if (latestRelease && isNewerPackageVersion(latestRelease.version, currentVersion)) {
 			return latestRelease;
 		}

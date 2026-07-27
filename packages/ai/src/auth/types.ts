@@ -162,6 +162,9 @@ export interface ApiKeyAuth {
 	/** Display name, e.g. "Anthropic API key". */
 	name: string;
 
+	/** URL where users can obtain an API key for this provider. */
+	loginUrl?: string;
+
 	/** Interactive setup (prompt for key/provider env). Absent = ambient-only. */
 	login?(interaction: AuthInteraction): Promise<ApiKeyCredential>;
 

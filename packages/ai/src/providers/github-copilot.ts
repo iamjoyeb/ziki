@@ -12,7 +12,7 @@ export function githubCopilotProvider(): Provider<"anthropic-messages" | "openai
 		name: "GitHub Copilot",
 		baseUrl: "https://api.individual.githubcopilot.com",
 		auth: {
-			apiKey: envApiKeyAuth("GitHub Copilot token", ["COPILOT_GITHUB_TOKEN"]),
+			apiKey: envApiKeyAuth("GitHub Copilot token", ["COPILOT_GITHUB_TOKEN"], "https://github.com/settings/tokens"),
 			oauth: lazyOAuth({ name: "GitHub Copilot", load: loadGitHubCopilotOAuth }),
 		},
 		models: Object.values(GITHUB_COPILOT_MODELS),

@@ -8,7 +8,7 @@ export function openaiProvider(): Provider<"openai-responses"> {
 		id: "openai",
 		name: "OpenAI",
 		baseUrl: "https://api.openai.com/v1",
-		auth: { apiKey: envApiKeyAuth("OpenAI API key", ["OPENAI_API_KEY"]) },
+		auth: { apiKey: envApiKeyAuth("OpenAI API key", ["OPENAI_API_KEY"], "https://platform.openai.com/api-keys") },
 		models: Object.values(OPENAI_MODELS),
 		api: openAIResponsesApi(),
 	});

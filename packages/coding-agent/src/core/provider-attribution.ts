@@ -43,7 +43,6 @@ function getDefaultAttributionHeaders(
 
 	if (isOpenRouterModel(model)) {
 		return {
-			"HTTP-Referer": "https://pi.dev",
 			"X-OpenRouter-Title": "ziki",
 			"X-OpenRouter-Categories": "cli-agent",
 		};

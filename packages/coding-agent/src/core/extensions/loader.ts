@@ -54,7 +54,7 @@ const VIRTUAL_MODULES: Record<string, unknown> = {
 	"@sinclair/typebox/value": _bundledTypeboxValue,
 	"@iamjoyeb/ziki-agent-core": _bundledPiAgentCore,
 	"@iamjoyeb/ziki-tui": _bundledPiTui,
-	// Extensions resolve the pi-ai root to the compat entrypoint (a strict
+	// Extensions resolve the ziki-ai root to the compat entrypoint (a strict
 	// superset of the core entrypoint): existing extensions using the old
 	// global API keep working at runtime until compat is removed.
 	"@iamjoyeb/ziki-ai": _bundledPiAiCompat,
@@ -101,7 +101,7 @@ function getAliases(): Record<string, string> {
 	const piCodingAgentEntry = packageIndex;
 	const piAgentCoreEntry = resolveWorkspaceOrImport("agent/dist/index.js", "@iamjoyeb/ziki-agent-core");
 	const piTuiEntry = resolveWorkspaceOrImport("tui/dist/index.js", "@iamjoyeb/ziki-tui");
-	// Extensions resolve the pi-ai root to the compat entrypoint (a strict
+	// Extensions resolve the ziki-ai root to the compat entrypoint (a strict
 	// superset of the core entrypoint): existing extensions using the old
 	// global API keep working at runtime until compat is removed.
 	const piAiCompatEntry = resolveWorkspaceOrImport("ai/dist/compat.js", "@iamjoyeb/ziki-ai/compat");

@@ -11,7 +11,7 @@ export function xaiProvider(): Provider<"openai-completions" | "openai-responses
 		name: "xAI",
 		baseUrl: "https://api.x.ai/v1",
 		auth: {
-			apiKey: envApiKeyAuth("xAI API key", ["XAI_API_KEY"]),
+			apiKey: envApiKeyAuth("xAI API key", ["XAI_API_KEY"], "https://console.x.ai/api-keys"),
 			oauth: lazyOAuth({
 				name: "xAI (Grok/X subscription)",
 				loginLabel: "Sign in with SuperGrok or X Premium",

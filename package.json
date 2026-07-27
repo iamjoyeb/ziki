@@ -1,5 +1,5 @@
 {
-	"name": "pi-monorepo",
+	"name": "ziki-monorepo",
 	"private": true,
 	"type": "module",
 	"workspaces": [
@@ -12,6 +12,7 @@
 		"packages/coding-agent/examples/extensions/gondolin"
 	],
 	"scripts": {
+		"dev": "tsx packages/coding-agent/src/cli.ts",
 		"clean": "npm run clean --workspaces",
 		"build": "cd packages/tui && npm run build && cd ../ai && npm run build && cd ../agent && npm run build && cd ../storage/sqlite-node && npm run build && cd ../../coding-agent && npm run build && cd ../server && npm run build",
 		"build:offline": "cd packages/tui && npm run build && cd ../ai && npm run build:offline && cd ../agent && npm run build && cd ../storage/sqlite-node && npm run build && cd ../../coding-agent && npm run build && cd ../server && npm run build",

@@ -6,9 +6,10 @@ import type { ApiKeyAuth, OAuthAuth } from "./types.ts";
  * Providers with non-standard resolution (provider env, ambient files, IAM)
  * write their own `ApiKeyAuth`.
  */
-export function envApiKeyAuth(name: string, envVars: readonly string[]): ApiKeyAuth {
+export function envApiKeyAuth(name: string, envVars: readonly string[], loginUrl?: string): ApiKeyAuth {
 	return {
 		name,
+		loginUrl,
 		login: async (interaction) => {
 			const key = await interaction.prompt({ type: "secret", message: `Enter ${name}` });
 			return { type: "api_key", key };

@@ -47,6 +47,7 @@ async function resolveCloudflareEnv(
 export function cloudflareWorkersAIAuth(): ApiKeyAuth {
 	return {
 		name: "Cloudflare API key",
+		loginUrl: "https://dash.cloudflare.com/profile/api-tokens",
 		login: async (interaction) => {
 			const key = await interaction.prompt({ type: "secret", message: "Enter Cloudflare API key" });
 			const accountId = await interaction.prompt({ type: "text", message: "Enter Cloudflare account ID" });
@@ -67,6 +68,7 @@ export function cloudflareWorkersAIAuth(): ApiKeyAuth {
 export function cloudflareAIGatewayAuth(): ApiKeyAuth {
 	return {
 		name: "Cloudflare API key",
+		loginUrl: "https://dash.cloudflare.com/profile/api-tokens",
 		login: async (interaction) => {
 			const key = await interaction.prompt({ type: "secret", message: "Enter Cloudflare API key" });
 			const accountId = await interaction.prompt({ type: "text", message: "Enter Cloudflare account ID" });

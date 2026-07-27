@@ -379,7 +379,7 @@ ${chalk.bold("Environment Variables:")}
   ZIKI_PACKAGE_DIR                   - Override package directory (for Nix/Guix store paths)
   ZIKI_OFFLINE                       - Disable startup network operations when set to 1/true/yes
   ZIKI_TELEMETRY                     - Override install telemetry when set to 1/true/yes or 0/false/no
-  ZIKI_SHARE_VIEWER_URL              - Base URL for /share command (default: https://pi.dev/session/)
+  ZIKI_SHARE_VIEWER_URL              - Base URL for /share command
 
 ${chalk.bold("Built-in Tool Names:")}
   read   - Read file contents

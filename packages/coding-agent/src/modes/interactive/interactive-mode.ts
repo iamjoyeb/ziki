@@ -99,8 +99,8 @@ import { parseGitUrl } from "../../utils/git.ts";
 import { getCwdRelativePath } from "../../utils/paths.ts";
 import { killTrackedDetachedChildren } from "../../utils/shell.ts";
 import { ensureTool } from "../../utils/tools-manager.ts";
-import { checkForNewPiVersion, type LatestPiRelease } from "../../utils/version-check.ts";
-import { getPiUserAgent } from "../../utils/ziki-user-agent.ts";
+import { checkForNewZikiVersion } from "../../utils/version-check.ts";
+import { getZikiUserAgent } from "../../utils/ziki-user-agent.ts";
 import { ArminComponent } from "./components/armin.ts";
 import { AssistantMessageComponent } from "./components/assistant-message.ts";
 import { BashExecutionComponent } from "./components/bash-execution.ts";
@@ -397,7 +397,7 @@ export class InteractiveMode {
 	// Auto-retry state
 	private retryEscapeHandler?: () => void;
 
-	// Messages queued while compaction is running
+	// Messages queued while compaction is running (deprecated - messages queued directly into agent now)
 	private compactionQueuedMessages: CompactionQueuedMessage[] = [];
 
 	// Shutdown state
@@ -647,33 +647,8 @@ export class InteractiveMode {
 	}
 
 	private showStartupNoticesIfNeeded(): void {
-		if (this.startupNoticesShown) {
-			return;
-		}
+		// Startup notices disabled - no changelog display
 		this.startupNoticesShown = true;
-
-		if (!this.changelogMarkdown) {
-			return;
-		}
-
-		if (this.chatContainer.children.length > 0) {
-			this.chatContainer.addChild(new Spacer(1));
-		}
-		this.chatContainer.addChild(new DynamicBorder());
-		if (this.settingsManager.getCollapseChangelog()) {
-			const versionMatch = this.changelogMarkdown.match(/##\s+\[?(\d+\.\d+\.\d+)\]?/);
-			const latestVersion = versionMatch ? versionMatch[1] : this.version;
-			const condensedText = `Updated to v${latestVersion}. Use ${theme.bold("/changelog")} to view full changelog.`;
-			this.chatContainer.addChild(new Text(condensedText, 1, 0));
-		} else {
-			this.chatContainer.addChild(new Text(theme.bold(theme.fg("accent", "What's New")), 1, 0));
-			this.chatContainer.addChild(new Spacer(1));
-			this.chatContainer.addChild(
-				new Markdown(this.changelogMarkdown.trim(), 1, 0, this.getMarkdownThemeWithSettings()),
-			);
-			this.chatContainer.addChild(new Spacer(1));
-		}
-		this.chatContainer.addChild(new DynamicBorder());
 	}
 
 	async init(): Promise<void> {
@@ -681,8 +656,8 @@ export class InteractiveMode {
 
 		this.registerSignalHandlers();
 
-		// Load changelog (only show new entries, skip for resumed sessions)
-		this.changelogMarkdown = this.getChangelogForDisplay();
+		// Skip changelog display - no startup noise
+		this.changelogMarkdown = undefined;
 
 		// Ensure fd and rg are available (downloads if missing, adds to PATH via getBinDir)
 		// Both are needed: fd for autocomplete, rg for grep tool and bash commands
@@ -840,7 +815,7 @@ export class InteractiveMode {
 		}
 
 		// Start version check asynchronously
-		checkForNewPiVersion(this.version).then((newRelease) => {
+		checkForNewZikiVersion(this.version).then((newRelease) => {
 			if (newRelease) {
 				this.showNewVersionNotification(newRelease);
 			}
@@ -986,32 +961,24 @@ export class InteractiveMode {
 
 	/**
 	 * Get changelog entries to display on startup.
-	 * Only shows new entries since last seen version, skips for resumed sessions.
+	 * Disabled - no changelog shown on startup for cleaner experience.
 	 */
 	private getChangelogForDisplay(): string | undefined {
-		// Skip changelog for resumed/continued sessions (already have messages)
-		if (this.session.state.messages.length > 0) {
-			return undefined;
+		// Record the version for telemetry, but never show changelog
+		if (this.session.state.messages.length === 0) {
+			const lastVersion = this.settingsManager.getLastChangelogVersion();
+			if (!lastVersion) {
+				this.settingsManager.setLastChangelogVersion(VERSION);
+				void this.reportInstallTelemetry(VERSION);
+			} else {
+				const changelogPath = getChangelogPath();
+				const entries = parseChangelog(changelogPath);
+				if (getNewEntries(entries, lastVersion).length > 0) {
+					this.settingsManager.setLastChangelogVersion(VERSION);
+					void this.reportInstallTelemetry(VERSION);
+				}
+			}
 		}
-
-		const lastVersion = this.settingsManager.getLastChangelogVersion();
-		const changelogPath = getChangelogPath();
-		const entries = parseChangelog(changelogPath);
-
-		if (!lastVersion) {
-			// Fresh install - record the version, send telemetry, don't show changelog
-			this.settingsManager.setLastChangelogVersion(VERSION);
-			this.reportInstallTelemetry(VERSION);
-			return undefined;
-		}
-
-		const newEntries = getNewEntries(entries, lastVersion);
-		if (newEntries.length > 0) {
-			this.settingsManager.setLastChangelogVersion(VERSION);
-			this.reportInstallTelemetry(VERSION);
-			return newEntries.map((e) => normalizeChangelogLinks(e.content, e)).join("\n\n");
-		}
-
 		return undefined;
 	}
 
@@ -1024,9 +991,9 @@ export class InteractiveMode {
 			return;
 		}
 
-		void fetch(`https://pi.dev/api/report-install?version=${encodeURIComponent(version)}`, {
+		void fetch(`https://api.github.com/repos/iamjoyeb/ziki/releases?per_page=1`, {
 			headers: {
-				"User-Agent": getPiUserAgent(version),
+				"User-Agent": getZikiUserAgent(version),
 			},
 			signal: AbortSignal.timeout(5000),
 		})
@@ -2794,14 +2761,19 @@ export class InteractiveMode {
 				}
 			}
 
-			// Queue input during compaction (extension commands execute immediately)
+			// Queue input during compaction - send directly to agent queue so messages are picked up after compaction
 			if (this.session.isCompacting) {
 				if (this.isExtensionCommand(text)) {
 					this.editor.addToHistory?.(text);
 					this.editor.setText("");
 					await this.session.prompt(text);
 				} else {
-					this.queueCompactionMessage(text, "steer");
+					this.editor.addToHistory?.(text);
+					this.editor.setText("");
+					// Queue directly into session's steer queue so agent picks them up after compaction
+					await this.session.steer(text);
+					this.updatePendingMessagesDisplay();
+					this.showStatus("Queued message for after compaction");
 				}
 				return;
 			}
@@ -3718,14 +3690,18 @@ export class InteractiveMode {
 		const text = (this.editor.getExpandedText?.() ?? this.editor.getText()).trim();
 		if (!text) return;
 
-		// Queue input during compaction (extension commands execute immediately)
+		// Queue input during compaction - send directly to agent queue
 		if (this.session.isCompacting) {
 			if (this.isExtensionCommand(text)) {
 				this.editor.addToHistory?.(text);
 				this.editor.setText("");
 				await this.session.prompt(text);
 			} else {
-				this.queueCompactionMessage(text, "followUp");
+				this.editor.addToHistory?.(text);
+				this.editor.setText("");
+				await this.session.followUp(text);
+				this.updatePendingMessagesDisplay();
+				this.showStatus("Queued follow-up for after compaction");
 			}
 			return;
 		}
@@ -3872,7 +3848,7 @@ export class InteractiveMode {
 		this.ui.requestRender();
 	}
 
-	showNewVersionNotification(release: LatestPiRelease): void {
+	showNewVersionNotification(release: { version: string; packageName?: string; note?: string }): void {
 		const action = theme.fg("accent", `${APP_NAME} update`);
 		const updateInstruction = theme.fg("muted", `New version ${release.version} is available. Run `) + action;
 		const changelogUrl = "https://github.com/iamjoyeb/ziki/releases/latest";
@@ -3993,14 +3969,6 @@ export class InteractiveMode {
 			this.agent.abort();
 		}
 		return allQueued.length;
-	}
-
-	private queueCompactionMessage(text: string, mode: "steer" | "followUp"): void {
-		this.compactionQueuedMessages.push({ text, mode });
-		this.editor.addToHistory?.(text);
-		this.editor.setText("");
-		this.updatePendingMessagesDisplay();
-		this.showStatus("Queued message for after compaction");
 	}
 
 	private isExtensionCommand(text: string): boolean {

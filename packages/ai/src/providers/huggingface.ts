@@ -8,7 +8,7 @@ export function huggingfaceProvider(): Provider<"openai-completions"> {
 		id: "huggingface",
 		name: "Hugging Face",
 		baseUrl: "https://router.huggingface.co/v1",
-		auth: { apiKey: envApiKeyAuth("Hugging Face token", ["HF_TOKEN"]) },
+		auth: { apiKey: envApiKeyAuth("Hugging Face token", ["HF_TOKEN"], "https://huggingface.co/settings/tokens") },
 		models: Object.values(HUGGINGFACE_MODELS),
 		api: openAICompletionsApi(),
 	});

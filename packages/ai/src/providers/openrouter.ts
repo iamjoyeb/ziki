@@ -10,7 +10,7 @@ export function openrouterProvider(): Provider<"openai-completions"> {
 		name: "OpenRouter",
 		baseUrl: "https://openrouter.ai/api/v1",
 		auth: {
-			apiKey: envApiKeyAuth("OpenRouter API key", ["OPENROUTER_API_KEY"]),
+			apiKey: envApiKeyAuth("OpenRouter API key", ["OPENROUTER_API_KEY"], "https://openrouter.ai/keys"),
 			oauth: lazyOAuth({
 				name: "OpenRouter OAuth",
 				loginLabel: "Sign in with OpenRouter",

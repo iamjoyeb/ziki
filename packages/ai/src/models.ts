@@ -435,6 +435,13 @@ class ModelsImpl implements MutableModels {
 		if (!method?.login) {
 			throw new ModelsError("auth", `${provider.name} does not support ${type} login`);
 		}
+		if (type === "api_key" && "loginUrl" in method && method.loginUrl) {
+			interaction.notify({
+				type: "auth_url",
+				url: method.loginUrl,
+				instructions: "Open this URL to get your API key",
+			});
+		}
 		const credential = await method.login(interaction);
 		try {
 			await this.credentials.modify(providerId, async () => credential);

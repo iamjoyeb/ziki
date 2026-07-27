@@ -1,14 +1,13 @@
 <p align="center">
-  <a href="https://pi.dev">
-    <img alt="ziki logo" src="https://pi.dev/logo-auto.svg" width="128">
+  <a href="https://github.com/iamjoyeb/ziki">
+    <img alt="ziki logo" src="https://raw.githubusercontent.com/iamjoyeb/ziki/main/logo.svg" width="128">
   </a>
 </p>
 <p align="center">
-  <a href="https://discord.com/invite/3cU7Bz4UPx"><img alt="Discord" src="https://img.shields.io/badge/discord-community-5865F2?style=flat-square&logo=discord&logoColor=white" /></a>
-  <a href="https://www.npmjs.com/package/@zikilabs/ziki-coding-agent"><img alt="npm" src="https://img.shields.io/npm/v/@zikilabs/ziki-coding-agent?style=flat-square" /></a>
+  <a href="https://github.com/iamjoyeb/ziki"><img alt="GitHub" src="https://img.shields.io/badge/github-repo-5865F2?style=flat-square&logo=github&logoColor=white" /></a>
 </p>
 
-> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](../../CONTRIBUTING.md).
+> This is a rebranded fork of the original project. See the original repository for upstream history.
 
 ---
 
@@ -18,21 +17,7 @@ Ziki ships with powerful defaults but skips features like sub agents and plan mo
 
 Ziki runs in four modes: interactive, print or JSON, RPC for process integration, and an SDK for embedding in your own apps. See [openclaw/openclaw](https://github.com/openclaw/openclaw) for a real-world SDK integration.
 
-## Share your OSS coding agent sessions
 
-If you use ziki for open source work, please share your coding agent sessions.
-
-Public OSS session data helps improve models, prompts, tools, and evaluations using real development workflows.
-
-For the full explanation, see [this post on X](https://x.com/badlogicgames/status/2037811643774652911).
-
-To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf). Read its README.md for setup instructions. All you need is a Hugging Face account, the Hugging Face CLI, and `ziki-share-hf`.
-
-You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where I show how I publish my `pi-mono` sessions.
-
-I regularly publish my own `pi-mono` work sessions here:
-
-- [badlogicgames/pi-mono on Hugging Face](https://huggingface.co/datasets/badlogicgames/pi-mono)
 
 ## Table of Contents
 
@@ -71,7 +56,7 @@ npm install -g --ignore-scripts @zikilabs/ziki-coding-agent
 Installer alternative:
 
 ```bash
-curl -fsSL https://pi.dev/install.sh | sh
+curl -fsSL https://github.com/iamjoyeb/ziki/releases | sh
 ```
 
 Authenticate with an API key:
@@ -96,7 +81,7 @@ Then just talk to ziki. By default, ziki gives the model four tools: `read`, `wr
 
 ## Providers & Models
 
-For each built-in provider, ziki maintains a list of tool-capable models. Configured provider catalogs refresh automatically; run `ziki update --models` to force an immediate refresh. Authenticate via subscription (`/login`) or API key, then select any model from that provider via `/model` (or Ctrl+L).
+For each built-in provider, ziki maintains a list of tool-capable models. Configured provider catalogs refresh automatically. Authenticate via subscription (`/login`) or API key, then select any model from that provider via `/model` (or Ctrl+L).
 
 **Subscriptions:**
 - Anthropic Claude Pro/Max
@@ -309,8 +294,8 @@ Use `/trust` in interactive mode to save a project trust decision for future ses
 
 Ziki has two separate startup features:
 
-- **Update check:** fetches `https://pi.dev/api/latest-version` to check whether a newer Ziki version exists. Disable it with `ZIKI_SKIP_VERSION_CHECK=1`. Disabling update checks only turns off this check.
-- **Install/update telemetry:** after first install or a changelog-detected update, sends an anonymous version ping to `https://pi.dev/api/report-install`. This setting also controls optional provider attribution headers for OpenRouter, Cloudflare, and direct NVIDIA NIM requests. Opt out by setting `enableInstallTelemetry` to `false` in `settings.json`, or by setting `ZIKI_TELEMETRY=0`. This does not disable update checks; Ziki may still contact `pi.dev` for the latest version unless update checks are disabled or offline mode is enabled.
+- **Update check:** checks npm registry whether a newer ziki version exists. Disable it with `ZIKI_SKIP_VERSION_CHECK=1`.
+- **Install/update telemetry:** after first install or a changelog-detected update, sends an anonymous version ping. Opt out by setting `enableInstallTelemetry` to `false` in `settings.json`, or by setting `ZIKI_TELEMETRY=0`.
 
 Use `--offline` or `ZIKI_OFFLINE=1` to disable all startup network operations described here, including update checks, package update checks, and install/update telemetry.
 
@@ -403,7 +388,7 @@ Place in `~/.ziki/agent/themes/`, `.ziki/themes/`, or a [ziki package](#ziki-pac
 
 ### Ziki Packages
 
-Bundle and share extensions, skills, prompts, and themes via npm or git. Find packages on [npmjs.com](https://www.npmjs.com/search?q=keywords%3Api-package) or [Discord](https://discord.com/channels/1456806362351669492/1457744485428629628).
+Bundle and share extensions, skills, prompts, and themes via npm or git.
 
 > **Security:** Ziki packages run with full system access. Extensions execute arbitrary code, and skills can instruct the model to perform any action including running executables. Review source code before installing third-party packages.
 
