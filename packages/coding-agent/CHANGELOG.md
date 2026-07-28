@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2025-07-16
+
+### Added
+
+- Added `app.model.toggleFree` keybinding (`Ctrl+F`) to filter model selector to free-tier models only ([#1](https://github.com/iamjoyeb/ziki/issues/1))
+- Added free-only indicator and filter toggle UI in model selector component
+
+### Removed
+
+- Removed unused `packages/server` (experimental, never published) ([#3](https://github.com/iamjoyeb/ziki/issues/3))
+
 ## [0.82.1] - 2026-07-25
 
 ### New Features

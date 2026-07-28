@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2025-07-16
+
+### Changed
+
+- Updated inter-package dependency ranges to `^0.0.5`
+
 ## [0.82.1] - 2026-07-25
 
 ## [0.82.0] - 2026-07-24
