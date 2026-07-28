@@ -67,6 +67,7 @@ export class ModelSelectorComponent extends Container implements Focusable {
 	private refreshTimeout?: ReturnType<typeof setTimeout>;
 	private closed = false;
 	private freeOnly = false;
+	private freeOnlyIndicator: Text | undefined;
 
 	constructor(
 		tui: TUI,
@@ -106,6 +107,10 @@ export class ModelSelectorComponent extends Container implements Focusable {
 			this.addChild(new Text(theme.fg("warning", hintText), 0, 0));
 		}
 		this.addChild(new Text(theme.fg("muted", keyHint("app.model.toggleFree", "free only")), 0, 0));
+		if (this.freeOnly) {
+			this.freeOnlyIndicator = new Text(theme.fg("accent", "  FREE-ONLY FILTER ACTIVE"), 0, 0);
+			this.addChild(this.freeOnlyIndicator);
+		}
 		this.addChild(new Spacer(1));
 
 		// Create search input
@@ -135,7 +140,7 @@ export class ModelSelectorComponent extends Container implements Focusable {
 		// Render the current snapshot immediately, then refresh in the background.
 		this.loadModelsFromSnapshot();
 		if (initialSearchInput) this.filterModels(initialSearchInput);
-		else this.updateList();
+		this.updateList();
 		this.tui.requestRender();
 		void this.refreshModels();
 	}
@@ -158,6 +163,9 @@ export class ModelSelectorComponent extends Container implements Focusable {
 		}));
 		this.activeModels = this.scope === "scoped" ? this.scopedModelItems : this.allModels;
 		this.filteredModels = this.activeModels;
+		if (this.freeOnly) {
+			this.filteredModels = this.filteredModels.filter((item) => isFreeModel(item.model.cost));
+		}
 		const currentIndex = this.filteredModels.findIndex((item) => modelsAreEqual(this.currentModel, item.model));
 		this.selectedIndex =
 			currentIndex >= 0 ? currentIndex : Math.min(this.selectedIndex, Math.max(0, this.filteredModels.length - 1));
@@ -344,6 +352,13 @@ export class ModelSelectorComponent extends Container implements Focusable {
 		// Toggle free-only filter
 		else if (kb.matches(keyData, "app.model.toggleFree")) {
 			this.freeOnly = !this.freeOnly;
+			if (this.freeOnlyIndicator) {
+				if (this.freeOnly) {
+					this.freeOnlyIndicator.setText(theme.fg("accent", "  FREE-ONLY FILTER ACTIVE"));
+				} else {
+					this.freeOnlyIndicator.setText("");
+				}
+			}
 			this.filterModels(this.searchInput.getValue());
 			this.tui.requestRender();
 		}
