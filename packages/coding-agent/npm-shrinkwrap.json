@@ -6,7 +6,7 @@
 	"packages": {
 		"": {
 			"name": "@iamjoyeb/ziki-coding-agent",
-			"version": "0.0.2",
+			"version": "0.0.3",
 			"license": "MIT",
 			"dependencies": {
 				"@iamjoyeb/ziki-agent-core": "^0.0.2",
