@@ -5611,7 +5611,6 @@ export class InteractiveMode {
 	}
 
 	private async handleSessionsListCommand(): Promise<void> {
-		const width = this.ui.terminal.columns;
 		this.clearStatusIndicator();
 		this.chatContainer.addChild(new Spacer(1));
 		this.chatContainer.addChild(new Text(theme.bold(theme.fg("accent", "Sessions")), 1, 0));
