@@ -1,6 +1,6 @@
 {
 	"name": "@iamjoyeb/ziki-server",
-	"version": "0.0.2",
+	"version": "0.0.4",
 	"description": "experimental server package for pi",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -40,7 +40,7 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@iamjoyeb/ziki-coding-agent": "file:../coding-agent"
+		"@iamjoyeb/ziki-coding-agent": "^0.0.3"
 	},
 	"devDependencies": {
 		"@types/node": "24.12.4",
