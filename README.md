@@ -1,15 +1,11 @@
 
 # Ziki Agent Harness
 
-Ziki is an independently developed coding agent built using the source code of [pi-mono](https://github.com/badlogic/pi-mono) by Mario Zechner.
-> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Ziki is a coding agent built from [pi-mono](https://github.com/badlogic/pi-mono).
 
-
-This is the home of the Ziki agent harness project including our self extensible coding agent.
-
-* **[@zikilabs/ziki-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
-* **[@zikilabs/ziki-agent-core](packages/agent)**: Agent runtime with tool calling and state management
-* **[@zikilabs/ziki-ai](packages/ai)**: Unified multi-provider LLM API (OpenAI, Anthropic, Google, …)
+* **[@iamjoyeb/ziki-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
+* **[@iamjoyeb/ziki-agent-core](packages/agent)**: Agent runtime with tool calling and state management
+* **[@iamjoyeb/ziki-ai](packages/ai)**: Unified multi-provider LLM API (DeepSeek, Google, Groq, Mistral, …)
 
 To learn more about Ziki:
 
@@ -20,12 +16,13 @@ To learn more about Ziki:
 
 | Package | Description |
 |---------|-------------|
-| **[@zikilabs/ziki-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
-| **[@zikilabs/ziki-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
-| **[@zikilabs/ziki-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
-| **[@zikilabs/ziki-tui](packages/tui)** | Terminal UI library with differential rendering |
+| **[@iamjoyeb/ziki-ai](packages/ai)** | Unified multi-provider LLM API (DeepSeek, Google, Groq, Mistral, etc.) |
+| **[@iamjoyeb/ziki-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
+| **[@iamjoyeb/ziki-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
+| **[@iamjoyeb/ziki-storage-sqlite-node](packages/storage/sqlite-node)** | SQLite session storage for agent-core |
+| **[@iamjoyeb/ziki-tui](packages/tui)** | Terminal UI library with differential rendering |
 
-For Slack/chat automation and workflows see [earendil-works/ziki-chat](https://github.com/earendil-works/ziki-chat).
+For support and discussions, visit the [GitHub repository](https://github.com/iamjoyeb/ziki).
 
 ## Permissions & Containerization
 
@@ -39,7 +36,7 @@ If you need stronger boundaries, containerize or sandbox Ziki. See [packages/cod
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).  Longer term plans for Ziki can also be found in [RFCs](https://rfc.earendil.com/keyword/ziki/).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).
 
 ## Development
 
@@ -49,7 +46,7 @@ npm run build         # Refresh model data, then build all packages
 npm run build:offline # Rebuild using existing model data without network access
 npm run check         # Lint, format, and type check
 ./test.sh            # Run tests (skips LLM-dependent tests without API keys)
-./ziki-test.sh         # Run ziki from sources (can be run from any directory)
+./ziki.sh              # Run ziki from sources (can be run from any directory)
 ```
 
 ## Building standalone binaries from release source
@@ -76,7 +73,7 @@ We treat npm dependency changes as reviewed code changes.
 - The published CLI package includes `packages/coding-agent/npm-shrinkwrap.json`, generated from the root lockfile, to pin transitive deps for npm users.
 - Release smoke tests use `npm run release:local` to build, pack, and create isolated npm and Bun installs outside the repo before tagging a release.
 - Local release installs, documented npm installs, and `ziki update --self` use `--ignore-scripts` where supported.
-- CI installs with `npm ci --ignore-scripts`, and a scheduled GitHub workflow runs `npm audit --omit=dev` plus `npm audit signatures --omit=dev`.
+- CI installs with `npm install --ignore-scripts`, and a scheduled GitHub workflow runs `npm audit --omit=dev` plus `npm audit signatures --omit=dev`.
 - Shrinkwrap generation has an explicit allowlist for dependency lifecycle scripts; new lifecycle-script deps fail checks until reviewed.
 
 ## Share your OSS coding agent sessions
@@ -85,22 +82,8 @@ If you use Ziki or other coding agents for open source work, please share your s
 
 Public OSS session data helps improve coding agents with real-world tasks, tool use, failures, and fixes instead of toy benchmarks.
 
-For the full explanation, see [this post on X](https://x.com/badlogicgames/status/2037811643774652911).
-
-To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf). Read its README.md for setup instructions. All you need is a Hugging Face account, the Hugging Face CLI, and `ziki-share-hf`.
-
-You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where Mario shows how he publishes `pi-mono` sessions.
-
-You can view `pi-mono` work sessions here (which apply to Ziki as well):
-
-- [badlogicgames/pi-mono on Hugging Face](https://huggingface.co/datasets/badlogicgames/pi-mono)
+To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf).
 
 ## License
 
 MIT
-
-<p align="center">
-  <a href="https://ziki.dev">ziki.dev</a> domain graciously donated by
-  <br /><br />
-  <a href="https://exe.dev"><img src="packages/coding-agent/docs/images/exy.png" alt="Exy mascot" width="48" /><br />exe.dev</a>
-</p>

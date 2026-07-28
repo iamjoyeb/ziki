@@ -16,8 +16,6 @@
 			"@iamjoyeb/ziki-coding-agent": ["./packages/coding-agent/src/index.ts"],
 			"@iamjoyeb/ziki-coding-agent/hooks": ["./packages/coding-agent/src/core/hooks/index.ts"],
 			"@iamjoyeb/ziki-coding-agent/*": ["./packages/coding-agent/src/*"],
-			"@iamjoyeb/ziki-server": ["./packages/server/src/index.ts"],
-			"@iamjoyeb/ziki-server/*": ["./packages/server/src/*"],
 			"typebox": ["./node_modules/typebox"],
 			"@iamjoyeb/ziki-tui": ["./packages/tui/src/index.ts"],
 			"@iamjoyeb/ziki-tui/*": ["./packages/tui/src/*"],

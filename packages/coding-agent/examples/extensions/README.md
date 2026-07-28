@@ -1,6 +1,6 @@
 # Extension Examples
 
-Example extensions for pi-coding-agent.
+Example extensions for ziki coding agent.
 
 ## Usage
 
@@ -142,7 +142,7 @@ cp permission-gate.ts ~/.ziki/agent/extensions/
 See [docs/extensions.md](../../docs/extensions.md) for full documentation.
 
 ```typescript
-import type { ExtensionAPI } from "@zikilabs/ziki-coding-agent";
+import type { ExtensionAPI } from "@iamjoyeb/ziki-coding-agent";
 import { Type } from "typebox";
 
 export default function (ziki: ExtensionAPI) {
@@ -184,7 +184,7 @@ export default function (ziki: ExtensionAPI) {
 
 **Use StringEnum for string parameters** (required for Google API compatibility):
 ```typescript
-import { StringEnum } from "@zikilabs/ziki-ai";
+import { StringEnum } from "@iamjoyeb/ziki-ai";
 
 // Good
 action: StringEnum(["list", "add"] as const)

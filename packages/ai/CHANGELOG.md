@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2025-07-16
+
+### Added
+
+- Added `isFreeModel()` helper to identify zero-cost models ([#1](https://github.com/iamjoyeb/ziki/issues/1))
+- Added dynamic OpenCode Zen model fetch via `GET /v1/models`, merging newly discovered models as free-tier entries ([#2](https://github.com/iamjoyeb/ziki/issues/2))
+- Added `freeOnly` toggle support in `Models` query API
+
 ## [0.82.1] - 2026-07-25
 
 ### Added

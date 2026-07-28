@@ -735,6 +735,11 @@ export interface ModelCostRates {
 	cacheWrite: number; // $/million tokens
 }
 
+/** Returns true when all rates are zero — the model is free to use. */
+export function isFreeModel(cost: ModelCostRates): boolean {
+	return cost.input === 0 && cost.output === 0 && cost.cacheRead === 0 && cost.cacheWrite === 0;
+}
+
 export interface ModelCostTier extends ModelCostRates {
 	/** Use this tier for requests whose total input usage exceeds this token count. */
 	inputTokensAbove: number;

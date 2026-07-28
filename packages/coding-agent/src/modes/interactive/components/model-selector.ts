@@ -1,4 +1,4 @@
-import { type Model, modelsAreEqual } from "@iamjoyeb/ziki-ai";
+import { type Model, isFreeModel, modelsAreEqual } from "@iamjoyeb/ziki-ai";
 import {
 	Container,
 	type Focusable,
@@ -66,6 +66,7 @@ export class ModelSelectorComponent extends Container implements Focusable {
 	private readonly refreshAbortController = new AbortController();
 	private refreshTimeout?: ReturnType<typeof setTimeout>;
 	private closed = false;
+	private freeOnly = false;
 
 	constructor(
 		tui: TUI,
@@ -102,6 +103,7 @@ export class ModelSelectorComponent extends Container implements Focusable {
 			const hintText = "Only showing models from configured providers. Use /login to add providers.";
 			this.addChild(new Text(theme.fg("warning", hintText), 0, 0));
 		}
+		this.addChild(new Text(theme.fg("muted", keyHint("app.model.toggleFree", "free only")), 0, 0));
 		this.addChild(new Spacer(1));
 
 		// Create search input
@@ -233,11 +235,15 @@ export class ModelSelectorComponent extends Container implements Focusable {
 	}
 
 	private filterModels(query: string): void {
-		this.filteredModels = query
+		let models = query
 			? fuzzyFilter(this.activeModels, query, ({ id, provider, model }) =>
 					getModelSelectorSearchText({ id, provider, name: model.name }),
 				)
 			: this.activeModels;
+		if (this.freeOnly) {
+			models = models.filter((item) => isFreeModel(item.model.cost));
+		}
+		this.filteredModels = models;
 		this.selectedIndex = Math.min(this.selectedIndex, Math.max(0, this.filteredModels.length - 1));
 		this.updateList();
 	}
@@ -291,11 +297,15 @@ export class ModelSelectorComponent extends Container implements Focusable {
 				this.listContainer.addChild(new Text(theme.fg("error", line), 0, 0));
 			}
 		} else if (this.filteredModels.length === 0) {
-			this.listContainer.addChild(new Text(theme.fg("muted", "  No matching models"), 0, 0));
+			const reason = this.freeOnly ? " (free only filter active)" : "";
+			this.listContainer.addChild(new Text(theme.fg("muted", `  No matching models${reason}`), 0, 0));
 		} else {
 			const selected = this.filteredModels[this.selectedIndex];
 			this.listContainer.addChild(new Spacer(1));
 			this.listContainer.addChild(new Text(theme.fg("muted", `  Model Name: ${selected.model.name}`), 0, 0));
+			if (this.freeOnly) {
+				this.listContainer.addChild(new Text(theme.fg("accent", "  ☆ Free models only"), 0, 0));
+			}
 		}
 		if (this.refreshStatusMessage) {
 			this.listContainer.addChild(new Spacer(1));
@@ -328,6 +338,12 @@ export class ModelSelectorComponent extends Container implements Focusable {
 			if (this.filteredModels.length === 0) return;
 			this.selectedIndex = this.selectedIndex === this.filteredModels.length - 1 ? 0 : this.selectedIndex + 1;
 			this.updateList();
+		}
+		// Toggle free-only filter
+		else if (kb.matches(keyData, "app.model.toggleFree")) {
+			this.freeOnly = !this.freeOnly;
+			this.filterModels(this.searchInput.getValue());
+			this.tui.requestRender();
 		}
 		// Enter
 		else if (kb.matches(keyData, "tui.select.confirm")) {
