@@ -4,7 +4,6 @@ import { type CreateModelsOptions, createModels, type MutableModels, type Provid
 import type { Api, Model } from "../types.ts";
 import { cloudflareWorkersAIProvider } from "./cloudflare-workers-ai.ts";
 import modelDataManifest from "./data/.manifest.json" with { type: "json" };
-import { deepseekProvider } from "./deepseek.ts";
 import { googleProvider } from "./google.ts";
 import { groqProvider } from "./groq.ts";
 import { huggingfaceProvider } from "./huggingface.ts";
@@ -54,7 +53,6 @@ export function getBuiltinModels<TProvider extends BuiltinProvider>(
 export function builtinProviders(): Provider[] {
 	return [
 		cloudflareWorkersAIProvider(),
-		deepseekProvider(),
 		googleProvider(),
 		groqProvider(),
 		huggingfaceProvider(),
