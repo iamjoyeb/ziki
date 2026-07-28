@@ -77,6 +77,7 @@ export class ModelSelectorComponent extends Container implements Focusable {
 		onSelect: (model: Model<any>) => void,
 		onCancel: () => void,
 		initialSearchInput?: string,
+		initialFreeOnly?: boolean,
 	) {
 		super();
 
@@ -88,6 +89,7 @@ export class ModelSelectorComponent extends Container implements Focusable {
 		this.scope = scopedModels.length > 0 ? "scoped" : "all";
 		this.onSelectCallback = onSelect;
 		this.onCancelCallback = onCancel;
+		this.freeOnly = initialFreeOnly ?? false;
 
 		// Add top border
 		this.addChild(new DynamicBorder());

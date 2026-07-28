@@ -429,6 +429,9 @@ export class InteractiveMode {
 	// Custom footer from extension (undefined = use built-in footer)
 	private customFooter: (Component & { dispose?(): void }) | undefined = undefined;
 
+	// Whether free-only model filter is active
+	private freeOnly = false;
+
 	// Header container that holds the built-in or custom header
 	private headerContainer: Container;
 
@@ -2600,6 +2603,13 @@ export class InteractiveMode {
 				this.editor.setText("");
 				return;
 			}
+			if (text === "/free") {
+				this.editor.setText("");
+				this.freeOnly = !this.freeOnly;
+				const status = this.freeOnly ? "Free-only model filter ON" : "Free-only model filter OFF";
+				this.showStatus(status);
+				return;
+			}
 			if (text === "/import" || text.startsWith("/import ")) {
 				await this.handleImportCommand(text);
 				this.editor.setText("");
@@ -4423,6 +4433,7 @@ export class InteractiveMode {
 					this.ui.requestRender();
 				},
 				initialSearchInput,
+				this.freeOnly,
 			);
 			return { component: selector, focus: selector };
 		});
