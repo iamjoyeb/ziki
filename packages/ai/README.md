@@ -1,4 +1,4 @@
-# @zikilabs/ziki-ai
+# @iamjoyeb/ziki-ai
 
 Unified LLM API with provider collections, automatic auth resolution, token and cost tracking, and simple context persistence and hand-off to other models mid-session.
 
@@ -56,58 +56,38 @@ Unified LLM API with provider collections, automatic auth resolution, token and 
 
 ## Supported Providers
 
-- **OpenAI**
-- **Ant Ling**
-- **Azure OpenAI (Responses)**
-- **OpenAI Codex** (ChatGPT Plus/Pro subscription, requires OAuth, see below)
-- **DeepSeek**
-- **NVIDIA NIM**
-- **Anthropic**
-- **Google**
-- **Vertex AI** (Gemini via Vertex AI)
-- **Mistral**
-- **Groq**
-- **Cerebras**
-- **Cloudflare AI Gateway**
 - **Cloudflare Workers AI**
-- **xAI**
-- **OpenRouter**
-- **Vercel AI Gateway**
-- **ZAI Coding Plan (Global)** (with separate China provider)
-- **MiniMax** (with separate China provider)
-- **Together AI**
+- **DeepSeek**
+- **Google (Gemini)**
+- **Groq**
 - **Hugging Face**
-- **Moonshot AI** (with separate China provider)
-- **GitHub Copilot** (requires OAuth, see below)
-- **Amazon Bedrock**
+- **Mistral**
+- **NVIDIA NIM**
 - **OpenCode Zen**
-- **OpenCode Go**
-- **Fireworks** (uses OpenAI- and Anthropic-compatible APIs)
-- **Kimi For Coding** (Moonshot AI subscription endpoint, uses Anthropic-compatible API)
-- **Xiaomi MiMo** (defaults to API billing endpoint, with separate Token Plan providers for `cn`/`ams`/`sgp` regions)
+- **OpenRouter** (free to join, pay-as-you-go)
 - **Any OpenAI-compatible API**: Ollama, vLLM, LM Studio, etc.
 
 ## Installation
 
 ```bash
-npm install @zikilabs/ziki-ai
+npm install @iamjoyeb/ziki-ai
 ```
 
-TypeBox exports are re-exported from `@zikilabs/ziki-ai`: `Type`, `Static`, and `TSchema`.
+TypeBox exports are re-exported from `@iamjoyeb/ziki-ai`: `Type`, `Static`, and `TSchema`.
 
 ## Quick Start
 
 You build a `Models` collection of providers and stream through it. The quickest start registers every built-in provider; apps that care about bundle size register individual providers instead (see [Provider Factories](#provider-factories) and [Bundling and Tree Shaking](#bundling-and-tree-shaking)).
 
 ```typescript
-import { Type, type Context, type Tool } from '@zikilabs/ziki-ai';
-import { builtinModels } from '@zikilabs/ziki-ai/providers/all';
+import { Type, type Context, type Tool } from '@iamjoyeb/ziki-ai';
+import { builtinModels } from '@iamjoyeb/ziki-ai/providers/all';
 
 // A Models collection with every built-in provider registered
 const models = builtinModels();
 
 // Sync lookup against the collection
-const model = models.getModel('openai', 'gpt-4o-mini')!;
+const model = models.getModel('deepseek', 'deepseek-chat')!;
 
 // Define tools with TypeBox schemas for type safety and validation
 const tools: Tool[] = [{
@@ -236,25 +216,24 @@ Providers internally share **API implementations** (the wire protocols): Anthrop
 For apps that only need specific providers, there is one factory per built-in provider, each a subpath import that pulls only that provider's catalog:
 
 ```typescript
-import { anthropicProvider } from '@zikilabs/ziki-ai/providers/anthropic';
-import { openaiProvider } from '@zikilabs/ziki-ai/providers/openai';
-import { openrouterProvider } from '@zikilabs/ziki-ai/providers/openrouter';
-import { amazonBedrockProvider } from '@zikilabs/ziki-ai/providers/amazon-bedrock';
-// ...one module per provider in the Supported Providers list
+import { deepseekProvider } from '@iamjoyeb/ziki-ai/providers/deepseek';
+import { googleProvider } from '@iamjoyeb/ziki-ai/providers/google';
+import { groqProvider } from '@iamjoyeb/ziki-ai/providers/groq';
+import { mistralProvider } from '@iamjoyeb/ziki-ai/providers/mistral';
 
 const models = createModels();
-models.setProvider(anthropicProvider());
-models.setProvider(openrouterProvider());
+models.setProvider(deepseekProvider());
+models.setProvider(googleProvider());
 ```
 
-Provider factories import their model catalog and a lazy API wrapper. They do not import other providers. With bundler code splitting, SDK implementations (`@anthropic-ai/sdk`, `openai`, `@google/genai`, etc.) stay in lazy chunks loaded on the first request to a model of that API.
+Provider factories import their model catalog and a lazy API wrapper. They do not import other providers. With bundler code splitting, SDK implementations (`openai`, `@google/genai`, etc.) stay in lazy chunks loaded on the first request to a model of that API.
 
 ### All Built-in Providers
 
 For apps that want everything (as in Quick Start):
 
 ```typescript
-import { builtinModels } from '@zikilabs/ziki-ai/providers/all';
+import { builtinModels } from '@iamjoyeb/ziki-ai/providers/all';
 
 const models = builtinModels(); // a Models collection with every built-in provider registered
 ```
@@ -271,7 +250,7 @@ const provider = models.getProvider('anthropic');  // one provider
 
 const all = models.getModels();                    // every model across providers
 const anthropicModels = models.getModels('anthropic');
-const model = models.getModel('anthropic', 'claude-sonnet-4-5');
+const model = models.getModel('google', 'gemini-2.5-flash');
 
 for (const m of anthropicModels) {
   console.log(`${m.id}: ${m.name}`);
@@ -285,9 +264,9 @@ for (const m of anthropicModels) {
 Dynamically listed models are typed `Model<Api>`. Narrow with the `hasApi()` guard when you need API-specific option typing:
 
 ```typescript
-import { hasApi } from '@zikilabs/ziki-ai';
+import { hasApi } from '@iamjoyeb/ziki-ai';
 
-const m = models.getModel('anthropic', 'claude-sonnet-4-5');
+const m = models.getModel('google', 'gemini-2.5-flash');
 if (m && hasApi(m, 'anthropic-messages')) {
   // m: Model<'anthropic-messages'> — stream options fully typed
   models.stream(m, context, { thinkingEnabled: true, thinkingBudgetTokens: 2048 });
@@ -299,7 +278,7 @@ if (m && hasApi(m, 'anthropic-messages')) {
 For tooling that wants the generated built-in catalog with full literal typing (provider and model IDs auto-complete), independent of any collection:
 
 ```typescript
-import { getBuiltinModel, getBuiltinModels, getBuiltinProviders } from '@zikilabs/ziki-ai/providers/all';
+import { getBuiltinModel, getBuiltinModels, getBuiltinProviders } from '@iamjoyeb/ziki-ai/providers/all';
 
 const model = getBuiltinModel('openai', 'gpt-4o-mini'); // typed Model<'openai-responses'>
 const providers = getBuiltinProviders();
@@ -377,10 +356,10 @@ Header names are merged case-insensitively. Explicit headers override auth/model
 
 ### Credential Store
 
-Stored credentials (API keys entered interactively, OAuth tokens) live in a `CredentialStore` — one type-tagged credential per provider. pi-ai ships an in-memory default; apps inject persistent storage:
+Stored credentials (API keys entered interactively, OAuth tokens) live in a `CredentialStore` — one type-tagged credential per provider. ziki-ai ships an in-memory default; apps inject persistent storage:
 
 ```typescript
-import { createModels, type CredentialStore } from '@zikilabs/ziki-ai';
+import { createModels, type CredentialStore } from '@iamjoyeb/ziki-ai';
 
 const models = createModels({ credentials: myFileBackedStore });
 // builtinModels() takes the same options:
@@ -408,41 +387,15 @@ Built-in providers resolve these env vars (Node.js; in browsers pass `apiKey` ex
 
 | Provider | Environment Variable(s) |
 |----------|------------------------|
-| OpenAI | `OPENAI_API_KEY` |
-| Ant Ling | `ANT_LING_API_KEY` |
-| Azure OpenAI | `AZURE_OPENAI_API_KEY` + `AZURE_OPENAI_BASE_URL` (e.g. `https://{resource}.ai.azure.com`) or `AZURE_OPENAI_RESOURCE_NAME`. Supports `*.openai.azure.com`, `*.cognitiveservices.azure.com` and `*.ai.azure.com`; root endpoints auto-normalize to `/openai/v1`. Optional: `AZURE_OPENAI_API_VERSION` (default `v1`), `AZURE_OPENAI_DEPLOYMENT_NAME_MAP`. |
-| Anthropic | `ANTHROPIC_API_KEY` or `ANTHROPIC_OAUTH_TOKEN` |
-| DeepSeek | `DEEPSEEK_API_KEY` |
-| NVIDIA NIM | `NVIDIA_API_KEY` |
-| Google | `GEMINI_API_KEY` |
-| Vertex AI | `GOOGLE_CLOUD_API_KEY` or `GOOGLE_CLOUD_PROJECT` (or `GCLOUD_PROJECT`) + `GOOGLE_CLOUD_LOCATION` + ADC |
-| Mistral | `MISTRAL_API_KEY` |
-| Groq | `GROQ_API_KEY` |
-| Cerebras | `CEREBRAS_API_KEY` |
-| Cloudflare AI Gateway | `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_GATEWAY_ID` |
 | Cloudflare Workers AI | `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID` |
-| xAI | `XAI_API_KEY` |
-| Fireworks | `FIREWORKS_API_KEY` |
-| Together AI | `TOGETHER_API_KEY` |
-| OpenRouter | `OPENROUTER_API_KEY` |
-| Vercel AI Gateway | `AI_GATEWAY_API_KEY` |
-| ZAI Coding Plan (Global) | `ZAI_API_KEY` |
-| ZAI Coding Plan (China) | `ZAI_CODING_CN_API_KEY` |
-| MiniMax (Global) | `MINIMAX_API_KEY` |
-| MiniMax (China) | `MINIMAX_CN_API_KEY` |
-| Moonshot AI / Moonshot AI (China) | `MOONSHOT_API_KEY` |
+| DeepSeek | `DEEPSEEK_API_KEY` |
+| Google (Gemini) | `GEMINI_API_KEY` |
+| Groq | `GROQ_API_KEY` |
 | Hugging Face | `HF_TOKEN` |
-| OpenCode Zen / OpenCode Go | `OPENCODE_API_KEY` |
-| Kimi For Coding | `KIMI_API_KEY` |
-| Qwen Token Plan | `QWEN_TOKEN_PLAN_API_KEY` |
-| Qwen Token Plan (China) | `QWEN_TOKEN_PLAN_CN_API_KEY` |
-| Xiaomi MiMo (API billing) | `XIAOMI_API_KEY` |
-| Xiaomi MiMo Token Plan (China) | `XIAOMI_TOKEN_PLAN_CN_API_KEY` |
-| Xiaomi MiMo Token Plan (Amsterdam) | `XIAOMI_TOKEN_PLAN_AMS_API_KEY` |
-| Xiaomi MiMo Token Plan (Singapore) | `XIAOMI_TOKEN_PLAN_SGP_API_KEY` |
-| GitHub Copilot | `COPILOT_GITHUB_TOKEN` |
-
-Amazon Bedrock resolves ambient AWS credentials (`AWS_PROFILE`, access key pairs, `AWS_BEARER_TOKEN_BEDROCK`, ECS task roles, web identity tokens); its provider-owned login flow supports bearer tokens, AWS profiles, and the existing credential chain. Vertex AI resolves either an explicit key or gcloud Application Default Credentials plus project/location, with a provider-owned login flow for API keys, ADC, and service-account files.
+| Mistral | `MISTRAL_API_KEY` |
+| NVIDIA NIM | `NVIDIA_API_KEY` |
+| OpenCode Zen | `OPENCODE_API_KEY` |
+| OpenRouter | `OPENROUTER_API_KEY` |
 
 ## Tools
 
@@ -451,7 +404,7 @@ Tools enable LLMs to interact with external systems. This library uses TypeBox s
 ### Defining Tools
 
 ```typescript
-import { Type, type Tool, StringEnum } from '@zikilabs/ziki-ai';
+import { Type, type Tool, StringEnum } from '@iamjoyeb/ziki-ai';
 
 // Define tool parameters with TypeBox
 const weatherTool: Tool = {
@@ -609,7 +562,7 @@ for await (const event of s) {
 When implementing your own tool execution loop, use `validateToolCall` to validate arguments before passing them to your tools:
 
 ```typescript
-import { validateToolCall, type Tool } from '@zikilabs/ziki-ai';
+import { validateToolCall, type Tool } from '@iamjoyeb/ziki-ai';
 
 const tools: Tool[] = [weatherTool, calculatorTool];
 const s = models.stream(model, { messages, tools });
@@ -666,7 +619,7 @@ Models with vision capabilities can process images. You can check if a model sup
 ```typescript
 import { readFileSync } from 'fs';
 
-const model = models.getModel('openai', 'gpt-4o-mini')!;
+const model = models.getModel('deepseek', 'deepseek-chat')!;
 
 // Check if model supports images
 if (model.input.includes('image')) {
@@ -702,7 +655,7 @@ Image generation uses a separate API surface from text/chat generation, mirrorin
 ### Basic Image Generation
 
 ```typescript
-import { builtinImagesModels } from '@zikilabs/ziki-ai/providers/all';
+import { builtinImagesModels } from '@iamjoyeb/ziki-ai/providers/all';
 
 // Every built-in image-generation provider; accepts the same options as createModels()
 const imagesModels = builtinImagesModels();
@@ -724,12 +677,12 @@ for (const block of result.output) {
 }
 ```
 
-Like the chat side, you can build the collection from parts: `createImagesModels({ credentials?, authContext? })`, the `openrouterImagesProvider()` factory from `@zikilabs/ziki-ai/providers/openrouter-images`, and `createImagesProvider({ id, auth, models, refreshModels?, api })` for custom image providers (with `imagesModels.refresh(provider?)` for dynamic lists). Failures never reject — they return an `AssistantImages` with `stopReason: "error"`. The collection's provider-scoped `getAuth(providerId)` works exactly like the chat-side one.
+Like the chat side, you can build the collection from parts: `createImagesModels({ credentials?, authContext? })`, the `openrouterImagesProvider()` factory from `@iamjoyeb/ziki-ai/providers/openrouter-images`, and `createImagesProvider({ id, auth, models, refreshModels?, api })` for custom image providers (with `imagesModels.refresh(provider?)` for dynamic lists). Failures never reject — they return an `AssistantImages` with `stopReason: "error"`. The collection's provider-scoped `getAuth(providerId)` works exactly like the chat-side one.
 
 The old global API (`getImageModel()` / `getImageModels()` / `getImageProviders()` / `generateImages()`) remains available on the [compat entrypoint](#migrating-from-the-old-global-api):
 
 ```typescript
-import { getImageModel, generateImages } from '@zikilabs/ziki-ai/compat';
+import { getImageModel, generateImages } from '@iamjoyeb/ziki-ai/compat';
 
 const model = getImageModel('openrouter', 'google/gemini-2.5-flash-image');
 const result = await generateImages(model, {
@@ -780,7 +733,7 @@ Many models support thinking/reasoning capabilities where they can show their in
 
 ```typescript
 // Many models across providers support thinking/reasoning
-const model = models.getModel('anthropic', 'claude-sonnet-4-5')!;
+const model = models.getModel('google', 'gemini-2.5-flash')!;
 // or models.getModel('openai', 'gpt-5-mini');
 // or models.getModel('google', 'gemini-2.5-flash');
 // or models.getModel('xai', 'grok-4.5');
@@ -814,7 +767,7 @@ for (const block of response.content) {
 `models.stream()`/`complete()` accept the owning API's full option set. Use `hasApi()` to narrow a dynamically looked-up model to its API for full option typing:
 
 ```typescript
-import { hasApi } from '@zikilabs/ziki-ai';
+import { hasApi } from '@iamjoyeb/ziki-ai';
 
 // OpenAI Reasoning (o1, o3, gpt-5)
 const openaiModel = models.getModel('openai', 'gpt-5-mini')!;
@@ -826,7 +779,7 @@ if (hasApi(openaiModel, 'openai-responses')) {
 }
 
 // Anthropic Thinking
-const anthropicModel = models.getModel('anthropic', 'claude-sonnet-4-5')!;
+const anthropicModel = models.getModel('google', 'gemini-2.5-flash')!;
 if (hasApi(anthropicModel, 'anthropic-messages')) {
   await models.complete(anthropicModel, context, {
     thinkingEnabled: true,
@@ -986,8 +939,8 @@ The callback is supported by `stream`, `complete`, `streamSimple`, and `complete
 `createProvider()` builds a provider from parts: identity, auth, a model list, and an API implementation. Use it for local inference servers, proxies, or any OpenAI/Anthropic-compatible endpoint:
 
 ```typescript
-import { createModels, createProvider, envApiKeyAuth, type Model } from '@zikilabs/ziki-ai';
-import { openAICompletionsApi } from '@zikilabs/ziki-ai/api/openai-completions.lazy';
+import { createModels, createProvider, envApiKeyAuth, type Model } from '@iamjoyeb/ziki-ai';
+import { openAICompletionsApi } from '@iamjoyeb/ziki-ai/api/openai-completions.lazy';
 
 const ollamaModel: Model<'openai-completions'> = {
   id: 'llama-3.1-8b',
@@ -1032,8 +985,8 @@ const proxy = createProvider({
 Mixed-API providers pass a map keyed by `model.api`; each model dispatches to its API's implementation:
 
 ```typescript
-import { anthropicMessagesApi } from '@zikilabs/ziki-ai/api/anthropic-messages.lazy';
-import { openAIResponsesApi } from '@zikilabs/ziki-ai/api/openai-responses.lazy';
+import { anthropicMessagesApi } from '@iamjoyeb/ziki-ai/api/anthropic-messages.lazy';
+import { openAIResponsesApi } from '@iamjoyeb/ziki-ai/api/openai-responses.lazy';
 
 const gateway = createProvider({
   id: 'my-gateway',
@@ -1122,7 +1075,7 @@ const ollamaReasoningModel: Model<'openai-completions'> = {
 The API implementations are importable on their own. Each module exports exactly `stream` and `streamSimple` with that API's full option typing. Direct calls bypass provider auth — pass `apiKey` explicitly:
 
 ```typescript
-import { stream } from '@zikilabs/ziki-ai/api/anthropic-messages';
+import { stream } from '@iamjoyeb/ziki-ai/api/anthropic-messages';
 
 const s = stream(claudeModel, context, {
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -1145,7 +1098,7 @@ Built-in API implementations live under `./api/<api-id>`:
 | `mistral-conversations` | `MistralOptions` |
 | `bedrock-converse-stream` | `BedrockOptions` |
 
-Importing an implementation module loads its SDK. The `./api/<id>.lazy` wrappers (used by the provider factories) defer that load to the first request when the runtime or bundler supports dynamic import chunking. Legacy raw API subpaths from older releases (`./anthropic`, `./google`, `./mistral`, `./openai-completions`, ...) were removed; use `@zikilabs/ziki-ai/api/<api-id>`.
+Importing an implementation module loads its SDK. The `./api/<id>.lazy` wrappers (used by the provider factories) defer that load to the first request when the runtime or bundler supports dynamic import chunking. Legacy raw API subpaths from older releases (`./anthropic`, `./google`, `./mistral`, `./openai-completions`, ...) were removed; use `@iamjoyeb/ziki-ai/api/<api-id>`.
 
 ### OpenAI Compatibility Settings
 
@@ -1200,7 +1153,7 @@ import {
   fauxText,
   fauxThinking,
   fauxToolCall,
-} from '@zikilabs/ziki-ai';
+} from '@iamjoyeb/ziki-ai';
 
 const faux = fauxProvider({
   tokensPerSecond: 50 // optional
@@ -1287,27 +1240,27 @@ When messages from one provider are sent to a different provider, the library au
 - **Tool calls and regular text** are preserved unchanged
 
 ```typescript
-import { createModels, type Context } from '@zikilabs/ziki-ai';
-import { anthropicProvider } from '@zikilabs/ziki-ai/providers/anthropic';
-import { openaiProvider } from '@zikilabs/ziki-ai/providers/openai';
-import { googleProvider } from '@zikilabs/ziki-ai/providers/google';
+import { createModels, type Context } from '@iamjoyeb/ziki-ai';
+import { deepseekProvider } from '@iamjoyeb/ziki-ai/providers/deepseek';
+import { googleProvider } from '@iamjoyeb/ziki-ai/providers/google';
+import { groqProvider } from '@iamjoyeb/ziki-ai/providers/groq';
 
 const models = createModels();
-models.setProvider(anthropicProvider());
-models.setProvider(openaiProvider());
+models.setProvider(deepseekProvider());
 models.setProvider(googleProvider());
+models.setProvider(groqProvider());
 
 const context: Context = { messages: [] };
 
-// Start with Claude
-const claude = models.getModel('anthropic', 'claude-sonnet-4-5')!;
+// Start with DeepSeek
+const deepseek = models.getModel('deepseek', 'deepseek-chat')!;
 context.messages.push({ role: 'user', content: 'What is 25 * 18?', timestamp: Date.now() });
-context.messages.push(await models.completeSimple(claude, context, { reasoning: 'medium' }));
+context.messages.push(await models.completeSimple(deepseek, context, { reasoning: 'medium' }));
 
-// Switch to GPT-5 - it will see Claude's thinking as <thinking> tagged text
-const gpt5 = models.getModel('openai', 'gpt-5-mini')!;
+// Switch to Gemini
+const gemini = models.getModel('google', 'gemini-2.5-flash')!;
 context.messages.push({ role: 'user', content: 'Is that calculation correct?', timestamp: Date.now() });
-context.messages.push(await models.complete(gpt5, context));
+const geminiResponse = await models.complete(gemini, context);
 
 // Switch to Gemini
 const gemini = models.getModel('google', 'gemini-2.5-flash')!;
@@ -1329,7 +1282,7 @@ const context: Context = {
   ]
 };
 
-const model = models.getModel('openai', 'gpt-4o-mini')!;
+const model = models.getModel('deepseek', 'deepseek-chat')!;
 const response = await models.complete(model, context);
 context.messages.push(response);
 
@@ -1344,7 +1297,7 @@ const restored: Context = JSON.parse(localStorage.getItem('conversation')!);
 restored.messages.push({ role: 'user', content: 'Tell me more about its type system', timestamp: Date.now() });
 
 // Continue with any model
-const newModel = models.getModel('anthropic', 'claude-3-5-haiku-20241022')!;
+const newModel = models.getModel('mistral', 'mistral-large-latest')!;
 const continuation = await models.complete(newModel, restored);
 ```
 
@@ -1357,13 +1310,13 @@ Models are plain serializable data too — no functions or implementations attac
 The library supports browser environments. The core entrypoint and provider factories are side-effect free and bundle cleanly. Environment variables are not available in browsers, so pass API keys explicitly — or inject a `CredentialStore` (e.g. localStorage-backed) and let provider auth resolve from stored credentials:
 
 ```typescript
-import { createModels } from '@zikilabs/ziki-ai';
-import { anthropicProvider } from '@zikilabs/ziki-ai/providers/anthropic';
+import { createModels } from '@iamjoyeb/ziki-ai';
+import { deepseekProvider } from '@iamjoyeb/ziki-ai/providers/anthropic';
 
 const models = createModels();
-models.setProvider(anthropicProvider());
+models.setProvider(deepseekProvider());
 
-const model = models.getModel('anthropic', 'claude-3-5-haiku-20241022')!;
+const model = models.getModel('mistral', 'mistral-large-latest')!;
 const response = await models.complete(model, {
   messages: [{ role: 'user', content: 'Hello!', timestamp: Date.now() }]
 }, {
@@ -1384,23 +1337,23 @@ Browser compatibility notes:
 For small bundles, import only the providers you need:
 
 ```typescript
-import { createModels } from '@zikilabs/ziki-ai';
-import { openaiProvider } from '@zikilabs/ziki-ai/providers/openai';
+import { createModels } from '@iamjoyeb/ziki-ai';
+import { googleProvider } from '@iamjoyeb/ziki-ai/providers/openai';
 
 const models = createModels();
-models.setProvider(openaiProvider());
+models.setProvider(googleProvider());
 ```
 
 Rules:
 
-- `@zikilabs/ziki-ai` is the core entrypoint and does not import built-in catalogs, provider factories, or SDK implementations.
-- `@zikilabs/ziki-ai/providers/<provider>` imports that provider's catalog and lazy API wrapper only.
-- `@zikilabs/ziki-ai/providers/all` imports every built-in provider factory and all catalogs. Use it only when you want the full built-in set.
+- `@iamjoyeb/ziki-ai` is the core entrypoint and does not import built-in catalogs, provider factories, or SDK implementations.
+- `@iamjoyeb/ziki-ai/providers/<provider>` imports that provider's catalog and lazy API wrapper only.
+- `@iamjoyeb/ziki-ai/providers/all` imports every built-in provider factory and all catalogs. Use it only when you want the full built-in set.
 - With code splitting, provider SDKs stay in lazy chunks and load on first request.
 - Without code splitting, bundlers fold reachable lazy API implementations into the single bundle. A single-provider bundle then includes that provider's SDK; `providers/all` includes all statically visible SDKs. Bedrock is the exception: its AWS SDK implementation is loaded through a bundler-opaque Node-only import.
-- Importing `@zikilabs/ziki-ai/api/<api-id>` directly loads that API implementation and its SDK immediately.
+- Importing `@iamjoyeb/ziki-ai/api/<api-id>` directly loads that API implementation and its SDK immediately.
 
-Avoid `@zikilabs/ziki-ai/compat` in new bundled apps; it preserves the old global API and imports the full built-in catalog surface.
+Avoid `@iamjoyeb/ziki-ai/compat` in new bundled apps; it preserves the old global API and imports the full built-in catalog surface.
 
 For single-file Node ESM bundles, some SDK dependencies may still use dynamic CommonJS `require()` internally. If you see errors such as `Dynamic require of "child_process" is not supported`, add a Node `require` shim to the bundle. With esbuild:
 
@@ -1415,8 +1368,8 @@ This is only for Node bundles; it is not a browser or Cloudflare Workers workaro
 Bedrock is Node-only. Add it like any other provider:
 
 ```typescript
-import { createModels } from '@zikilabs/ziki-ai';
-import { amazonBedrockProvider } from '@zikilabs/ziki-ai/providers/amazon-bedrock';
+import { createModels } from '@iamjoyeb/ziki-ai';
+import { amazonBedrockProvider } from '@iamjoyeb/ziki-ai/providers/amazon-bedrock';
 
 const models = createModels();
 models.setProvider(amazonBedrockProvider());
@@ -1425,8 +1378,8 @@ models.setProvider(amazonBedrockProvider());
 In normal Node package usage and code-split bundles, Bedrock loads its AWS SDK implementation lazily. For a standalone single-file bundle that must include Bedrock support, register the implementation module explicitly:
 
 ```typescript
-import { setBedrockProviderModule } from '@zikilabs/ziki-ai/api/bedrock-converse-stream.lazy';
-import { bedrockProviderModule } from '@zikilabs/ziki-ai/bedrock-provider';
+import { setBedrockProviderModule } from '@iamjoyeb/ziki-ai/api/bedrock-converse-stream.lazy';
+import { bedrockProviderModule } from '@iamjoyeb/ziki-ai/bedrock-provider';
 
 setBedrockProviderModule(bedrockProviderModule);
 ```
@@ -1454,31 +1407,23 @@ Use this when one process needs different provider settings per request, or when
 
 ## OAuth Providers
 
-Several providers support OAuth authentication instead of static API keys:
+OpenRouter supports OAuth authentication (PKCE flow that mints a user-controlled API key).
 
-- **Anthropic** (Claude Pro/Max subscription)
-- **OpenAI Codex** (ChatGPT Plus/Pro subscription, access to GPT-5.x Codex models)
-- **GitHub Copilot** (Copilot subscription)
-- **OpenRouter** (OAuth PKCE that mints a user-controlled API key)
-
-Each of these providers carries an `OAuthAuth` on `provider.auth.oauth` with three operations: `login(interaction)` uses the provider-neutral `AuthInteraction.prompt()`/`notify()` protocol and returns a credential, `refresh(credential)` refreshes expiring credentials when applicable, and `toAuth(credential)` derives request auth (GitHub Copilot's per-account base URL comes from here). Refresh is automatic: `models.getAuth(providerId)` and request paths refresh expired tokens under a credential-store lock, so concurrent requests and processes cannot double-refresh. OpenRouter's OAuth flow instead returns a permanent API key, so its refresh operation is a no-op.
+Each OAuth-capable provider carries an `OAuthAuth` on `provider.auth.oauth` with three operations: `login(interaction)` uses the provider-neutral `AuthInteraction.prompt()`/`notify()` protocol and returns a credential, `refresh(credential)` refreshes expiring credentials when applicable, and `toAuth(credential)` derives request auth. Refresh is automatic: `models.getAuth(providerId)` and request paths refresh expired tokens under a credential-store lock, so concurrent requests and processes cannot double-refresh. OpenRouter's OAuth flow returns a permanent API key, so its refresh operation is a no-op.
 
 ```typescript
-import { createModels } from '@zikilabs/ziki-ai';
-import { anthropicProvider } from '@zikilabs/ziki-ai/providers/anthropic';
+import { createModels } from '@iamjoyeb/ziki-ai';
+import { openrouterProvider } from '@iamjoyeb/ziki-ai/providers/openrouter';
 
 const models = createModels({ credentials: myStore }); // persistent CredentialStore
-models.setProvider(anthropicProvider());
+models.setProvider(openrouterProvider());
 
 // Login: Models drives the flow and persists the credential
-await models.login('anthropic', 'oauth', {
+await models.login('openrouter', 'oauth', {
   prompt: async (p) => {
-    // p.type: 'text' | 'secret' | 'select' | 'manual_code'
-    // manual_code prompts race a local callback server; p.signal aborts them when the server wins
     return await askUser(p.message);
   },
   notify: (event) => {
-    // event.type: 'info' | 'auth_url' | 'device_code' | 'progress'
     if (event.type === 'info') {
       console.log(event.message);
       for (const link of event.links ?? []) console.log(`${link.label ?? 'More information'}: ${link.url}`);
@@ -1490,7 +1435,7 @@ await models.login('anthropic', 'oauth', {
 });
 
 // From here on, requests resolve and refresh the token automatically
-const model = models.getModel('anthropic', 'claude-sonnet-4-5')!;
+const model = models.getModel('openrouter', 'google/gemini-2.5-flash')!;
 await models.complete(model, context);
 
 // Logout
@@ -1499,49 +1444,22 @@ await models.logout('anthropic');
 
 ### Vertex AI
 
-Vertex AI models support either a Google Cloud API key or Application Default Credentials (ADC). Its provider-owned API-key login flow can configure either method:
-
-- **API key**: Set `GOOGLE_CLOUD_API_KEY` or pass `apiKey` in the call options.
-- **Local development (ADC)**: Run `gcloud auth application-default login`
-- **CI/Production (ADC)**: Set `GOOGLE_APPLICATION_CREDENTIALS` to point to a service account JSON key file
-
-When using ADC, also set `GOOGLE_CLOUD_PROJECT` (or `GCLOUD_PROJECT`) and `GOOGLE_CLOUD_LOCATION`. You can also pass `project`/`location` in the call options. When using `GOOGLE_CLOUD_API_KEY`, `project` and `location` are not required.
-
-```bash
-# Local (uses your user credentials)
-gcloud auth application-default login
-export GOOGLE_CLOUD_PROJECT="my-project"
-export GOOGLE_CLOUD_LOCATION="us-central1"
-
-# CI/Production (service account key file)
-export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account.json"
-```
-
-Official docs: [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials)
+Vertex AI models (Gemini via Vertex AI) can be used via the Google provider with a Google Cloud API key configured through `GOOGLE_CLOUD_API_KEY`, or via a custom extension.
 
 ### CLI Login
 
 The quickest way to authenticate:
 
 ```bash
-npx @zikilabs/ziki-ai login              # interactive provider selection
-npx @zikilabs/ziki-ai login anthropic    # login to specific provider
-npx @zikilabs/ziki-ai list               # list available providers
+npx @iamjoyeb/ziki-ai login              # interactive provider selection
+npx @iamjoyeb/ziki-ai list               # list available providers
 ```
 
 Credentials are saved to `auth.json` in the current directory.
 
 ### Programmatic OAuth
 
-Built-in login and refresh flows are private provider implementations. Use provider-owned `OAuthAuth`, which composes with `CredentialStore` and gets locked auto-refresh through `Models`. The `@zikilabs/ziki-ai/oauth` entry point retains only type declarations required by coding-agent extension OAuth compatibility.
-
-Provider notes:
-
-**OpenAI Codex**: Requires a ChatGPT Plus or Pro subscription. Provides access to GPT-5.x Codex models with extended context windows and reasoning capabilities. The library automatically handles session-based prompt caching when `sessionId` is provided in stream options unless `cacheRetention` is `"none"`. You can set `transport` in stream options to `"sse"`, `"websocket"`, or `"auto"` for Codex Responses transport selection. When using WebSocket with a `sessionId` and cache retention enabled, connections are reused per session and expire after 5 minutes of inactivity.
-
-**Azure OpenAI (Responses)**: Uses the Responses API only. Set `AZURE_OPENAI_API_KEY` and either `AZURE_OPENAI_BASE_URL` or `AZURE_OPENAI_RESOURCE_NAME`. `AZURE_OPENAI_BASE_URL` supports both `https://<resource>.openai.azure.com` and `https://<resource>.cognitiveservices.azure.com`; root endpoints are normalized to `.../openai/v1` automatically. Use `AZURE_OPENAI_API_VERSION` (defaults to `v1`) to override the API version if needed. Deployment names are treated as model IDs by default, override with `azureDeploymentName` or `AZURE_OPENAI_DEPLOYMENT_NAME_MAP` using comma-separated `model-id=deployment` pairs (for example `gpt-4o-mini=my-deployment,gpt-4o=prod`). Legacy deployment-based URLs are intentionally unsupported.
-
-**GitHub Copilot**: If you get "The requested model is not supported" error, enable the model manually in VS Code: open Copilot Chat, click the model selector, select the model (warning icon), and click "Enable".
+Built-in login and refresh flows are private provider implementations. Use provider-owned `OAuthAuth`, which composes with `CredentialStore` and gets locked auto-refresh through `Models`. The `@iamjoyeb/ziki-ai/oauth` entry point retains only type declarations required by coding-agent extension OAuth compatibility.
 
 ## Migrating from the Old Global API
 
@@ -1549,22 +1467,22 @@ Older versions exposed a global API: `stream()`/`complete()` dispatching on `mod
 
 ```typescript
 // Before
-import { getModel, complete } from '@zikilabs/ziki-ai';
+import { getModel, complete } from '@iamjoyeb/ziki-ai';
 
 // After (verbatim behavior, one import-path change)
-import { getModel, complete } from '@zikilabs/ziki-ai/compat';
+import { getModel, complete } from '@iamjoyeb/ziki-ai/compat';
 ```
 
 Compat is a strict superset of the root entrypoint, so a file can switch its import path wholesale. It will be removed in a future release; migrate to `createModels()` + provider factories:
 
 | Old | New |
 |-----|-----|
-| `getModel('openai', 'gpt-4o-mini')` | `models.getModel('openai', 'gpt-4o-mini')` or `getBuiltinModel()` from `providers/all` |
+| `getModel('openai', 'gpt-4o-mini')` | `models.getModel('deepseek', 'deepseek-chat')` or `getBuiltinModel()` from `providers/all` |
 | `getModels('anthropic')` / `getProviders()` | `models.getModels('anthropic')` / `models.getProviders()` or `getBuiltin*` |
 | `stream(model, ctx, opts)` (env-key injection) | `models.stream(model, ctx, opts)` (provider auth resolution) |
 | `registerApiProvider({ api, stream, streamSimple })` | `createProvider({ id, auth, models, api })` + `models.setProvider()` |
 | `getEnvApiKey('openai')` | `await models.getAuth(model.provider)` |
-| `streamAnthropic(model, ctx, opts)` | `stream` from `@zikilabs/ziki-ai/api/anthropic-messages`, or a provider in a collection |
+| `streamAnthropic(model, ctx, opts)` | `stream` from `@iamjoyeb/ziki-ai/api/anthropic-messages`, or a provider in a collection |
 | `registerFauxProvider()` | `fauxProvider()` + `models.setProvider()` |
 
 ## Development
@@ -1588,7 +1506,7 @@ Create a new API implementation file (for example `bedrock-converse-stream.ts`) 
 - Tool conversion if the provider supports tools
 - Response parsing to emit standardized events (`text`, `tool_call`, `thinking`, `usage`, `stop`)
 
-Add a lazy wrapper `src/api/<api-id>.lazy.ts` (`<name>Api()` via `lazyApi()`) so providers can reference the implementation without importing its SDK. Add any root-level `export type` re-exports in `src/index.ts` that should remain available from `@zikilabs/ziki-ai`.
+Add a lazy wrapper `src/api/<api-id>.lazy.ts` (`<name>Api()` via `lazyApi()`) so providers can reference the implementation without importing its SDK. Add any root-level `export type` re-exports in `src/index.ts` that should remain available from `@iamjoyeb/ziki-ai`.
 
 #### 3. Model Generation (`scripts/generate-models.ts`, `scripts/generate-image-models.ts`)
 

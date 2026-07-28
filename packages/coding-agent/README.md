@@ -7,7 +7,7 @@
   <a href="https://github.com/iamjoyeb/ziki"><img alt="GitHub" src="https://img.shields.io/badge/github-repo-5865F2?style=flat-square&logo=github&logoColor=white" /></a>
 </p>
 
-> This is a rebranded fork of the original project. See the original repository for upstream history.
+> This is a fork of [pi-mono](https://github.com/badlogic/pi-mono).
 
 ---
 
@@ -48,7 +48,7 @@ Ziki runs in four modes: interactive, print or JSON, RPC for process integration
 ## Quick Start
 
 ```bash
-npm install -g --ignore-scripts @zikilabs/ziki-coding-agent
+npm install -g --ignore-scripts @iamjoyeb/ziki-coding-agent
 ```
 
 `--ignore-scripts` disables dependency lifecycle scripts during install. Ziki does not require install scripts for normal npm installs.
@@ -83,42 +83,17 @@ Then just talk to ziki. By default, ziki gives the model four tools: `read`, `wr
 
 For each built-in provider, ziki maintains a list of tool-capable models. Configured provider catalogs refresh automatically. Authenticate via subscription (`/login`) or API key, then select any model from that provider via `/model` (or Ctrl+L).
 
-**Subscriptions:**
-- Anthropic Claude Pro/Max
-- OpenAI ChatGPT Plus/Pro (Codex)
-- GitHub Copilot
-
 **API keys:**
-- Anthropic
-- Ant Ling
-- OpenAI
-- Azure OpenAI
 - DeepSeek
-- NVIDIA NIM
 - Google Gemini
-- Google Vertex
-- Amazon Bedrock
-- Mistral
 - Groq
-- Cerebras
-- Cloudflare AI Gateway
-- Cloudflare Workers AI
-- xAI
-- OpenRouter
-- Vercel AI Gateway
-- ZAI Coding Plan (Global)
-- ZAI Coding Plan (China)
-- OpenCode Zen
-- OpenCode Go
 - Hugging Face
-- Fireworks
-- Together AI
-- Kimi For Coding
-- MiniMax
-- Xiaomi MiMo
-- Xiaomi MiMo Token Plan (China)
-- Xiaomi MiMo Token Plan (Amsterdam)
-- Xiaomi MiMo Token Plan (Singapore)
+- Mistral
+- NVIDIA NIM
+- OpenCode Zen
+- OpenRouter
+
+Ziki also supports custom providers via extensions. See [docs/extensions.md](docs/extensions.md) and [docs/custom-provider.md](docs/custom-provider.md).
 
 Ziki also supports the llama.cpp router server. Configure it with `/login llama.cpp`, manage downloads and loaded models with `/llama`, then select a loaded model with `/model`. See [docs/llama-cpp.md](docs/llama-cpp.md) for setup and usage.
 
@@ -444,7 +419,7 @@ See [docs/packages.md](docs/packages.md).
 ### SDK
 
 ```typescript
-import { createAgentSession, ModelRuntime, SessionManager } from "@zikilabs/ziki-coding-agent";
+import { createAgentSession, ModelRuntime, SessionManager } from "@iamjoyeb/ziki-coding-agent";
 
 const modelRuntime = await ModelRuntime.create();
 const { session } = await createAgentSession({
@@ -489,7 +464,7 @@ Ziki is aggressively extensible so it doesn't have to dictate your workflow. Fea
 
 **No background bash.** Use tmux. Full observability, direct interaction.
 
-Read the [blog post](https://mariozechner.at/posts/2025-11-30-pi-coding-agent/) for the full rationale.
+Read the [blog post](https://mariozechner.at/posts/2025-11-30-pi-coding-agent/) for the rationale.
 
 ---
 
@@ -652,7 +627,7 @@ ziki --thinking high "Solve this complex problem"
 | `ZIKI_CODING_AGENT_SESSION_DIR` | Override session storage directory (overridden by `--session-dir`) |
 | `ZIKI_PACKAGE_DIR` | Override package directory (useful for Nix/Guix where store paths tokenize poorly) |
 | `ZIKI_OFFLINE` | Disable startup network operations, including update checks, package update checks, and install/update telemetry |
-| `ZIKI_SKIP_VERSION_CHECK` | Skip the Ziki version update check at startup. This prevents the `pi.dev` latest-version request |
+| `ZIKI_SKIP_VERSION_CHECK` | Skip the Ziki version update check at startup. |
 | `ZIKI_TELEMETRY` | Override install/update telemetry and provider attribution headers. Use `1`/`true`/`yes` to enable or `0`/`false`/`no` to disable. This does not disable update checks |
 | `ZIKI_CACHE_RETENTION` | Set to `long` for extended prompt cache (Anthropic: 1h, OpenAI: 24h) |
 | `VISUAL`, `EDITOR` | Fallback external editor for Ctrl+G when `externalEditor` is unset; defaults to Notepad on Windows and `nano` elsewhere |
@@ -681,12 +656,10 @@ MIT
 
 ## See Also
 
-- [@zikilabs/ziki-ai](https://www.npmjs.com/package/@zikilabs/ziki-ai): Core LLM toolkit
-- [@zikilabs/ziki-agent-core](https://www.npmjs.com/package/@zikilabs/ziki-agent-core): Agent framework
-- [@zikilabs/ziki-tui](https://www.npmjs.com/package/@zikilabs/ziki-tui): Terminal UI components
+- [@iamjoyeb/ziki-ai](https://www.npmjs.com/package/@iamjoyeb/ziki-ai): Core LLM toolkit
+- [@iamjoyeb/ziki-agent-core](https://www.npmjs.com/package/@iamjoyeb/ziki-agent-core): Agent framework
+- [@iamjoyeb/ziki-tui](https://www.npmjs.com/package/@iamjoyeb/ziki-tui): Terminal UI components
 
 <p align="center">
-  <a href="https://pi.dev">pi.dev</a> domain graciously donated by
-  <br /><br />
-  <a href="https://exe.dev"><img src="docs/images/exy.png" alt="Exy mascot" width="48" /><br />exe.dev</a>
+  <a href="https://ziki.dev">ziki.dev</a>
 </p>

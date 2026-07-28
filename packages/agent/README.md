@@ -1,23 +1,23 @@
-# @zikilabs/ziki-agent-core
+# @iamjoyeb/ziki-agent-core
 
-Stateful agent with tool execution and event streaming. Built on `@zikilabs/ziki-ai`.
+Stateful agent with tool execution and event streaming. Built on `@iamjoyeb/ziki-ai`.
 
 ## Installation
 
 ```bash
-npm install @zikilabs/ziki-agent-core
+npm install @iamjoyeb/ziki-agent-core
 ```
 
 ### SQLite session backends
 
-The SQLite session backend and the `node:sqlite` adapter live in a separate package, `@zikilabs/ziki-storage-sqlite-node`, so the core package does not pull in runtime builtins or native SQLite dependencies by default. The backend accepts a runtime-specific SQLite factory, allowing other storage backends to ship as their own packages in the future.
+The SQLite session backend and the `node:sqlite` adapter live in a separate package, `@iamjoyeb/ziki-storage-sqlite-node`, so the core package does not pull in runtime builtins or native SQLite dependencies by default. The backend accepts a runtime-specific SQLite factory, allowing other storage backends to ship as their own packages in the future.
 
 ## Quick Start
 
 ```typescript
-import { Agent } from "@zikilabs/ziki-agent-core";
-import { createModels } from "@zikilabs/ziki-ai";
-import { anthropicProvider } from "@zikilabs/ziki-ai/providers/anthropic";
+import { Agent } from "@iamjoyeb/ziki-agent-core";
+import { createModels } from "@iamjoyeb/ziki-ai";
+import { anthropicProvider } from "@iamjoyeb/ziki-ai/providers/anthropic";
 
 const models = createModels();
 models.setProvider(anthropicProvider());
@@ -372,7 +372,7 @@ Follow-up messages are checked only when there are no more tool calls and no ste
 Extend `AgentMessage` via declaration merging:
 
 ```typescript
-declare module "@zikilabs/ziki-agent-core" {
+declare module "@iamjoyeb/ziki-agent-core" {
   interface CustomAgentMessages {
     notification: { role: "notification"; text: string; timestamp: number };
   }
@@ -454,7 +454,7 @@ Return `terminate: true` from `execute()` or `afterToolCall` to hint that the ag
 For browser apps that proxy through a backend:
 
 ```typescript
-import { Agent, streamProxy } from "@zikilabs/ziki-agent-core";
+import { Agent, streamProxy } from "@iamjoyeb/ziki-agent-core";
 
 const agent = new Agent({
   streamFn: (model, context, options) =>
@@ -471,7 +471,7 @@ const agent = new Agent({
 For direct control without the Agent class:
 
 ```typescript
-import { agentLoop, agentLoopContinue } from "@zikilabs/ziki-agent-core";
+import { agentLoop, agentLoopContinue } from "@iamjoyeb/ziki-agent-core";
 
 const context: AgentContext = {
   systemPrompt: "You are helpful.",

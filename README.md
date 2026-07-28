@@ -1,15 +1,11 @@
 
 # Ziki Agent Harness
 
-Ziki is an independently developed coding agent built using the source code of [pi-mono](https://github.com/badlogic/pi-mono) by Mario Zechner.
-> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Ziki is a coding agent built from [pi-mono](https://github.com/badlogic/pi-mono).
 
-
-This is the home of the Ziki agent harness project including our self extensible coding agent.
-
-* **[@zikilabs/ziki-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
-* **[@zikilabs/ziki-agent-core](packages/agent)**: Agent runtime with tool calling and state management
-* **[@zikilabs/ziki-ai](packages/ai)**: Unified multi-provider LLM API (OpenAI, Anthropic, Google, …)
+* **[@iamjoyeb/ziki-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
+* **[@iamjoyeb/ziki-agent-core](packages/agent)**: Agent runtime with tool calling and state management
+* **[@iamjoyeb/ziki-ai](packages/ai)**: Unified multi-provider LLM API (DeepSeek, Google, Groq, Mistral, …)
 
 To learn more about Ziki:
 
@@ -20,12 +16,13 @@ To learn more about Ziki:
 
 | Package | Description |
 |---------|-------------|
-| **[@zikilabs/ziki-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
-| **[@zikilabs/ziki-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
-| **[@zikilabs/ziki-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
-| **[@zikilabs/ziki-tui](packages/tui)** | Terminal UI library with differential rendering |
+| **[@iamjoyeb/ziki-ai](packages/ai)** | Unified multi-provider LLM API (DeepSeek, Google, Groq, Mistral, etc.) |
+| **[@iamjoyeb/ziki-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
+| **[@iamjoyeb/ziki-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
+| **[@iamjoyeb/ziki-storage-sqlite-node](packages/storage/sqlite-node)** | SQLite session storage for agent-core |
+| **[@iamjoyeb/ziki-tui](packages/tui)** | Terminal UI library with differential rendering |
 
-For Slack/chat automation and workflows see [earendil-works/ziki-chat](https://github.com/earendil-works/ziki-chat).
+For support and discussions, visit the [GitHub repository](https://github.com/iamjoyeb/ziki).
 
 ## Permissions & Containerization
 
@@ -85,22 +82,12 @@ If you use Ziki or other coding agents for open source work, please share your s
 
 Public OSS session data helps improve coding agents with real-world tasks, tool use, failures, and fixes instead of toy benchmarks.
 
-For the full explanation, see [this post on X](https://x.com/badlogicgames/status/2037811643774652911).
-
-To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf). Read its README.md for setup instructions. All you need is a Hugging Face account, the Hugging Face CLI, and `ziki-share-hf`.
-
-You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where Mario shows how he publishes `pi-mono` sessions.
+To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf).
 
 You can view `pi-mono` work sessions here (which apply to Ziki as well):
 
-- [badlogicgames/pi-mono on Hugging Face](https://huggingface.co/datasets/badlogicgames/pi-mono)
+- [iamjoyeb/ziki on Hugging Face](https://huggingface.co/datasets/iamjoyeb/ziki)
 
 ## License
 
 MIT
-
-<p align="center">
-  <a href="https://ziki.dev">ziki.dev</a> domain graciously donated by
-  <br /><br />
-  <a href="https://exe.dev"><img src="packages/coding-agent/docs/images/exy.png" alt="Exy mascot" width="48" /><br />exe.dev</a>
-</p>
