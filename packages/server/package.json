@@ -43,6 +43,7 @@
 		"@iamjoyeb/ziki-coding-agent": "^0.0.2"
 	},
 	"devDependencies": {
+		"@types/node": "24.12.4",
 		"shx": "0.4.0"
 	}
 }
