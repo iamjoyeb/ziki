@@ -31,6 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm install --ignore-scripts
 
+      - name: Regenerate lockfile artifacts
+        run: |
+          npm run shrinkwrap:coding-agent
+          npm run install-lock:coding-agent
+
       - name: Build
         run: npm run build
 
