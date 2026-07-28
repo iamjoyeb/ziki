@@ -39,9 +39,9 @@
 		"prepublishOnly": "npm run clean && npm run build && npm run shrinkwrap"
 	},
 	"dependencies": {
-		"@iamjoyeb/ziki-agent-core": "workspace:*",
-		"@iamjoyeb/ziki-ai": "workspace:*",
-		"@iamjoyeb/ziki-tui": "workspace:*",
+		"@iamjoyeb/ziki-agent-core": "file:../agent",
+		"@iamjoyeb/ziki-ai": "file:../ai",
+		"@iamjoyeb/ziki-tui": "file:../tui",
 		"@silvia-odwyer/photon-node": "0.3.4",
 		"chalk": "5.6.2",
 		"cross-spawn": "7.0.6",

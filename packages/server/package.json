@@ -40,7 +40,7 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@iamjoyeb/ziki-coding-agent": "workspace:*"
+		"@iamjoyeb/ziki-coding-agent": "file:../coding-agent"
 	},
 	"devDependencies": {
 		"@types/node": "24.12.4",

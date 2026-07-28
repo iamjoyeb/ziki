@@ -8,7 +8,7 @@
 		"eval": "node scripts/run-evals.mjs"
 	},
 	"devDependencies": {
-		"@iamjoyeb/ziki-coding-agent": "workspace:*",
+		"@iamjoyeb/ziki-coding-agent": "file:../coding-agent",
 		"@types/node": "24.12.4",
 		"shx": "0.4.0",
 		"typescript": "5.9.3",
