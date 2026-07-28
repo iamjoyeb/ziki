@@ -36,7 +36,7 @@ If you need stronger boundaries, containerize or sandbox Ziki. See [packages/cod
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).  Longer term plans for Ziki can also be found in [RFCs](https://rfc.earendil.com/keyword/ziki/).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).
 
 ## Development
 
@@ -46,7 +46,7 @@ npm run build         # Refresh model data, then build all packages
 npm run build:offline # Rebuild using existing model data without network access
 npm run check         # Lint, format, and type check
 ./test.sh            # Run tests (skips LLM-dependent tests without API keys)
-./ziki-test.sh         # Run ziki from sources (can be run from any directory)
+./ziki.sh              # Run ziki from sources (can be run from any directory)
 ```
 
 ## Building standalone binaries from release source
@@ -73,7 +73,7 @@ We treat npm dependency changes as reviewed code changes.
 - The published CLI package includes `packages/coding-agent/npm-shrinkwrap.json`, generated from the root lockfile, to pin transitive deps for npm users.
 - Release smoke tests use `npm run release:local` to build, pack, and create isolated npm and Bun installs outside the repo before tagging a release.
 - Local release installs, documented npm installs, and `ziki update --self` use `--ignore-scripts` where supported.
-- CI installs with `npm ci --ignore-scripts`, and a scheduled GitHub workflow runs `npm audit --omit=dev` plus `npm audit signatures --omit=dev`.
+- CI installs with `npm install --ignore-scripts`, and a scheduled GitHub workflow runs `npm audit --omit=dev` plus `npm audit signatures --omit=dev`.
 - Shrinkwrap generation has an explicit allowlist for dependency lifecycle scripts; new lifecycle-script deps fail checks until reviewed.
 
 ## Share your OSS coding agent sessions
@@ -83,10 +83,6 @@ If you use Ziki or other coding agents for open source work, please share your s
 Public OSS session data helps improve coding agents with real-world tasks, tool use, failures, and fixes instead of toy benchmarks.
 
 To publish sessions, use [`badlogic/ziki-share-hf`](https://github.com/badlogic/ziki-share-hf).
-
-You can view `pi-mono` work sessions here (which apply to Ziki as well):
-
-- [iamjoyeb/ziki on Hugging Face](https://huggingface.co/datasets/iamjoyeb/ziki)
 
 ## License
 
