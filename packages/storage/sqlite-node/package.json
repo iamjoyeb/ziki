@@ -1,6 +1,6 @@
 {
 	"name": "@iamjoyeb/ziki-storage-sqlite-node",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Node sqlite storage backend for @iamjoyeb/ziki-agent-core sessions",
 	"type": "module",
 	"main": "./dist/index.js",
