@@ -35,6 +35,7 @@ import {
 	setKeybindings,
 	Text,
 	TruncatedText,
+	truncateToWidth,
 	TUI,
 	visibleWidth,
 } from "@iamjoyeb/ziki-tui";
@@ -123,7 +124,7 @@ import {
 	OAuthSelectorComponent,
 } from "./components/oauth-selector.ts";
 import { ScopedModelsSelectorComponent } from "./components/scoped-models-selector.ts";
-import { SessionSelectorComponent } from "./components/session-selector.ts";
+import { SessionSelectorComponent, deleteSessionFile } from "./components/session-selector.ts";
 import { SettingsSelectorComponent } from "./components/settings-selector.ts";
 import { SkillInvocationMessageComponent } from "./components/skill-invocation-message.ts";
 import {
@@ -295,6 +296,21 @@ function getLoginProviderSearchText(provider: LoginProviderCompletionOption): st
 function formatLoginProviderCompletionDescription(provider: LoginProviderCompletionOption): string {
 	const authTypes = provider.authTypes.map(formatAuthSelectorProviderType).join("/");
 	return provider.name === provider.id ? authTypes : `${provider.name} · ${authTypes}`;
+}
+
+function formatRelativeTime(date: Date): string {
+	const now = Date.now();
+	const diffMs = now - date.getTime();
+	const diffMins = Math.floor(diffMs / 60000);
+	const diffHours = Math.floor(diffMs / 3600000);
+	const diffDays = Math.floor(diffMs / 86400000);
+	if (diffMins < 1) return "now";
+	if (diffMins < 60) return `${diffMins}m ago`;
+	if (diffHours < 24) return `${diffHours}h ago`;
+	if (diffDays < 7) return `${diffDays}d ago`;
+	if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
+	if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
+	return `${Math.floor(diffDays / 365)}y ago`;
 }
 
 /**
@@ -2678,6 +2694,28 @@ export class InteractiveMode {
 			}
 			if (text === "/dementedelves") {
 				this.handleDementedDelves();
+				this.editor.setText("");
+				return;
+			}
+			if (text === "/session" || text.startsWith("/session ")) {
+				this.editor.setText("");
+				const arg = text.startsWith("/session ") ? text.slice(9).trim() : "";
+				if (!arg) {
+					this.handleSessionCommand();
+				} else if (arg === "list") {
+					await this.handleSessionsListCommand();
+				} else if (arg.startsWith("delete ")) {
+					const name = arg.slice(7).trim();
+					await this.handleSessionDeleteCommand(name);
+				} else if (arg === "delete") {
+					this.showSessionSelector();
+				} else {
+					this.showWarning(`Unknown subcommand: /session ${arg}. Usage: /session, /session list, /session delete <name>`);
+				}
+				return;
+			}
+			if (text === "/sessions") {
+				this.showSessionSelector();
 				this.editor.setText("");
 				return;
 			}
@@ -5559,6 +5597,147 @@ export class InteractiveMode {
 		this.chatContainer.addChild(new Spacer(1));
 		this.chatContainer.addChild(new Text(info, 1, 0));
 		this.ui.requestRender();
+	}
+
+	private async handleSessionsListCommand(): Promise<void> {
+		const width = this.ui.terminal.columns;
+		this.clearStatusIndicator();
+		this.chatContainer.addChild(new Spacer(1));
+		this.chatContainer.addChild(new Text(theme.bold(theme.fg("accent", "Sessions")), 1, 0));
+		this.chatContainer.addChild(new Spacer(1));
+
+		try {
+			const sessions = await SessionManager.list(
+				this.sessionManager.getCwd(),
+				this.sessionManager.getSessionDir(),
+			);
+
+			if (sessions.length === 0) {
+				this.chatContainer.addChild(new Text(theme.fg("muted", "  No sessions found."), 1, 0));
+			} else {
+				const header = `${theme.fg("dim", "Name".padEnd(25))} ${theme.fg("dim", "Messages".padEnd(10))} ${theme.fg("dim", "Last active")}`;
+				this.chatContainer.addChild(new Text(header, 1, 0));
+				this.chatContainer.addChild(new Text(theme.fg("dim", "─".repeat(50)), 1, 0));
+
+				for (const session of sessions.slice(0, 15)) {
+					const name = (session.name ?? session.firstMessage ?? "(unnamed)").replace(/[\x00-\x1f\x7f]/g, " ").trim();
+					const truncated = truncateToWidth(name, 22, "…");
+					const msgCount = String(session.messageCount).padStart(8);
+					const age = formatRelativeTime(session.modified);
+					const line = `${truncated.padEnd(25)} ${msgCount.padEnd(10)} ${age}`;
+					this.chatContainer.addChild(new Text(line, 1, 0));
+				}
+
+				if (sessions.length > 15) {
+					this.chatContainer.addChild(new Text(theme.fg("muted", `  ... and ${sessions.length - 15} more`), 1, 0));
+				}
+			}
+
+			this.chatContainer.addChild(new Spacer(1));
+			this.chatContainer.addChild(
+				new Text(
+					theme.fg("dim", "Use /session delete <name> to delete a session, or /resume to open the session selector."),
+					1,
+					0,
+				),
+			);
+		} catch (err) {
+			const message = err instanceof Error ? err.message : String(err);
+			this.chatContainer.addChild(new Text(theme.fg("error", `  Error: ${message}`), 1, 0));
+		}
+
+		this.chatContainer.addChild(new DynamicBorder());
+		this.ui.requestRender();
+	}
+
+	private async handleSessionDeleteCommand(name: string): Promise<void> {
+		this.clearStatusIndicator();
+
+		try {
+			const sessions = await SessionManager.list(
+				this.sessionManager.getCwd(),
+				this.sessionManager.getSessionDir(),
+			);
+
+			const matches = sessions.filter(
+				(s) =>
+					(s.name?.toLowerCase().includes(name.toLowerCase())) ||
+					s.firstMessage?.toLowerCase().includes(name.toLowerCase()) ||
+					s.path.toLowerCase().includes(name.toLowerCase()),
+			);
+
+			if (matches.length === 0) {
+				this.chatContainer.addChild(new Spacer(1));
+				this.chatContainer.addChild(
+					new Text(theme.fg("warning", `No sessions found matching "${name}"`), 1, 0),
+				);
+				this.chatContainer.addChild(new DynamicBorder());
+				this.ui.requestRender();
+				return;
+			}
+
+			if (matches.length > 1) {
+				this.chatContainer.addChild(new Spacer(1));
+				this.chatContainer.addChild(
+					new Text(theme.fg("warning", `Multiple sessions match "${name}". Use a more specific name:`), 1, 0),
+				);
+				for (const session of matches.slice(0, 10)) {
+					const display = (session.name ?? session.firstMessage ?? "(unnamed)").replace(
+						/[\x00-\x1f\x7f]/g,
+						" ",
+					).trim();
+					this.chatContainer.addChild(new Text(theme.fg("dim", `  ${display}`), 1, 0));
+				}
+				if (matches.length > 10) {
+					this.chatContainer.addChild(
+						new Text(theme.fg("dim", `  ... and ${matches.length - 10} more`), 1, 0),
+					);
+				}
+				this.chatContainer.addChild(new DynamicBorder());
+				this.ui.requestRender();
+				return;
+			}
+
+			const target = matches[0]!;
+
+			// Prevent deleting current session
+			if (target.path === this.sessionManager.getSessionFile()) {
+				this.chatContainer.addChild(new Spacer(1));
+				this.chatContainer.addChild(
+					new Text(theme.fg("error", "Cannot delete the currently active session. Use /new first."), 1, 0),
+				);
+				this.chatContainer.addChild(new DynamicBorder());
+				this.ui.requestRender();
+				return;
+			}
+
+			const displayName = (target.name ?? target.firstMessage ?? target.path).replace(/[\x00-\x1f\x7f]/g, " ").trim();
+
+			const result = await deleteSessionFile(target.path);
+
+			if (result.ok) {
+				this.chatContainer.addChild(new Spacer(1));
+				const method = result.method === "trash" ? "moved to trash" : "deleted";
+				this.chatContainer.addChild(
+					new Text(theme.fg("accent", `Session "${truncateToWidth(displayName, 50, "…")}" ${method}.`), 1, 0),
+				);
+			} else {
+				this.chatContainer.addChild(new Spacer(1));
+				const errorMsg = result.error ?? "Unknown error";
+				this.chatContainer.addChild(
+					new Text(theme.fg("error", `Failed to delete: ${errorMsg}`), 1, 0),
+				);
+			}
+
+			this.chatContainer.addChild(new DynamicBorder());
+			this.ui.requestRender();
+		} catch (err) {
+			const message = err instanceof Error ? err.message : String(err);
+			this.chatContainer.addChild(new Spacer(1));
+			this.chatContainer.addChild(new Text(theme.fg("error", `Error: ${message}`), 1, 0));
+			this.chatContainer.addChild(new DynamicBorder());
+			this.ui.requestRender();
+		}
 	}
 
 	private handleChangelogCommand(): void {
